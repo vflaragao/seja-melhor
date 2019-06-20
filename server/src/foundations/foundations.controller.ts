@@ -30,7 +30,7 @@ export class FoundationsController {
     }
 
     @Put(':id')
-    async updateFoundation(@Param('id') id: Types.ObjectId, @Body() payload) {
+    async updateFoundation(@Param('id') id: Types.ObjectId, @Body() payload: FoundationsDTO) {
         const Foundation = await this.foundationService.update(id, payload);
         return Foundation;
     }

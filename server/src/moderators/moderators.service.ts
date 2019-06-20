@@ -2,8 +2,10 @@ import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { ModeratorDTO } from './dto/moderator.dto';
+import { Database } from '@helpers/database';
+
 import { Moderator } from '@models/moderator';
+import { ModeratorDTO } from './dto/moderator.dto';
 
 @Injectable()
 export class ModeratorsService {
@@ -19,14 +21,10 @@ export class ModeratorsService {
     }
 
     list(query: string) {
-        const queryMatch = new RegExp(query, 'ig');
-        return this.moderatorModel.find({
-            name: queryMatch,
-            email: queryMatch,
-            username: queryMatch
-        })
-        .sort({ name: 1 })
-        .exec();
+        const condition = Database.search(['name', 'username'], query);
+        return this.moderatorModel.find(condition)
+            .sort({ name: 1 })
+            .exec();
     }
 
     get(id: Types.ObjectId) {

@@ -11,7 +11,7 @@ export const RoleValues = [
 ];
 
 export interface Colaborator {
-    user: string;
+    user: Types.ObjectId;
     role: Role;
 }
 
