@@ -1,9 +1,10 @@
-import { Schema } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-export class Moderator {
+export interface Moderator extends Document {
     name: string;
     username: string;
     password: string;
+    disabled: boolean;
 }
 
 export const ModeratorSchema = new Schema({
@@ -16,11 +17,17 @@ export const ModeratorSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
         trim: true,
         required: true
+    },
+    disabled: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
