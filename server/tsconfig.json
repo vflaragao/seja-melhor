@@ -8,8 +8,13 @@
     "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
+    "baseUrl": "./src",
+    "incremental": true,
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@helpers/*": ["shared/helpers/*"],
+      "@models/*": ["shared/models/*"],
+    }
   },
   "exclude": ["node_modules"]
 }
