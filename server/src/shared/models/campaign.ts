@@ -1,15 +1,15 @@
-import { Schema, Types } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
 import { Item, ItemSchema } from './fields/item';
 import { ProductTypeValues, ProductType } from './product';
 
-export interface Campaign {
+export interface Campaign extends Document {
     tile: string;
     description: string;
-    duration: number;
+    ttl: number;
     items: Item[];
     types: ProductType[];
-    creator: string;
+    creator: Types.ObjectId;
     creatorSource: string;
     disabled: boolean;
     expiresAt: Date;
@@ -27,7 +27,7 @@ export const CampaignSchema = new Schema({
         required: true,
         maxlength: 1000
     },
-    duration: {
+    ttl: {
         type: Number,
         required: true
     },
@@ -36,7 +36,7 @@ export const CampaignSchema = new Schema({
         required: true
     },
     types: {
-        type: String,
+        type: [String],
         required: true,
         enum: ProductTypeValues
     },

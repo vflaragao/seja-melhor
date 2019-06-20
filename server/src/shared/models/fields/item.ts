@@ -1,8 +1,19 @@
 import { SchemaDefinition, Types } from "mongoose";
 
+export enum ItemUnit {
+    UNIT = 'UNIT',
+    WEIGHT = 'WEIGHT',
+}
+
+export const ItemUnitValues = [
+    ItemUnit.UNIT,
+    ItemUnit.WEIGHT
+];
+
 export interface Item {
-    product: string;
-    qtd: number;
+    product: Types.ObjectId;
+    quantity: number;
+    unit: ItemUnit;
 }
 
 export const ItemSchema: SchemaDefinition = {
@@ -14,5 +25,10 @@ export const ItemSchema: SchemaDefinition = {
     quantity: {
         type: Number,
         required: true
+    },
+    unit: {
+        type: String,
+        required: true,
+        enum: ItemUnitValues
     }
 };
