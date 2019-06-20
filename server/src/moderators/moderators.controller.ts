@@ -1,4 +1,5 @@
-import { Controller, Post, Body, Get, Query, Put } from '@nestjs/common';
+import { Types } from 'mongoose';
+import { Controller, Post, Body, Get, Query, Put, Param } from '@nestjs/common';
 
 import { ModeratorDTO } from './dto/moderator.dto';
 import { ModeratorsService } from './moderators.service';
@@ -16,6 +17,12 @@ export class ModeratorsController {
         return moderator;
     }
 
+    @Get(':id')
+    async getModerator(@Param('id') id: Types.ObjectId) {
+        const list = await this.moderatorService.get(id);
+        return list;
+    }
+
     @Get()
     async listModerators(@Query('q') query) {
         const list = await this.moderatorService.list(query);
@@ -23,8 +30,8 @@ export class ModeratorsController {
     }
 
     @Put(':id')
-    async disableModerator(@Body() username) {
-        const moderator = await this.moderatorService.disable(username);
+    async disableModerator(@Param('id') id: Types.ObjectId) {
+        const moderator = await this.moderatorService.disable(id);
         return moderator;
     }
 }

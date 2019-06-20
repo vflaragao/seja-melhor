@@ -1,9 +1,9 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { ModeratorDTO } from './dto/moderator.dto';
-import { Moderator } from '@shared/models/moderator';
+import { Moderator } from '@models/moderator';
 
 @Injectable()
 export class ModeratorsService {
@@ -29,9 +29,14 @@ export class ModeratorsService {
         .exec();
     }
 
-    disable(username: string) {
-        return this.moderatorModel.findOneAndUpdate(
-            { username },
+    get(id: Types.ObjectId) {
+        return this.moderatorModel.findById(id)
+            .exec();
+    }
+
+    disable(id: Types.ObjectId) {
+        return this.moderatorModel.findByIdAndUpdate(
+            id,
             { $set: { disabled: true } },
             { new: true }
         )
