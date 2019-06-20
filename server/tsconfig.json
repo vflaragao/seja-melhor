@@ -11,9 +11,9 @@
     "baseUrl": "./src",
     "incremental": true,
     "paths": {
-      "@shared/*": ["shared/*"],
-      "@helpers/*": ["shared/helpers/*"],
       "@models/*": ["shared/models/*"],
+      "@helpers/*": ["shared/helpers/*"],
+      "@shared/*": ["shared/*"],
     }
   },
   "exclude": ["node_modules"]
