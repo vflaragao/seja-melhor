@@ -1,6 +1,7 @@
 import { Schema, Types } from 'mongoose';
 
-import { ProductTypeValues, ItemSchema, Item, ProductType } from './product';
+import { Item, ItemSchema } from './fields/item';
+import { ProductTypeValues, ProductType } from './product';
 
 export interface Campaign {
     tile: string;
