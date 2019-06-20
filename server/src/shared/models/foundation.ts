@@ -1,12 +1,16 @@
-import { AddressSchema, Address } from './fields/address';
-import { Schema, Types } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
-export interface Foundation {
+import { Colaborator, Colaboratorchema } from './fields/colaborator';
+import { AddressSchema, Address } from './fields/address';
+import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
+
+export interface Foundation extends Document {
     name: string;
     cnpj: string;
     email: string;
     address: Address;
-    users: string[];
+    users: Colaborator[];
+    operatingInfo: OperatingInfo;
 }
 
 export const FoundationSchema = new Schema({
@@ -23,14 +27,20 @@ export const FoundationSchema = new Schema({
     email: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+        index: {
+            unique: true
+        }
+    },
+    operatingInfo: {
+        type: OperatingInfoSchema
     },
     address: {
         type: AddressSchema,
         required: true
     },
     users: {
-        type: [Types.ObjectId],
+        type: [Colaboratorchema],
         required: true
     }
 });
