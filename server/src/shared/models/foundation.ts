@@ -8,6 +8,7 @@ export interface Foundation extends Document {
     name: string;
     cnpj: string;
     email: string;
+    phone: string;
     address: Address;
     users: Colaborator[];
     operatingInfo: OperatingInfo;
@@ -20,6 +21,11 @@ export const FoundationSchema = new Schema({
         required: true
     },
     cnpj: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    phone: {
         type: String,
         trim: true,
         required: true

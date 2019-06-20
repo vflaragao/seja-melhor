@@ -6,6 +6,7 @@ export interface FoundationsDTO {
     name: string;
     cnpj: string;
     email: string;
+    phone: string;
     address: Address;
     users: Colaborator[];
     operatingInfo: OperatingInfo;
