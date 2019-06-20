@@ -1,4 +1,4 @@
-import { Schema, Types } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
 export enum ProductType {
     TOY = 'TOY',
@@ -14,10 +14,11 @@ export const ProductTypeValues = [
     ProductType.CLOTHE
 ];
 
-export interface Product {
+export interface Product extends Document {
     name: string;
     type: ProductType;
-    creator: string;
+    creator: Types.ObjectId;
+    creatorSource: string;
     disabled: boolean;
 }
 
@@ -35,8 +36,13 @@ export const ProductSchema = new Schema({
     },
     creator: {
         type: Types.ObjectId,
-        refPath: 'Foundation',
+        refPath: 'creatorSource',
         required: true
+    },
+    creatorSource: {
+        type: String,
+        required: true,
+        enum: ['User', 'Foundation']
     },
     disabled: {
         type: Boolean,
