@@ -1,9 +1,9 @@
-import { Schema, Types } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
 import { ItemSchema, Item } from './fields/item';
 import { ProductTypeValues, ProductType } from './product';
 
-export class Goal {
+export interface Goal extends Document {
     renewalDay: number;
     disabled: boolean;
     creator: string;
