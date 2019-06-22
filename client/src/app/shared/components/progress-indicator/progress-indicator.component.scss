@@ -1,0 +1,17 @@
+.progress-container {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #fff;
+    .indicator {
+        top: 4px;
+        right: 5px;
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        font-size: 26px;
+        overflow: hidden;
+        color: rgba(0, 0, 0, .12);
+    }
+}

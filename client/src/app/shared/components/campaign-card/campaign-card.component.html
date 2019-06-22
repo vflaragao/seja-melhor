@@ -1,0 +1,25 @@
+<mat-card>
+  <app-progress-indicator class="progress" symbol="star" color="#ffca28" [progress]="progress">
+  </app-progress-indicator>
+  <div fxLayout="column" fxLayoutGap="4px">
+    <!-- <mat-icon *ngFor="let type of campaign?.types"></mat-icon> -->
+  </div>
+  <div fxLayout fxLayoutAlign="center center" class="author-image-container">
+    <div class="author-image"></div>
+  </div>
+  <mat-card-content>
+    <div class="description-container">
+      <h4 class="campaign-title">{{campaign?.creator}}</h4>
+      <a class="author-link" href="#">{{campaign?.title}}</a>
+      <p class="campaign-description">{{campaign?.description}}</p>
+    </div>
+  </mat-card-content>
+  <mat-card-actions fxLayout fxLayoutAlign="start center">
+    <div fxLayout fxLayoutAlign="start center" class="time-container">
+      <mat-icon>schedule</mat-icon>
+      <span class="time">restam {{restantDays}} dias</span>
+    </div>
+    <span fxFlex></span>
+    <button mat-button color="primary">Ver detalhes</button>
+  </mat-card-actions>
+</mat-card>

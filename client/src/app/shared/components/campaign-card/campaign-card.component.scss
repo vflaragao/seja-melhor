@@ -1,0 +1,68 @@
+mat-card {
+    padding: 0;
+    border-radius: 15px;
+}
+mat-card-content {
+    padding: 16px 16px 0;
+    margin: -16px 0 0;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+mat-card-actions {
+    padding: 0;
+    margin: 0 16px;
+}
+.progress {
+    top: 4px;
+    right: 40px;
+    position: absolute;
+}
+.author-image-container {
+    height: 200px;
+    background-color: #fff8e1;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    > .author-image {
+        padding: 16px;
+        margin-top: -16px;
+        width: 105px;
+        height: 105px;
+        border-radius: 50%;
+        background-color: #FFF;
+        border: 8px solid #ffca28;
+        background-repeat: no-repeat;
+        background-origin: content-box;
+        background-size: contain;
+        background-image: url(/assets/test.webp);
+    }
+}
+.campaign-title {
+    margin: 0 auto 4px;
+}
+.author-link {
+    color: #03a9f4;
+    text-decoration: none;
+    &::before {
+        content: 'por';
+        margin-right: 6px;
+        font-size: 13px;
+        color: rgba(0, 0, 0, .48);
+    }
+}
+.campaign-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.time-container {
+    color: rgba(0,0,0,.54);
+    font-size: 13px;
+    mat-icon {
+        font-size: 13px;
+        width: 13px;
+        height: 13px;
+        margin-right: 4px;
+    }
+}
