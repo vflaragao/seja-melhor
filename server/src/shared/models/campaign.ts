@@ -5,7 +5,7 @@ import { ProductTypeValues, ProductType } from './product';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
 
 export interface Campaign extends Document {
-    tile: string;
+    title: string;
     description: string;
     ttl: number;
     items: Item[];

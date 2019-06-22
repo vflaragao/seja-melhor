@@ -5,7 +5,7 @@ import { ProductType } from "@models/product";
 import { Authorization } from "@models/fields/authorization";
 
 export interface CampaignDTO {
-    tile: string;
+    title: string;
     description: string;
     ttl: number;
     items: Item[];
