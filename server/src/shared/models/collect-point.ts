@@ -1,17 +1,19 @@
-import { Schema, Types } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 
 import { Address, AddressSchema } from './fields/address';
+import { AuthorizationSchema, Authorization } from './fields/authorization';
 
-export interface CollectPoint {
-    target: string;
+export interface CollectPoint extends Document {
+    target: Types.ObjectId;
     targetSource: string;
-    creator: string;
+    creator: Types.ObjectId;
     creatorSource: string;
     address: Address;
     renewable: boolean;
     renewalDay: number;
     expiresAt: Date;
     disabled: boolean;
+    authorization: Authorization
 }
 
 export const CollectPointSchema = new Schema({
@@ -52,5 +54,8 @@ export const CollectPointSchema = new Schema({
         type: Boolean,
         default: false,
         required: true
+    },
+    authorization: {
+        type: AuthorizationSchema
     }
 });
