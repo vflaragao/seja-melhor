@@ -1,6 +1,6 @@
 import { Schema, Document } from 'mongoose';
 
-import { Colaborator, Colaboratorchema } from './fields/colaborator';
+import { Collaborator, Collaboratorchema } from './fields/collaborator';
 import { AddressSchema, Address } from './fields/address';
 import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
@@ -11,7 +11,7 @@ export interface Foundation extends Document {
     email: string;
     phone: string;
     address: Address;
-    users: Colaborator[];
+    users: Collaborator[];
     operatingInfo: OperatingInfo;
     authorization: Authorization;
 }
@@ -48,7 +48,7 @@ export const FoundationSchema = new Schema({
         required: true
     },
     users: {
-        type: [Colaboratorchema],
+        type: [Collaboratorchema],
         required: true
     },
     authorization: {

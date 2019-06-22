@@ -1,5 +1,5 @@
 import { Address } from '@models/fields/address';
-import { Colaborator } from '@models/fields/colaborator';
+import { Collaborator } from '@models/fields/collaborator';
 import { OperatingInfo } from '@models/fields/operating-info';
 import { Authorization } from '@models/fields/authorization';
 
@@ -9,7 +9,7 @@ export interface FoundationsDTO {
     email: string;
     phone: string;
     address: Address;
-    users: Colaborator[];
+    users: Collaborator[];
     operatingInfo: OperatingInfo;
     authorization: Authorization;
 }

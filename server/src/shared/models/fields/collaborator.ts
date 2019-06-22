@@ -10,12 +10,12 @@ export const RoleValues = [
     Role.SECRETARY
 ];
 
-export interface Colaborator {
+export interface Collaborator {
     user: Types.ObjectId;
     role: Role;
 }
 
-export const Colaboratorchema: SchemaDefinition = {
+export const Collaboratorchema: SchemaDefinition = {
     user: {
         type: Types.ObjectId,
         ref: 'User',
