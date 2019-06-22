@@ -3,6 +3,7 @@ import { Schema, Document } from 'mongoose';
 import { Colaborator, Colaboratorchema } from './fields/colaborator';
 import { AddressSchema, Address } from './fields/address';
 import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
+import { Authorization, AuthorizationSchema } from './fields/authorization';
 
 export interface Foundation extends Document {
     name: string;
@@ -12,6 +13,7 @@ export interface Foundation extends Document {
     address: Address;
     users: Colaborator[];
     operatingInfo: OperatingInfo;
+    authorization: Authorization;
 }
 
 export const FoundationSchema = new Schema({
@@ -48,5 +50,8 @@ export const FoundationSchema = new Schema({
     users: {
         type: [Colaboratorchema],
         required: true
+    },
+    authorization: {
+        type: AuthorizationSchema
     }
 });

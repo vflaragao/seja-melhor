@@ -2,6 +2,7 @@ import { Schema, Types, Document } from 'mongoose';
 
 import { Item, ItemSchema } from './fields/item';
 import { ProductTypeValues, ProductType } from './product';
+import { Authorization, AuthorizationSchema } from './fields/authorization';
 
 export interface Campaign extends Document {
     tile: string;
@@ -13,6 +14,7 @@ export interface Campaign extends Document {
     creatorSource: string;
     disabled: boolean;
     expiresAt: Date;
+    authorization: Authorization;
 }
 
 export const CampaignSchema = new Schema({
@@ -58,5 +60,8 @@ export const CampaignSchema = new Schema({
     expiresAt: {
         type: Date,
         required: true
+    },
+    authorization: {
+        type: AuthorizationSchema
     }
 });

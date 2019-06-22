@@ -1,6 +1,7 @@
 import { Address } from '@models/fields/address';
 import { Colaborator } from '@models/fields/colaborator';
 import { OperatingInfo } from '@models/fields/operating-info';
+import { Authorization } from '@models/fields/authorization';
 
 export interface FoundationsDTO {
     name: string;
@@ -10,4 +11,5 @@ export interface FoundationsDTO {
     address: Address;
     users: Colaborator[];
     operatingInfo: OperatingInfo;
+    authorization: Authorization;
 }
