@@ -1,3 +1,5 @@
+import { ActionCategory } from './campaign';
+
 import { Address } from './fields/address';
 import { Collaborator } from './fields/collaborator';
 import { Authorization } from './fields/authorization';
@@ -8,6 +10,7 @@ export interface FoundationsDTO {
     cnpj: string;
     email: string;
     phone: string;
+    category: ActionCategory;
     address: Address;
     users: Collaborator[];
     operatingInfo: OperatingInfo;

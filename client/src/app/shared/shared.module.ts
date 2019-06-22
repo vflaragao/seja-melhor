@@ -6,7 +6,7 @@ import {
   MatMenuModule,
   MatIconModule,
   MatButtonModule,
-  MatToolbarModule,
+  MatToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -15,10 +15,20 @@ import {
 } from './dialogs';
 
 import {
+  MarkerComponent,
   GoalCardComponent,
   CampaignCardComponent,
   ProgressIndicatorComponent,
 } from './components';
+
+import {
+  ProductTypePipe,
+  ProductTypeIconPipe,
+  ProductTypeColorPipe,
+  ActionCategoryPipe,
+  ActionCategoryColorPipe,
+  ActionCategoryBackgroundColorPipe,
+} from './pipes';
 
 @NgModule({
   imports: [
@@ -35,12 +45,21 @@ import {
   ],
   declarations: [
     /** Components */
+    MarkerComponent,
     GoalCardComponent,
     CampaignCardComponent,
     ProgressIndicatorComponent,
 
     /** Dialogs */
     CollectionPointQRCodeComponent,
+
+    /** Pipes */
+    ProductTypePipe,
+    ActionCategoryPipe,
+    ProductTypeIconPipe,
+    ActionCategoryColorPipe,
+    ActionCategoryBackgroundColorPipe,
+    ProductTypeColorPipe,
   ],
   exports: [
     FormsModule,
@@ -57,12 +76,22 @@ import {
     MatToolbarModule,
 
     /** Components */
+    MarkerComponent,
     GoalCardComponent,
     CampaignCardComponent,
     ProgressIndicatorComponent,
 
     /** Dialogs */
     CollectionPointQRCodeComponent,
+
+    /** Pipes */
+    ProductTypePipe,
+    ProductTypeIconPipe,
+    ProductTypeColorPipe,
+    ActionCategoryPipe,
+    ProductTypeIconPipe,
+    ActionCategoryColorPipe,
+    ActionCategoryBackgroundColorPipe,
   ]
 })
 export class SharedModule { }

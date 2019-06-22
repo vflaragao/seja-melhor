@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { CampaignDTO } from '@models/campaign';
+import { CampaignDTO, ActionCategory } from '@models/campaign';
 import { ProductType } from '@models/product';
 
 @Component({
@@ -19,9 +19,10 @@ export class CampaignCardComponent implements OnInit {
   constructor() {
     this.progress = 35;
     this.campaign = new CampaignDTO();
-    this.campaign.creator = 'Casa de palha';
+    this.campaign.creator = 'APIPA - ASSOCIAÇÃO PIAUIENSE DE PROTEÇÃO E AMOR AOS ANIMAIS';
     this.campaign.title = 'Campanha de testes';
     this.campaign.description = 'Descrição de testes';
+    this.campaign.category = ActionCategory.ANIMALS;
     this.campaign.types = [
       ProductType.TOY,
       ProductType.FOOD,

@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { addDate } from '@helpers/date';
+
 import { GoalDTO } from '@models/goal';
 import { ProductType } from '@models/product';
 
@@ -30,5 +32,13 @@ export class GoalCardComponent implements OnInit {
 
   ngOnInit() {}
 
-  get percentProgress() { return `${this.progress}%`; }
+  get restantDays() {
+    const now = new Date();
+    if (now.getDate() > this.goal.renewalDay) {
+      const nextMonth = addDate(1, 'month', now);
+      nextMonth.set('date', this.goal.renewalDay);
+      return nextMonth.diff(now, 'days');
+    }
+    return this.goal.renewalDay - now.getDate();
+  }
 }

@@ -20,6 +20,7 @@
       "dom"
     ],
     "paths": {
+      "@helpers/*": ["src/app/shared/helpers/*"],
       "@dialogs/*": ["src/app/shared/dialogs/*"],
       "@models/*": ["src/app/shared/models/*"],
       "@shared/*": ["src/app/shared/*"],

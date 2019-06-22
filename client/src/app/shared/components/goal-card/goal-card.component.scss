@@ -3,7 +3,7 @@ mat-card {
     border-radius: 15px;
 }
 mat-card-content {
-    padding: 16px 16px 0;
+    padding: 32px 16px 0;
     margin: -16px 0 0;
     background-color: white;
     border-top-left-radius: 15px;
@@ -11,21 +11,20 @@ mat-card-content {
 }
 mat-card-actions {
     padding: 0;
-    margin: 0 16px;
+    margin-left: 16px;
 }
-.progress {
+.category {
     top: 4px;
-    right: 40px;
+    left: 4px;
     position: absolute;
 }
 .author-image-container {
-    height: 200px;
     background-color: #fce4ec;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     > .author-image {
         padding: 16px;
-        margin-top: -16px;
+        margin-top: 16px;
         width: 105px;
         height: 105px;
         border-radius: 50%;
@@ -34,6 +33,7 @@ mat-card-actions {
         background-repeat: no-repeat;
         background-origin: content-box;
         background-size: contain;
+        background-position: center;
         background-image: url(/assets/test.webp);
     }
 }
@@ -42,7 +42,11 @@ mat-card-actions {
 }
 .author-link {
     color: #03a9f4;
+    overflow: hidden;
     text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     &::before {
         content: 'por';
         margin-right: 6px;
@@ -50,9 +54,27 @@ mat-card-actions {
         color: rgba(0, 0, 0, .48);
     }
 }
-.goal-description {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+.types-container {
+    padding: 8px 0;
+    .type-background {
+        border-radius: 15px;
+        background-color: rgba(0,0,0,.05);
+        padding-right: 16px;
+        > span {
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+            color: rgba(0,0,0,.67);
+        }
+    }
+}
+.time-container {
+    color: rgba(0,0,0,.54);
+    font-size: 13px;
+    mat-icon {
+        font-size: 13px;
+        width: 13px;
+        height: 13px;
+        margin-right: 4px;
+    }
 }

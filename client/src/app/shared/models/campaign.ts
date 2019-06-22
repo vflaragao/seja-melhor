@@ -3,6 +3,24 @@ import { ProductType } from './product';
 import { Item } from './fields/item';
 import { Authorization } from './fields/authorization';
 
+export enum ActionCategory {
+    OLD = 'OLD',
+    ANIMALS = 'ANIMALS',
+    CHILDREN = 'CHILDREN',
+    PATIENTS = 'PATIENTS',
+    HOMELESS = 'HOMELESS',
+    NONE = 'NONE'
+}
+
+export const ActionCategoryValues = [
+    ActionCategory.OLD,
+    ActionCategory.ANIMALS,
+    ActionCategory.CHILDREN,
+    ActionCategory.PATIENTS,
+    ActionCategory.HOMELESS,
+    ActionCategory.OLD,
+];
+
 export class CampaignDTO {
     _id: string;
     title: string;
@@ -14,5 +32,6 @@ export class CampaignDTO {
     creatorSource: string;
     disabled: boolean;
     expiresAt: Date;
+    category: ActionCategory;
     authorization: Authorization;
 }

@@ -1,16 +1,23 @@
 <mat-card>
-  <app-progress-indicator class="progress" symbol="star" color="#ffca28" [progress]="progress">
+  <app-progress-indicator
+    class="progress"
+    symbol="star"
+    color="#ffca28"
+    [progress]="progress">
   </app-progress-indicator>
-  <div fxLayout="column" fxLayoutGap="4px">
-    <!-- <mat-icon *ngFor="let type of campaign?.types"></mat-icon> -->
-  </div>
+  <app-marker
+    class="category"
+    [name]="campaign?.category | actionCategory"
+    [color]="campaign?.category | actionCategoryColor"
+    [backgroundColor]="campaign?.category | actionCategoryBackgroundColor">
+  </app-marker>
   <div fxLayout fxLayoutAlign="center center" class="author-image-container">
     <div class="author-image"></div>
   </div>
   <mat-card-content>
     <div class="description-container">
-      <h4 class="campaign-title">{{campaign?.creator}}</h4>
-      <a class="author-link" href="#">{{campaign?.title}}</a>
+      <h4 class="campaign-title">{{campaign?.title}}</h4>
+      <a class="author-link" href="#">{{campaign?.creator}}</a>
       <p class="campaign-description">{{campaign?.description}}</p>
     </div>
   </mat-card-content>

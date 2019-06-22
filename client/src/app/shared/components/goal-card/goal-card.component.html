@@ -1,22 +1,36 @@
 <mat-card>
-    <app-progress-indicator
-      class="progress"
-      color="#ec407a"
-      symbol="star">
-    </app-progress-indicator>
-    <div
-      fxLayout fxLayoutAlign="center center"
-      class="author-image-container">
-      <div class="author-image"></div>
-    </div>
-    <mat-card-content>
-      <div class="description-container">
-        <!-- <h4 class="campaign-title">{{ga?.creator}}</h4>
-        <a class="author-link" href="#">{{campaign?.title}}</a>
-        <p class="campaign-description">{{campaign?.description}}</p> -->
+  <app-marker
+    class="category"
+    name="Animais"
+    color="white"
+    backgroundColor="#66bb6a">
+  </app-marker>
+  <div fxLayout fxLayoutAlign="center center" class="author-image-container">
+    <div class="author-image"></div>
+  </div>
+  <mat-card-content>
+    <h4 class="goal-title">Meta mensal #3</h4>
+    <a class="author-link" href="#">APIPA - ASSOCIAÇÃO PIAUIENSE DE PROTEÇÃO E AMOR AOS ANIMAIS</a>
+    <div class="types-container" fxLayout="column" fxLayoutGap="6px">
+      <div
+        class="type-background"
+        fxLayout fxLayoutAlign="space-between center"
+        *ngFor="let type of goal.types">
+        <app-progress-indicator
+          [symbol]="type | productTypeIcon"
+          [color]="type | productTypeColor"
+          [progress]="87">
+        </app-progress-indicator>
+        <span>restam 13%</span>
       </div>
-    </mat-card-content>
-    <mat-card-actions fxLayout fxLayoutAlign="end center">
-      <button mat-button color="primary">Ver detalhes</button>
-    </mat-card-actions>
-  </mat-card>
+  </div>
+  </mat-card-content>
+  <mat-card-actions fxLayout fxLayoutAlign="start center">
+    <div fxLayout fxLayoutAlign="start center" class="time-container">
+      <mat-icon>schedule</mat-icon>
+      <span class="time">restam {{restantDays}} dias</span>
+    </div>
+    <span fxFlex></span>
+    <button mat-button color="primary">Ver detalhes</button>
+  </mat-card-actions>
+</mat-card>

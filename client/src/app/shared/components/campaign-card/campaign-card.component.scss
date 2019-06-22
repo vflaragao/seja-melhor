@@ -3,7 +3,7 @@ mat-card {
     border-radius: 15px;
 }
 mat-card-content {
-    padding: 16px 16px 0;
+    padding: 32px 16px 0;
     margin: -16px 0 0;
     background-color: white;
     border-top-left-radius: 15px;
@@ -11,21 +11,25 @@ mat-card-content {
 }
 mat-card-actions {
     padding: 0;
-    margin: 0 16px;
+    margin-left: 16px;
+}
+.category {
+    top: 4px;
+    left: 4px;
+    position: absolute;
 }
 .progress {
     top: 4px;
-    right: 40px;
+    right: 4px;
     position: absolute;
 }
 .author-image-container {
-    height: 200px;
     background-color: #fff8e1;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     > .author-image {
         padding: 16px;
-        margin-top: -16px;
+        margin-top: 16px;
         width: 105px;
         height: 105px;
         border-radius: 50%;
@@ -42,7 +46,11 @@ mat-card-actions {
 }
 .author-link {
     color: #03a9f4;
+    overflow: hidden;
     text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     &::before {
         content: 'por';
         margin-right: 6px;
