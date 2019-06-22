@@ -8,7 +8,7 @@ import { Authorization, AuthorizationSchema } from './fields/authorization';
 export enum ActionCategory {
     OLD = 'OLD',
     ANIMALS = 'ANIMALS',
-    CHIDREN = 'CHIDREN',
+    CHILDREN = 'CHILDREN',
     PATIENTS = 'PATIENTS',
     HOMELESS = 'HOMELESS',
     NONE = 'NONE'
@@ -17,7 +17,7 @@ export enum ActionCategory {
 export const ActionCategoryValues = [
     ActionCategory.OLD,
     ActionCategory.ANIMALS,
-    ActionCategory.CHIDREN,
+    ActionCategory.CHILDREN,
     ActionCategory.PATIENTS,
     ActionCategory.HOMELESS,
     ActionCategory.OLD,
