@@ -5,11 +5,30 @@ import { AddressSchema, Address } from './fields/address';
 import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
 
+export enum ActionCategory {
+    OLD = 'OLD',
+    ANIMALS = 'ANIMALS',
+    CHIDREN = 'CHIDREN',
+    PATIENTS = 'PATIENTS',
+    HOMELESS = 'HOMELESS',
+    NONE = 'NONE'
+}
+
+export const ActionCategoryValues = [
+    ActionCategory.OLD,
+    ActionCategory.ANIMALS,
+    ActionCategory.CHIDREN,
+    ActionCategory.PATIENTS,
+    ActionCategory.HOMELESS,
+    ActionCategory.OLD,
+];
+
 export interface Foundation extends Document {
     name: string;
     cnpj: string;
     email: string;
     phone: string;
+    category: ActionCategory;
     address: Address;
     users: Collaborator[];
     operatingInfo: OperatingInfo;
@@ -39,6 +58,11 @@ export const FoundationSchema = new Schema({
         index: {
             unique: true
         }
+    },
+    category: {
+        type: String,
+        required: true,
+        enum: ActionCategoryValues
     },
     operatingInfo: {
         type: OperatingInfoSchema

@@ -1,5 +1,7 @@
 import { Schema, Types, Document } from 'mongoose';
 
+import { ActionCategory, ActionCategoryValues } from './foundation';
+
 import { Item, ItemSchema } from './fields/item';
 import { ProductTypeValues, ProductType } from './product';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
@@ -14,6 +16,7 @@ export interface Campaign extends Document {
     creatorSource: string;
     disabled: boolean;
     expiresAt: Date;
+    category: ActionCategory;
     authorization: Authorization;
 }
 
@@ -60,6 +63,11 @@ export const CampaignSchema = new Schema({
     expiresAt: {
         type: Date,
         required: true
+    },
+    category: {
+        type: String,
+        required: true,
+        enum: ActionCategoryValues
     },
     authorization: {
         type: AuthorizationSchema
