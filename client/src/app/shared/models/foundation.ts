@@ -5,7 +5,7 @@ import { Collaborator } from './fields/collaborator';
 import { Authorization } from './fields/authorization';
 import { OperatingInfo } from './fields/operating-info';
 
-export interface FoundationsDTO {
+export class FoundationsDTO {
     name: string;
     cnpj: string;
     email: string;

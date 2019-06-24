@@ -1,11 +1,13 @@
 <mat-card>
   <app-progress-indicator
+    *ngIf="showIndicator"
     class="progress"
     symbol="star"
     color="#ffca28"
     [progress]="progress">
   </app-progress-indicator>
   <app-marker
+    *ngIf="showCategory"
     class="category"
     [name]="campaign?.category | actionCategory"
     [color]="campaign?.category | actionCategoryColor"
@@ -17,7 +19,7 @@
   <mat-card-content>
     <div class="description-container">
       <h4 class="campaign-title">{{campaign?.title}}</h4>
-      <a class="author-link" href="#">{{campaign?.creator}}</a>
+      <a *ngIf="showAuthor" class="author-link" href="#">{{campaign?.creator}}</a>
       <p class="campaign-description">{{campaign?.description}}</p>
     </div>
   </mat-card-content>
@@ -27,6 +29,9 @@
       <span class="time">restam {{restantDays}} dias</span>
     </div>
     <span fxFlex></span>
-    <button mat-button color="primary">Ver detalhes</button>
+    <button mat-button color="warn">
+        <mat-icon>favorite</mat-icon>
+        Doar
+      </button>
   </mat-card-actions>
 </mat-card>

@@ -1,0 +1,62 @@
+mat-card {
+    padding: 0;
+    border-radius: 15px;
+}
+mat-card-content {
+    padding: 32px 16px 0;
+    margin: -16px 0 0;
+    background-color: white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+mat-card-actions {
+    padding: 0;
+    margin-right: 0;
+    margin-left: 16px;
+}
+.category {
+    top: 4px;
+    left: 4px;
+    position: absolute;
+}
+.progress {
+    top: 4px;
+    right: 4px;
+    position: absolute;
+}
+.foundation-category-container {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    > .foundation-category-icon {
+        width: 105px;
+        height: 105px;
+        border-radius: 50%;
+        font-size: 105px;
+        background-color: white;
+        padding: 16px;
+        margin-top: 16px;
+        border: 8px solid transparent;
+    }
+}
+.foundation-name {
+    text-align: center;
+    margin: 0 auto 8px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.foundation-category {
+    margin: 0 0 8px;
+}
+.foundation-address {
+    display: block;
+    color: #03a9f4;
+    text-align: center;
+}
+.foundation-phone {
+    display: block;
+    color: rgba(0,0,0,.54);
+    margin-top: 8px;
+    text-align: center;
+}

@@ -14,6 +14,13 @@ export class CampaignCardComponent implements OnInit {
   private loadingProgress: boolean;
 
   @Input()
+  public showCategory: boolean = true;
+  @Input()
+  public showIndicator: boolean = true;
+  @Input()
+  public showAuthor: boolean = true;
+
+  @Input()
   public campaign: CampaignDTO;
 
   constructor() {

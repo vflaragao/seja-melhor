@@ -11,10 +11,9 @@ mat-card-content {
 }
 mat-card-actions {
     padding: 0;
-    margin-right: 0;
     margin-left: 16px;
 }
-.category {
+.marker {
     top: 4px;
     left: 4px;
     position: absolute;
@@ -24,47 +23,54 @@ mat-card-actions {
     right: 4px;
     position: absolute;
 }
-.author-image-container {
-    background-color: #fff8e1;
+.collect-point-container {
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    > .author-image {
-        padding: 16px;
-        margin-top: 16px;
+    background-color: #b0bec5;
+    > .collect-point-icon {
         width: 105px;
         height: 105px;
         border-radius: 50%;
-        background-color: #FFF;
-        border: 8px solid #ffca28;
-        background-repeat: no-repeat;
-        background-origin: content-box;
-        background-size: contain;
-        background-image: url(/assets/test.webp);
+        font-size: 105px;
+        background-color: white;
+        padding: 16px;
+        margin-top: 16px;
+        color: #607d8b;
+        border: 8px solid #607d8b;
     }
 }
-.campaign-title {
-    margin: 0 auto 4px;
+.collect-point-name {
+    text-align: center;
+    margin: 0 auto 8px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
-.author-link {
+.collect-point {
+    margin: 0 0 8px;
+}
+.collect-point-address {
+    display: block;
     color: #03a9f4;
-    overflow: hidden;
-    text-decoration: none;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    &::before {
-        content: 'por';
-        margin-right: 6px;
-        font-size: 13px;
-        color: rgba(0, 0, 0, .48);
+    text-align: center;
+}
+.collect-point-time {
+    display: block;
+    color: rgba(0,0,0,.54);
+    margin-top: 8px;
+    text-align: center;
+    mat-icon {
+        margin-right: 4px;
+        font-size: 15px;
+        width: 15px;
+        height: 15px;
     }
 }
-.campaign-description {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+.collect-point-fds {
+    margin-top: 8px;
 }
+
 .time-container {
     color: rgba(0,0,0,.54);
     font-size: 13px;

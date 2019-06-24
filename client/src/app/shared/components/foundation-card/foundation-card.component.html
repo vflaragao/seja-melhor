@@ -1,0 +1,26 @@
+<mat-card>
+    <div
+      fxLayout fxLayoutAlign="center center"
+      [style.backgroundColor]="foundation?.category | actionCategoryBackgroundColor"
+      class="foundation-category-container">
+      <mat-icon
+        [style.color]="foundation?.category | actionCategoryBackgroundColor"
+        [style.borderColor]="foundation?.category | actionCategoryBackgroundColor"
+        class="foundation-category-icon">{{foundation?.category | actionCategoryIcon}}</mat-icon>
+    </div>
+    <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+      <h4 class="foundation-name">{{foundation?.name}}</h4>
+      <app-marker
+        class="foundation-category"
+        [name]="foundation?.category | actionCategory"
+        [color]="foundation?.category | actionCategoryColor"
+        [backgroundColor]="foundation?.category | actionCategoryBackgroundColor">
+      </app-marker>
+      <span class="foundation-address">{{foundation?.address.street}}, {{foundation?.address.number}} - {{foundation?.address.district}}</span>
+      <span class="foundation-address">{{foundation?.address.city}} - {{foundation?.address.state}}</span>
+      <span class="foundation-phone">{{foundation?.phone}}</span>
+    </mat-card-content>
+    <mat-card-actions fxLayout fxLayoutAlign="end center">
+      <button mat-button color="primary">Ver detalhes</button>
+    </mat-card-actions>
+  </mat-card>

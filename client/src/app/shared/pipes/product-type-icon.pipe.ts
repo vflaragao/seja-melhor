@@ -15,7 +15,7 @@ export class ProductTypeIconPipe implements PipeTransform {
       case ProductType.REMEDY:
         return 'local_hospital';
       case ProductType.CLOTHE:
-        return 'business_center';
+        return 'shopping_basket';
     }
   }
 

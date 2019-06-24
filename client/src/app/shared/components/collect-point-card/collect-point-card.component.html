@@ -1,0 +1,35 @@
+<mat-card>
+  <app-marker class="marker" *ngIf="collectPoint?.headOffice" name="Matriz" color="black" backgroundColor="#cddc39">
+  </app-marker>
+  <div fxLayout fxLayoutAlign="center center" class="collect-point-container">
+    <mat-icon class="collect-point-icon">place</mat-icon>
+  </div>
+  <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+    <h4 class="collect-point-name">Ponto de coleta #1</h4>
+    <span class="collect-point-address">{{collectPoint?.address.street}}, {{collectPoint?.address.number}} -
+      {{collectPoint?.address.district}}</span>
+    <strong class="collect-point-address">{{collectPoint?.address.city}} - {{collectPoint?.address.state}}</strong>
+    <app-marker class="collect-point-fds" *ngIf="collectPoint?.operatingInfo.weekend" name="Final de semana"
+      color="black" backgroundColor="#cddc39">
+    </app-marker>
+    <div class="collect-point-time">
+      <span>
+        Funcionamento normal das
+        {{collectPoint?.operatingInfo.startTime | date:'HH:mm'}} horas
+        às
+        {{collectPoint?.operatingInfo.endTime | date:'HH:mm'}} horas
+      </span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions fxLayout  fxLayoutAlign="start center">
+    <div fxLayout fxLayoutAlign="start center" class="time-container">
+      <mat-icon>schedule</mat-icon>
+      <span class="time">restam {{restantDays}} dias</span>
+    </div>
+    <span fxFlex></span>
+    <button mat-button color="warn">
+      <mat-icon>favorite</mat-icon>
+      Doar
+    </button>
+  </mat-card-actions>
+</mat-card>

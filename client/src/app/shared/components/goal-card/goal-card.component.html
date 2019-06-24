@@ -1,5 +1,6 @@
 <mat-card>
   <app-marker
+    *ngIf="showCategory"
     class="category"
     name="Animais"
     color="white"
@@ -10,7 +11,7 @@
   </div>
   <mat-card-content>
     <h4 class="goal-title">Meta mensal #3</h4>
-    <a class="author-link" href="#">APIPA - ASSOCIAÇÃO PIAUIENSE DE PROTEÇÃO E AMOR AOS ANIMAIS</a>
+    <a *ngIf="showAuthor" class="author-link" href="#">APIPA - ASSOCIAÇÃO PIAUIENSE DE PROTEÇÃO E AMOR AOS ANIMAIS</a>
     <div class="types-container" fxLayout="column" fxLayoutGap="6px">
       <div
         class="type-background"
@@ -31,6 +32,9 @@
       <span class="time">restam {{restantDays}} dias</span>
     </div>
     <span fxFlex></span>
-    <button mat-button color="primary">Ver detalhes</button>
+    <button mat-button color="warn">
+      <mat-icon>favorite</mat-icon>
+      Doar
+    </button>
   </mat-card-actions>
 </mat-card>

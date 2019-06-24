@@ -16,6 +16,11 @@ export class GoalCardComponent implements OnInit {
   private loadingProgress: boolean;
 
   @Input()
+  public showCategory: boolean = true;
+  @Input()
+  public showAuthor: boolean = true;
+
+  @Input()
   public goal: GoalDTO;
 
   constructor() {

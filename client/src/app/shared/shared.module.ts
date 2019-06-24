@@ -18,6 +18,8 @@ import {
   MarkerComponent,
   GoalCardComponent,
   CampaignCardComponent,
+  FoundationCardComponent,
+  CollectPointCardComponent,
   ProgressIndicatorComponent,
 } from './components';
 
@@ -26,6 +28,7 @@ import {
   ProductTypeIconPipe,
   ProductTypeColorPipe,
   ActionCategoryPipe,
+  ActionCategoryIconPipe,
   ActionCategoryColorPipe,
   ActionCategoryBackgroundColorPipe,
 } from './pipes';
@@ -48,6 +51,8 @@ import {
     MarkerComponent,
     GoalCardComponent,
     CampaignCardComponent,
+    FoundationCardComponent,
+    CollectPointCardComponent,
     ProgressIndicatorComponent,
 
     /** Dialogs */
@@ -57,9 +62,10 @@ import {
     ProductTypePipe,
     ActionCategoryPipe,
     ProductTypeIconPipe,
+    ProductTypeColorPipe,
+    ActionCategoryIconPipe,
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
-    ProductTypeColorPipe,
   ],
   exports: [
     FormsModule,
@@ -79,6 +85,8 @@ import {
     MarkerComponent,
     GoalCardComponent,
     CampaignCardComponent,
+    FoundationCardComponent,
+    CollectPointCardComponent,
     ProgressIndicatorComponent,
 
     /** Dialogs */
@@ -86,10 +94,10 @@ import {
 
     /** Pipes */
     ProductTypePipe,
-    ProductTypeIconPipe,
-    ProductTypeColorPipe,
     ActionCategoryPipe,
     ProductTypeIconPipe,
+    ProductTypeColorPipe,
+    ActionCategoryIconPipe,
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
   ]
