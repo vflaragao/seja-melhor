@@ -6,3 +6,27 @@ html, body {
 mat-card {
     border-radius: 15px;
 }
+
+main {
+    height: calc(100vh - 64px);
+    width: 100vw;
+    overflow: auto;
+    @media (max-width: 599px) {
+        height: calc(100vh - 56px);
+    }
+}
+
+.content {
+    padding: 0 16px;
+    margin-right: auto;
+    margin-left: auto;
+    @media (min-width: 768px) {
+        width: 750px;
+    }
+    @media (min-width: 992px) {
+        width: 970px;
+    }
+    @media (min-width: 1200px) {
+        width: 1170px;
+    }
+}

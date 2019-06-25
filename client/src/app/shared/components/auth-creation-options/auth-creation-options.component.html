@@ -1,0 +1,6 @@
+<mat-nav-list>
+  <a *ngFor="let option of options" mat-list-item (click)="onSelect(option.type)">
+    <span mat-line>{{option.type}}</span>
+    <p mat-line class="option-description">{{option.description}}</p>
+  </a>
+</mat-nav-list>

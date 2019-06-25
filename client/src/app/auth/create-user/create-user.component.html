@@ -1,0 +1,37 @@
+<div class="content">
+  <h2 class="mat-h2">Criar usuário</h2>
+  <mat-card [fxFlex.lg]="50">
+    <mat-card-content>
+      <form #createUser>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="name" [(ngModel)]="name" placeholder="Nome">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="phone" [(ngModel)]="phone" placeholder="Telefone">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="email" type="email" [(ngModel)]="email" placeholder="E-mail">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="password" type="password" [(ngModel)]="password" placeholder="Senha">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass" placeholder="Confirmar senha">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <button fxFlex mat-raised-button color="primary">Criar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

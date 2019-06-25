@@ -1,0 +1,29 @@
+<div class="content">
+  <h2 class="mat-h2">Entrar</h2>
+  <p class="mat-caption">Utilize sua conta para criar campanhas e realizar doações... Faça a diferença!</p>
+  <mat-card [fxFlex.lg]="50">
+    <mat-card-content>
+      <form #login>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="email" type="email" [(ngModel)]="email" placeholder="E-mail">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <mat-form-field fxFlex appearance="outline">
+            <input matInput name="password" type="password" [(ngModel)]="password" placeholder="Senha">
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <button fxFlex mat-raised-button color="primary">Entrar</button>
+        </div>
+        <div class="divider" fxLayout>
+          <span>ou</span>
+        </div>
+        <div fxLayout>
+          <button fxFlex mat-button color="primary" (click)="onCreate()">Não tenho conta, quero criar!</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

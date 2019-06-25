@@ -1,12 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {
   MatCardModule,
   MatMenuModule,
   MatIconModule,
+  MatInputModule,
   MatButtonModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatBottomSheetModule,
+  MatListModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -21,6 +28,7 @@ import {
   FoundationCardComponent,
   CollectPointCardComponent,
   ProgressIndicatorComponent,
+  AuthCreationOptionsComponent
 } from './components';
 
 import {
@@ -37,11 +45,18 @@ import {
   imports: [
     FormsModule,
     CommonModule,
+    RouterModule,
 
     /** Material */
     MatCardModule,
     MatIconModule,
+    MatListModule,
+    MatMenuModule,
+    MatInputModule,
+    MatSelectModule,
     MatButtonModule,
+    MatSlideToggleModule,
+    MatBottomSheetModule,
 
     /** Flex */
     FlexLayoutModule
@@ -54,6 +69,49 @@ import {
     FoundationCardComponent,
     CollectPointCardComponent,
     ProgressIndicatorComponent,
+    AuthCreationOptionsComponent,
+
+    /** Dialogs */
+    CollectionPointQRCodeComponent,
+
+    /** Pipes */
+    ProductTypePipe,
+    ActionCategoryPipe,
+    ProductTypeIconPipe,
+    ProductTypeColorPipe,
+    ActionCategoryIconPipe,
+    ActionCategoryColorPipe,
+    ActionCategoryBackgroundColorPipe,
+    AuthCreationOptionsComponent,
+  ],
+  exports: [
+    FormsModule,
+    CommonModule,
+    RouterModule,
+
+    /** Flex */
+    FlexLayoutModule,
+
+    /** Material */
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatListModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatBottomSheetModule,
+
+    /** Components */
+    MarkerComponent,
+    GoalCardComponent,
+    CampaignCardComponent,
+    FoundationCardComponent,
+    CollectPointCardComponent,
+    ProgressIndicatorComponent,
+    AuthCreationOptionsComponent,
 
     /** Dialogs */
     CollectionPointQRCodeComponent,
@@ -67,39 +125,8 @@ import {
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
   ],
-  exports: [
-    FormsModule,
-    CommonModule,
-
-    /** Flex */
-    FlexLayoutModule,
-
-    /** Material */
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-
-    /** Components */
-    MarkerComponent,
-    GoalCardComponent,
-    CampaignCardComponent,
-    FoundationCardComponent,
-    CollectPointCardComponent,
-    ProgressIndicatorComponent,
-
-    /** Dialogs */
-    CollectionPointQRCodeComponent,
-
-    /** Pipes */
-    ProductTypePipe,
-    ActionCategoryPipe,
-    ProductTypeIconPipe,
-    ProductTypeColorPipe,
-    ActionCategoryIconPipe,
-    ActionCategoryColorPipe,
-    ActionCategoryBackgroundColorPipe,
+  entryComponents: [
+    AuthCreationOptionsComponent
   ]
 })
 export class SharedModule { }
