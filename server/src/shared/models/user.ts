@@ -3,6 +3,7 @@ import { hashSync, compareSync } from 'bcryptjs';
 
 export interface User extends Document {
     name: string;
+    phone: string;
     email: string;
     password: string;
     disabled?: boolean;
@@ -12,6 +13,11 @@ export interface User extends Document {
 
 const UserSchema = new Schema({
     name: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    phone: {
         type: String,
         trim: true,
         required: true
