@@ -3,21 +3,26 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { User } from '@models/user';
-import { UsersDTO } from './dto/users.dto';
+import { UserDTO } from './dto/users.dto';
 
 import { Database } from '@helpers/database';
 
 @Injectable()
 export class UsersService {
 
-    constructor (
+    constructor(
         @InjectModel('User')
-        private readonly userModel: Model<User>
+        private readonly userModel: Model<User>,
     ) {}
 
-    save(payload: UsersDTO) {
+    save(payload: UserDTO) {
         const user = new this.userModel(payload);
         return user.save();
+    }
+
+    async existsByEmail(email: string) {
+        const exists = await this.userModel.findOne({ email }).exec();
+        return !!exists;
     }
 
     list(query: string = '') {
@@ -32,11 +37,11 @@ export class UsersService {
             .exec();
     }
 
-    update(id: Types.ObjectId, payload: UsersDTO) {
+    update(id: Types.ObjectId, payload: UserDTO) {
         return this.userModel.findByIdAndUpdate(
             id,
             { $set: { ...payload } },
-            { new: true }
+            { new: true },
         )
         .exec();
     }

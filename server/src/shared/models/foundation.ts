@@ -11,7 +11,7 @@ export enum ActionCategory {
     CHILDREN = 'CHILDREN',
     PATIENTS = 'PATIENTS',
     HOMELESS = 'HOMELESS',
-    NONE = 'NONE'
+    NONE = 'NONE',
 }
 
 export const ActionCategoryValues = [
@@ -39,43 +39,44 @@ export const FoundationSchema = new Schema({
     name: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+        uppercase: true,
     },
     cnpj: {
         type: String,
         trim: true,
-        required: true
+        required: true,
     },
     phone: {
         type: String,
         trim: true,
-        required: true
+        required: true,
     },
     email: {
         type: String,
         trim: true,
         required: true,
         index: {
-            unique: true
-        }
+            unique: true,
+        },
     },
     category: {
         type: String,
         required: true,
-        enum: ActionCategoryValues
+        enum: ActionCategoryValues,
     },
     operatingInfo: {
-        type: OperatingInfoSchema
+        type: OperatingInfoSchema,
     },
     address: {
         type: AddressSchema,
-        required: true
+        required: true,
     },
     users: {
         type: [Collaboratorchema],
-        required: true
+        required: true,
     },
     authorization: {
-        type: AuthorizationSchema
-    }
+        type: AuthorizationSchema,
+    },
 });

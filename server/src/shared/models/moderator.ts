@@ -12,7 +12,8 @@ const ModeratorSchema = new Schema({
     name: {
         type: String,
         trim: true,
-        required: true
+        required: true,
+        uppercase: true,
     },
     username: {
         type: String,
@@ -20,19 +21,19 @@ const ModeratorSchema = new Schema({
         lowercase: true,
         required: true,
         index: {
-            unique: true
-        }
+            unique: true,
+        },
     },
     password: {
         type: String,
         trim: true,
-        required: true
+        required: true,
     },
     disabled: {
         type: Boolean,
         required: true,
-        default: false
-    }
+        default: false,
+    },
 });
 
 ModeratorSchema.pre<Moderator>('save', function(next) {

@@ -27,17 +27,17 @@ export const ProductSchema = new Schema({
         type: String,
         trim: true,
         lowercase: true,
-        required: true
+        required: true,
     },
     type: {
         type: String,
         enum: ProductTypeValues,
-        required: true
+        required: true,
     },
     creator: {
         type: Types.ObjectId,
         refPath: 'creatorSource',
-        required: true
+        required: true,
     },
     creatorSource: {
         type: String,
@@ -47,6 +47,6 @@ export const ProductSchema = new Schema({
     disabled: {
         type: Boolean,
         default: false,
-        required: true
-    }
+        required: true,
+    },
 });

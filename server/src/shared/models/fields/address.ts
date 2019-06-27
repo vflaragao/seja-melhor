@@ -1,4 +1,4 @@
-import { SchemaDefinition } from "mongoose";
+import { SchemaDefinition } from 'mongoose';
 
 export interface Address {
     cep: string;
@@ -14,7 +14,7 @@ export const AddressSchema: SchemaDefinition = {
     cep: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     district: {
         type: String,
@@ -24,26 +24,26 @@ export const AddressSchema: SchemaDefinition = {
     street: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     number: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     complement: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     state: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     city: {
         type: String,
         required: true,
-        trim: true
-    }
-}
+        trim: true,
+    },
+};

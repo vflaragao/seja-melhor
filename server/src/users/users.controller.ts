@@ -1,15 +1,21 @@
 import { Types } from 'mongoose';
 import { Controller, Post, Get, Put, Body, Query, Param } from '@nestjs/common';
 
-import { UsersDTO } from './dto/users.dto';
+import { UserDTO } from './dto/users.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 
     constructor(
-        private readonly userService: UsersService
+        private readonly userService: UsersService,
     ) { }
+
+    @Get('exists')
+    async existsUser(@Query('e') email: string) {
+        const user = await this.userService.existsByEmail(email);
+        return user;
+    }
 
     @Get(':id')
     async getUser(@Param('id') id: Types.ObjectId) {
@@ -24,7 +30,7 @@ export class UsersController {
     }
 
     @Post()
-    async registerUser(@Body() payload: UsersDTO) {
+    async registerUser(@Body() payload: UserDTO) {
         const User = await this.userService.save(payload);
         return User;
     }

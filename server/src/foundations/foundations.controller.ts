@@ -1,14 +1,14 @@
 import { Types } from 'mongoose';
 import { Controller, Get, Query, Param, Post, Body, Put } from '@nestjs/common';
 
-import { FoundationsDTO } from './dto/foundations.dto';
+import { FoundationCreateDTO, FoundationUpdateDTO } from './dto/foundations.dto';
 import { FoundationsService } from './foundations.service';
 
 @Controller('foundations')
 export class FoundationsController {
 
     constructor(
-        private readonly foundationService: FoundationsService
+        private readonly foundationService: FoundationsService,
     ) { }
 
     @Get(':id')
@@ -24,13 +24,13 @@ export class FoundationsController {
     }
 
     @Post()
-    async registerFoundation(@Body() payload: FoundationsDTO) {
+    async registerFoundation(@Body() payload: FoundationCreateDTO) {
         const Foundation = await this.foundationService.save(payload);
         return Foundation;
     }
 
     @Put(':id')
-    async updateFoundation(@Param('id') id: Types.ObjectId, @Body() payload: FoundationsDTO) {
+    async updateFoundation(@Param('id') id: Types.ObjectId, @Body() payload: FoundationUpdateDTO) {
         const Foundation = await this.foundationService.update(id, payload);
         return Foundation;
     }
