@@ -1,80 +1,118 @@
-<div class="content" fxLayout fxLayoutAlign="center start">
-  <div fxFlex fxFlex.sm="80" [fxFlex.md]="70" fxFlex.lg="60" fxFlex.xl="60" fxLayout="column">
-    <h1 class="logo-font">Cadastrar Instituição</h1>
-    <mat-card>
-      <mat-card-content>
-        <form #createFoundation>
-          <span class="group-title">Informações básicas</span>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Nome</mat-label>
-              <input matInput name="name" [(ngModel)]="foundation.name" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>CNPJ</mat-label>
-              <input matInput name="cnpj" [(ngModel)]="foundation.cnpj" mask="00.000.000/0000-00" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Telefone</mat-label>
-              <input matInput name="phone" [(ngModel)]="foundation.phone" prefix="+55 " mask="(00) 00000-0000" required>
-            </mat-form-field>
-          </div>
-  
-          <span class="group-title">Informações de funcionamento</span>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Categoria</mat-label>
-              <mat-select name="category" [(ngModel)]="foundation.category" required>
-                <mat-option *ngFor="let category of categoryOptions" [value]="category">
-                  {{category | actionCategory}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Início funcionamento</mat-label>
-              <input matInput name="init" type="time" [(ngModel)]="foundation.address.startTime" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Fim funcionamento</mat-label>
-              <input matInput name="end" type="time" [(ngModel)]="foundation.address.endTime" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-slide-toggle name="weekend" [(ngModel)]="foundation.address.weekend">Final de semana</mat-slide-toggle>
-          </div>
-  
-          <span class="group-title">Credenciais</span>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>E-mail</mat-label>
-              <input matInput name="email" type="email" [(ngModel)]="foundation.credentials.email" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Senha</mat-label>
-              <input matInput name="password" type="password" [(ngModel)]="foundation.credentials.password">
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <mat-label>Confirmar senha</mat-label>
-              <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass">
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <button fxFlex mat-raised-button color="primary">Criar</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
+<main>
+  <div class="content" fxLayout fxLayoutAlign="center start">
+    <div fxFlex fxFlex.sm="80" [fxFlex.md]="70" fxFlex.lg="60" fxFlex.xl="60" fxLayout="column">
+      <h1 class="logo-font">Cadastrar Instituição</h1>
+      <mat-card>
+        <mat-card-content>
+          <form #createFoundation="ngForm" (submit)="onSave()">
+            <span class="group-title">Informações básicas</span>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput name="name" [(ngModel)]="foundation.name" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>CNPJ</mat-label>
+                <input matInput name="cnpj" [(ngModel)]="foundation.cnpj" mask="00.000.000/0000-00" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Telefone</mat-label>
+                <input matInput name="phone" [(ngModel)]="foundation.phone" prefix="+55 " mask="(00) 00000-0000" required>
+              </mat-form-field>
+            </div>
+    
+            <span class="group-title">Endereço</span>
+            <div fxLayout fxLayoutGap="16px">
+              <mat-form-field fxFlex.xs fxFlex.sm fxFlex="120px" appearance="outline">
+                <mat-label>CEP</mat-label>
+                <input matInput name="cep" [(ngModel)]="foundation.address.cep" mask="00000-000" required>
+              </mat-form-field>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Cidade</mat-label>
+                <input matInput name="city" [(ngModel)]="foundation.address.city" required>
+              </mat-form-field>
+              <mat-form-field fxFlex.xs fxFlex.sm fxFlex="200px" appearance="outline">
+                <mat-label>Estado</mat-label>
+                <input matInput name="state" [(ngModel)]="foundation.address.state" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout fxLayoutGap="16px">
+              <mat-form-field fxFlex.xs fxFlex.sm fxFlex="200px" appearance="outline">
+                <mat-label>Bairro</mat-label>
+                <input matInput name="district" [(ngModel)]="foundation.address.district" required>
+              </mat-form-field>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Logradouro</mat-label>
+                <input matInput name="street" [(ngModel)]="foundation.address.street" required>
+              </mat-form-field>
+              <mat-form-field fxFlex.xs fxFlex.sm fxFlex="150px" appearance="outline">
+                <mat-label>Número</mat-label>
+                <input matInput name="number" [(ngModel)]="foundation.address.number" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Complemento</mat-label>
+                <input matInput name="complement" [(ngModel)]="foundation.address.complement" required>
+              </mat-form-field>
+            </div>
+
+            <span class="group-title">Informações de funcionamento</span>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Categoria</mat-label>
+                <mat-select name="category" [(ngModel)]="foundation.category" required>
+                  <mat-option *ngFor="let category of categoryOptions" [value]="category">
+                    {{category | actionCategory}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Início funcionamento</mat-label>
+                <input matInput name="init" type="time" [(ngModel)]="foundation.operatingInfo.startTime" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Fim funcionamento</mat-label>
+                <input matInput name="end" type="time" [(ngModel)]="foundation.operatingInfo.endTime" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-slide-toggle name="weekend" [(ngModel)]="foundation.operatingInfo.weekend">Final de semana</mat-slide-toggle>
+            </div>
+    
+            <span class="group-title">Credenciais</span>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput name="email" type="email" [(ngModel)]="foundation.credentials.email" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Senha</mat-label>
+                <input matInput name="password" type="password" [(ngModel)]="foundation.credentials.password">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Confirmar senha</mat-label>
+                <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <button fxFlex mat-raised-button type="submit" [disabled]="!createFoundation.form.valid" color="primary">Criar</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-</div>
+</main>

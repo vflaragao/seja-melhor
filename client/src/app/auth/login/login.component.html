@@ -1,30 +1,32 @@
-<div class="content" fxLayout fxLayoutAlign="center center">
-  <div fxFlex fxFlex.sm="55" fxFlex.md="50" fxFlex.lg="45" fxFlex.xl="45" fxLayout="column">
-    <h1 class="logo-font">Seja Melhor</h1>
-    <mat-card>
-      <mat-card-content>
-        <form #login>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="email" type="email" [(ngModel)]="email" placeholder="E-mail">
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="password" type="password" [(ngModel)]="password" placeholder="Senha">
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <button fxFlex mat-raised-button color="primary">Entrar</button>
-          </div>
-          <div class="divider" fxLayout>
-            <span>ou</span>
-          </div>
-          <div fxLayout>
-            <button fxFlex mat-button color="primary" (click)="onCreate()">Não tenho conta, quero criar!</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
+<main>
+  <div class="content" fxLayout fxLayoutAlign="center center">
+    <div fxFlex fxFlex.sm="55" fxFlex.md="50" fxFlex.lg="45" fxFlex.xl="45" fxLayout="column">
+      <h1 class="logo-font">Seja Melhor</h1>
+      <mat-card>
+        <mat-card-content>
+          <form #login>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <input matInput name="email" type="email" [(ngModel)]="email" placeholder="E-mail">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <input matInput name="password" type="password" [(ngModel)]="password" placeholder="Senha">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <button fxFlex mat-raised-button color="primary">Entrar</button>
+            </div>
+            <div class="divider" fxLayout>
+              <span>ou</span>
+            </div>
+            <div fxLayout>
+              <button fxFlex mat-button color="primary" (click)="onCreate()">Não tenho conta, quero criar!</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-</div>
+</main>

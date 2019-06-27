@@ -1,42 +1,47 @@
-<div class="content" fxLayout fxLayoutAlign="center center">
-  <div fxFlex fxFlex.sm="80" [fxFlex.md]="70" fxFlex.lg="60" fxFlex.xl="60" fxLayout="column">
-    <h1 class="logo-font">Cadastrar usuário</h1>
-    <mat-card>
-      <mat-card-content>
-        <form #createUser="ngForm" (submit)="onSave()">
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="name" [(ngModel)]="user.name" placeholder="Nome" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="phone" [(ngModel)]="user.phone" prefix="+55 " mask="(00) 00000-0000"
-                placeholder="Telefone" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="email" type="email" [(ngModel)]="user.email" placeholder="E-mail" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="password" type="password" [(ngModel)]="user.password" placeholder="Senha" required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <mat-form-field fxFlex appearance="outline">
-              <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass" placeholder="Confirmar senha"
-                required>
-            </mat-form-field>
-          </div>
-          <div fxLayout>
-            <button fxFlex mat-raised-button type="submit" [disabled]="!createUser.form.valid"
-              color="primary">Criar</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
+<main>
+  <div class="content" fxLayout fxLayoutAlign="center center">
+    <div fxFlex fxFlex.sm="80" [fxFlex.md]="70" fxFlex.lg="60" fxFlex.xl="60" fxLayout="column">
+      <h1 class="logo-font">Cadastrar usuário</h1>
+      <mat-card>
+        <mat-card-content>
+          <form #createUser="ngForm" (submit)="onSave()">
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput name="name" [(ngModel)]="user.name" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Telefone</mat-label>
+                <input matInput name="phone" [(ngModel)]="user.phone" prefix="+55 " mask="(00) 00000-0000" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput name="email" type="email" [(ngModel)]="user.email" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Senha</mat-label>
+                <input matInput name="password" type="password" [(ngModel)]="user.password" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Confirmar senha</mat-label>
+                <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass" required>
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <button fxFlex mat-raised-button type="submit" [disabled]="!createUser.form.valid"
+                color="primary">Criar</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-</div>
+</main>

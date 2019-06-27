@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Foundation } from '@models/foundation';
+import { FoundationCreateDTO } from '@models/foundation';
 import { ActionCategory } from '@models/campaign';
 
 @Component({
@@ -11,10 +11,10 @@ import { ActionCategory } from '@models/campaign';
 export class FoundationCardComponent implements OnInit {
 
   @Input()
-  private foundation: Foundation;
+  private foundation: FoundationCreateDTO;
 
   constructor() {
-    this.foundation = new Foundation();
+    this.foundation = new FoundationCreateDTO();
     this.foundation.name = 'APIPA - ASSOCIAÇÃO PIAUIENSE DE PROTEÇÃO E AMOR AOS ANIMAIS'; 
     this.foundation.address = {
       city: 'Teresina',

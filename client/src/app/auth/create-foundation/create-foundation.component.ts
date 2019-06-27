@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Foundation } from '@models/foundation';
+import { FoundationCreateDTO } from '@models/foundation';
 import { ActionCategory, ActionCategoryValues } from '@models/campaign';
 import { FoundationService } from '@core/services';
 
@@ -14,12 +14,12 @@ export class CreateFoundationComponent implements OnInit {
   public categoryOptions: ActionCategory[];
 
   public confirmPass: string;
-  public foundation: Foundation;
+  public foundation: FoundationCreateDTO;
   
   constructor(
     private foundationService: FoundationService
   ) {
-    this.foundation = new Foundation();
+    this.foundation = new FoundationCreateDTO();
     this.categoryOptions = ActionCategoryValues;
   }
 
@@ -29,7 +29,7 @@ export class CreateFoundationComponent implements OnInit {
   async onSave() {
     try {
       await this.foundationService.save(this.foundation);
-      this.foundation = new Foundation();
+      this.foundation = new FoundationCreateDTO();
     } catch (e) {
       console.error(e);
     }
