@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Foundation } from '@models/foundation';
 import { ActionCategory, ActionCategoryValues } from '@models/campaign';
+import { FoundationService } from '@core/services';
 
 @Component({
   selector: 'app-create-foundation',
@@ -8,13 +11,27 @@ import { ActionCategory, ActionCategoryValues } from '@models/campaign';
 })
 export class CreateFoundationComponent implements OnInit {
 
-  private categoryOptions: ActionCategory[];
+  public categoryOptions: ActionCategory[];
 
-  constructor() {
+  public confirmPass: string;
+  public foundation: Foundation;
+  
+  constructor(
+    private foundationService: FoundationService
+  ) {
+    this.foundation = new Foundation();
     this.categoryOptions = ActionCategoryValues;
   }
 
   ngOnInit() {
   }
 
+  async onSave() {
+    try {
+      await this.foundationService.save(this.foundation);
+      this.foundation = new Foundation();
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

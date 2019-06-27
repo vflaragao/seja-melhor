@@ -12,7 +12,6 @@ import {
   MatBottomSheetModule,
   MatListModule,
   MatSelectModule,
-  MatSliderModule,
   MatSlideToggleModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';

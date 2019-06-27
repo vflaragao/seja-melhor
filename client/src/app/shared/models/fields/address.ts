@@ -1,9 +1,12 @@
-export interface Address {
-    cep?: string;
-    district: string;
-    street: string;
-    number: string;
+export class Address {
     complement?: string;
-    state: string;
-    city: string;
+    
+    constructor (
+        public cep?: string,
+        public district?: string,
+        public street?: string,
+        public number?: string,
+        public state?: string,
+        public city?: string
+    ) {}
 }

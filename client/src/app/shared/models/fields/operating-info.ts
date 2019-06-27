@@ -1,5 +1,7 @@
-export interface OperatingInfo {
-    weekend: boolean;
-    startTime: Date;
-    endTime: Date;
+export class OperatingInfo {
+    weekend?: boolean;
+    startTime?: Date;
+    endTime?: Date;
+
+    constructor () {}
 }

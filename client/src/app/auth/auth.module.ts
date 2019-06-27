@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { NgxMaskModule } from 'ngx-mask';
 
 import { SharedModule } from '@shared/shared.module';
 
@@ -26,8 +27,9 @@ const routes: Routes = [
   ],
   imports: [
     SharedModule,
+    NgxMaskModule.forChild(),
     RouterModule.forChild(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule, NgxMaskModule]
 })
 export class AuthModule { }
