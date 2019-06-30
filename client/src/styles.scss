@@ -4,13 +4,14 @@ html, body {
 }
 
 mat-card {
-    border-radius: 15px;
+    border-radius: 15px !important;
 }
 
 main {
-    height: calc(100vh - 64px);
     width: 100vw;
     overflow: auto;
+    background-color: #fafafa;
+    height: calc(100vh - 64px);
     @media (max-width: 599px) {
         height: calc(100vh - 56px);
     }
@@ -32,4 +33,10 @@ main {
 
 .logo-font {
     font-family: 'Dancing Script', cursive !important;
+}
+
+.group {
+    color: rgba(0,0,0,.54);
+    text-transform: uppercase;
+    font-weight: bold !important;
 }

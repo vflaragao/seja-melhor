@@ -13,18 +13,23 @@ import {
   MatListModule,
   MatSelectModule,
   MatSlideToggleModule,
+  MatRadioModule,
+  MatCheckboxModule,
+  MatPaginatorModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxMasonryModule } from 'ngx-masonry';
 
-import {
-  CollectionPointQRCodeComponent
-} from './dialogs';
+/* import {
+  
+} from './dialogs'; */
 
 import {
   MarkerComponent,
   GoalCardComponent,
   CampaignCardComponent,
   FoundationCardComponent,
+  UserContributionComponent,
   CollectPointCardComponent,
   ProgressIndicatorComponent,
   AuthCreationOptionsComponent
@@ -46,12 +51,16 @@ import {
     CommonModule,
     RouterModule,
 
+    /** Mansory */
+    NgxMasonryModule,
+
     /** Material */
     MatCardModule,
     MatIconModule,
     MatListModule,
     MatMenuModule,
     MatInputModule,
+    MatRadioModule,
     MatSelectModule,
     MatButtonModule,
     MatSlideToggleModule,
@@ -67,11 +76,12 @@ import {
     CampaignCardComponent,
     FoundationCardComponent,
     CollectPointCardComponent,
+    UserContributionComponent,
     ProgressIndicatorComponent,
     AuthCreationOptionsComponent,
-
+    
     /** Dialogs */
-    CollectionPointQRCodeComponent,
+    
 
     /** Pipes */
     ProductTypePipe,
@@ -81,12 +91,14 @@ import {
     ActionCategoryIconPipe,
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
-    AuthCreationOptionsComponent,
   ],
   exports: [
     FormsModule,
     CommonModule,
     RouterModule,
+
+    /** Mansory */
+    NgxMasonryModule,
 
     /** Flex */
     FlexLayoutModule,
@@ -97,9 +109,12 @@ import {
     MatIconModule,
     MatListModule,
     MatInputModule,
+    MatRadioModule,
     MatSelectModule,
     MatButtonModule,
     MatToolbarModule,
+    MatCheckboxModule,
+    MatPaginatorModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
 
@@ -108,12 +123,13 @@ import {
     GoalCardComponent,
     CampaignCardComponent,
     FoundationCardComponent,
+    UserContributionComponent,
     CollectPointCardComponent,
     ProgressIndicatorComponent,
     AuthCreationOptionsComponent,
 
     /** Dialogs */
-    CollectionPointQRCodeComponent,
+    
 
     /** Pipes */
     ProductTypePipe,

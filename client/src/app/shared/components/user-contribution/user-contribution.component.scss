@@ -1,0 +1,28 @@
+.icon-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #ffca28;
+    mat-icon {
+        color: #ffecb3;
+        font-size: 60px;
+        width: 60px;
+        height: 60px;
+    }
+}
+.value-container {
+    padding: 8px 13px;
+    border-radius: 17.5px;
+    margin-left: -24px;
+    font-weight: bold;
+    background-color: #fff;
+    color: rgba(0,0,0,.64);
+}
+h4 {
+    font-size: 13px;
+    margin-top: 8px;
+    font-weight: bold;
+    color: rgba(0,0,0,.54);
+    text-transform: uppercase;
+    text-align: center;
+}

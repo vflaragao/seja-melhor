@@ -1,0 +1,43 @@
+app-goal-card,
+app-campaign-card,
+app-foundation-card {
+    margin-bottom: 16px;
+}
+
+.search-container {
+    margin-bottom: 16px;
+    border-radius: 15px;
+    padding: 16px 16px;
+    background-color: #fff;
+    mat-icon {
+        color: rgba(0,0,0,.54);
+        margin-right: 16px;
+    }
+    input {
+        border: 0;
+        font-size: 14px;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.filter-container {
+    .section-title {
+        display: block;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 16px 0 6px;
+        color: rgba(0,0,0,.54);
+        text-transform: uppercase;
+    }
+    .filter-option {
+        margin: 6px;
+        font-size: 15px;
+        color: rgba(0,0,0,.64);
+    }
+}
+
+.result-container {
+    margin-right: -8px;
+}

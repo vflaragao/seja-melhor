@@ -1,0 +1,31 @@
+<main>
+  <div class="content">
+    <div fxLayout fxLayoutAlign="start center" class="search-container mat-elevation-z1">
+      <mat-icon>search</mat-icon>
+      <input fxFlex type="search" placeholder="Buscar">
+    </div>
+    <div fxLayout>
+      <div fxFlex="180px" class="filter-container">
+        <span class="mat-body-1 section-title">Filtros</span>
+        <mat-radio-group fxLayout="column">
+          <mat-radio-button class="filter-option">Instituições</mat-radio-button>
+          <mat-radio-button class="filter-option">Metas</mat-radio-button>
+          <mat-radio-button class="filter-option">Campanhas</mat-radio-button>
+        </mat-radio-group>
+        <span class="mat-body-1 section-title">Tipo doação</span>
+        <div fxLayout="column">
+          <mat-checkbox class="filter-option" *ngFor="let type of productTypes">{{type | productType}}</mat-checkbox>
+        </div>
+      </div>
+      <div class="result-container" fxLayout="row wrap" fxLayoutGap="8px">
+        <app-goal-card *ngFor="let _ of [1, 2, 3, 4, 5, 6]" fxFlex.xs fxFlex.sm="calc(50% - 8px)"
+          fxFlex.md="calc(33% - 8px)" fxFlex.gt-md="calc(25% - 8px)">
+        </app-goal-card>
+      </div>
+    </div>
+    <div fxLayout fxLayoutAlign="end">
+      <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
+  </div>
+</main>
