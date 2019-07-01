@@ -5,13 +5,15 @@ export enum ProductType {
     FOOD = 'FOOD',
     REMEDY = 'REMEDY',
     CLOTHE = 'CLOTHE',
+    CLEANING_MATERIAL = 'CLEANING_MATERIAL'
 }
 
 export const ProductTypeValues = [
     ProductType.TOY,
     ProductType.FOOD,
     ProductType.REMEDY,
-    ProductType.CLOTHE
+    ProductType.CLOTHE,
+    ProductType.CLEANING_MATERIAL,
 ];
 
 export interface Product extends Document {
