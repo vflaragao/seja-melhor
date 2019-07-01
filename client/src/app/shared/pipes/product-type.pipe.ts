@@ -17,6 +17,8 @@ export class ProductTypePipe implements PipeTransform {
         return 'Remédio';
       case ProductType.CLOTHE:
         return 'Roupa';
+      case ProductType.CLEANING_MATERIAL:
+        return 'Material de limpeza';
     }
   }
 

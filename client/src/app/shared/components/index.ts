@@ -1,4 +1,5 @@
 export * from './marker/marker.component';
+export * from './content/content.component';
 export * from './goal-card/goal-card.component';
 export * from './campaign-card/campaign-card.component';
 export * from './foundation-card/foundation-card.component';

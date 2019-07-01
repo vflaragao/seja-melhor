@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./search/search.module').then(mod => mod.SearchModule),
   },
   {
+    path: 'foundations',
+    loadChildren: () => import('./foundations/foundations.module').then(mod => mod.FoundationsModule),
+  },
+  {
     path: '',
     loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
   }

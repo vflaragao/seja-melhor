@@ -7,15 +7,16 @@ import {
   MatMenuModule,
   MatIconModule,
   MatInputModule,
-  MatButtonModule,
-  MatToolbarModule,
-  MatBottomSheetModule,
   MatListModule,
-  MatSelectModule,
-  MatSlideToggleModule,
+  MatTabsModule,
   MatRadioModule,
+  MatButtonModule,
+  MatSelectModule,
+  MatToolbarModule,
   MatCheckboxModule,
   MatPaginatorModule,
+  MatSlideToggleModule,
+  MatBottomSheetModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
@@ -26,6 +27,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 
 import {
   MarkerComponent,
+  ContentComponent,
   GoalCardComponent,
   CampaignCardComponent,
   FoundationCardComponent,
@@ -58,6 +60,7 @@ import {
     MatCardModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
     MatMenuModule,
     MatInputModule,
     MatRadioModule,
@@ -72,6 +75,7 @@ import {
   declarations: [
     /** Components */
     MarkerComponent,
+    ContentComponent,
     GoalCardComponent,
     CampaignCardComponent,
     FoundationCardComponent,
@@ -108,6 +112,7 @@ import {
     MatMenuModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
@@ -120,6 +125,7 @@ import {
 
     /** Components */
     MarkerComponent,
+    ContentComponent,
     GoalCardComponent,
     CampaignCardComponent,
     FoundationCardComponent,

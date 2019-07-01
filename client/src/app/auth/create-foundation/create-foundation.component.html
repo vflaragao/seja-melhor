@@ -5,7 +5,7 @@
       <mat-card>
         <mat-card-content>
           <form #createFoundation="ngForm" (submit)="onSave()">
-            <span class="group-title">Informações básicas</span>
+            <span class="card-group">Informações básicas</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Nome</mat-label>
@@ -25,7 +25,7 @@
               </mat-form-field>
             </div>
     
-            <span class="group-title">Endereço</span>
+            <span class="card-group">Endereço</span>
             <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-md="16px">
               <mat-form-field fxFlex.lt-md fxFlex="120px" appearance="outline">
                 <mat-label>CEP</mat-label>
@@ -61,7 +61,7 @@
               </mat-form-field>
             </div>
 
-            <span class="group-title">Informações de funcionamento</span>
+            <span class="card-group">Informações de funcionamento</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Categoria</mat-label>
@@ -88,7 +88,7 @@
               <mat-slide-toggle name="weekend" [(ngModel)]="foundation.operatingInfo.weekend">Final de semana</mat-slide-toggle>
             </div>
     
-            <span class="group-title">Credenciais</span>
+            <span class="card-group">Credenciais</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>E-mail</mat-label>

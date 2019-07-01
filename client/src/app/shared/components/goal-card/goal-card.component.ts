@@ -32,6 +32,7 @@ export class GoalCardComponent implements OnInit {
       ProductType.FOOD,
       ProductType.REMEDY,
       ProductType.CLOTHE,
+      ProductType.CLEANING_MATERIAL,
     ];
   }
 

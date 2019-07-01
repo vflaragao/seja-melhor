@@ -17,6 +17,8 @@ export class ProductTypeColorPipe implements PipeTransform {
         return '#f44336';
       case ProductType.CLOTHE:
         return '#7e57c2';
+      case ProductType.CLEANING_MATERIAL:
+        return '#42a5f5';
     }
   }
 

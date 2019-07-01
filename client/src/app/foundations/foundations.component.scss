@@ -1,0 +1,54 @@
+mat-card {
+    padding: 0;
+}
+
+.foundation-content {
+    color: white;
+    .foundation-name {
+        margin: 0 0 8px;
+        font-weight: bold;
+        line-height: 20px;
+        max-height: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        white-space: normal;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .foundation-detail {
+        margin-top: 8px;
+    }
+}
+
+.foundation-container {
+    padding: 8px;
+    height: 155px;
+    border-radius: 15px;
+    > .foundation-category-icon {
+        width: 105px;
+        height: 105px;
+        margin-top: 24px;
+        border-radius: 50%;
+        font-size: 105px;
+        background-color: white;
+        padding: 16px;
+        border: 8px solid transparent;
+    }
+}
+.social-container {
+    padding-left: 160px;
+    span {
+        font-size: 11px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: rgba(0,0,0,.54);
+    }
+    mat-icon {
+        color: rgba(0,0,0,.54);
+    }
+}
+
+section {
+    margin: 24px 0;
+}
