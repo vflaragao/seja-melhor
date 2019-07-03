@@ -2,9 +2,9 @@ mat-card {
     padding: 0;
 }
 
-.campaign-content {
+.collect-point-content {
     color: rgba(0,0,0,.64);
-    .campaign-title {
+    .collect-point-title {
         margin: 0 0 4px;
         font-weight: bold;
         line-height: 20px;
@@ -16,7 +16,7 @@ mat-card {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
     }
-    .campaign-creator {
+    .collect-point-creator {
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 1;
@@ -28,34 +28,39 @@ mat-card {
             color: rgba(0, 0, 0, .48);
         }
     }
-    .campaign-detail {
-        margin-top: 8px;
-        p {
-            margin: 0;
-            font-style: italic;
-            &::before,
-            &::after {
-                content: '"'
-            }
+    .collect-point-target {
+        margin-top: 4px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        &::before {
+            content: 'para';
+            margin-right: 6px;
+            font-size: 13px;
+            color: rgba(0, 0, 0, .48);
         }
+    }
+    .collect-point-detail {
+        margin-top: 8px;
     }
 }
 
-.campaign-container {
+.collect-point-container {
     padding: 8px;
-    height: 175px;
+    height: 140px;
     border-radius: 15px;
-    background-color: #fff8e1;
-    > .campaign-category-icon {
+    background-color: #cfd8dc;
+    > .collect-point-category-icon {
         width: 105px;
         height: 105px;
-        margin-top: 44px;
+        margin-top: 14px;
         border-radius: 50%;
         font-size: 105px;
         background-color: white;
         padding: 16px;
         color: rgba(0,0,0,.54);
-        border: 8px solid #ffca28;
+        border: 8px solid #78909c;
     }
 }
 .social-container {
@@ -71,6 +76,33 @@ mat-card {
     }
 }
 
+.type-background {
+    border-radius: 15px;
+    background-color: rgba(0,0,0,.05);
+    > span {
+        padding: 0 16px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        color: rgba(0,0,0,.67);
+    }
+}
+
 section {
     margin: 24px 0 48px;
+}
+
+mat-tab-group {
+    padding: 0 8px;
+    border-radius: 15px;
+    background-color: #fff;
+}
+
+mat-card.table {
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.search-container {
+    padding: 8px 16px;
 }

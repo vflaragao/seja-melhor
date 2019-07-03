@@ -15,8 +15,6 @@ export class CollectPointCardComponent implements OnInit {
   constructor() {
     this.collectPoint = new CollectPointDTO;
     this.collectPoint.headOffice = true;
-    this.collectPoint.renewable = true;
-    this.collectPoint.renewalDay = 15;
     this.collectPoint.expiresAt = new Date();
     this.collectPoint.operatingInfo = {
       weekend: true,

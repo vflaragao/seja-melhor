@@ -1,0 +1,19 @@
+.mat-dialog-content {
+    padding-bottom: 24px;
+}
+.item-background {
+    border-radius: 15px;
+    background-color: rgba(0,0,0,.05);
+    padding: 8px 16px;
+    &:not(:first-of-type) {
+        margin-top: 4px;
+    }
+    > .product {
+        font-weight: bold;
+    }
+    > span {
+        font-size: 12px;
+        color: rgba(0,0,0,.67);
+        text-transform: uppercase;
+    }
+}

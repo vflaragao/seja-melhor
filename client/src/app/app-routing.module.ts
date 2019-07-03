@@ -19,9 +19,13 @@ const routes: Routes = [
     loadChildren: () => import('./campaigns/campaigns.module').then(mod => mod.CampaignsModule),
   },
   {
+    path: 'collectPoint',
+    loadChildren: () => import('./collect-point/collect-point.module').then(mod => mod.CollectPointModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
-  }
+  },
 ];
 
 @NgModule({

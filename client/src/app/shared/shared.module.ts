@@ -17,13 +17,15 @@ import {
   MatPaginatorModule,
   MatSlideToggleModule,
   MatBottomSheetModule,
+  MatTableModule,
+  MatDialogModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
 
-/* import {
-  
-} from './dialogs'; */
+import {
+  DonationStatusChangeComponent  
+} from './dialogs';
 
 import {
   MarkerComponent,
@@ -38,10 +40,12 @@ import {
 } from './components';
 
 import {
+  ItemUnitPipe,
   ProductTypePipe,
+  ActionCategoryPipe,
+  DonationStatusPipe,
   ProductTypeIconPipe,
   ProductTypeColorPipe,
-  ActionCategoryPipe,
   ActionCategoryIconPipe,
   ActionCategoryColorPipe,
   ActionCategoryBackgroundColorPipe,
@@ -64,6 +68,8 @@ import {
     MatMenuModule,
     MatInputModule,
     MatRadioModule,
+    MatTableModule,
+    MatDialogModule,
     MatSelectModule,
     MatButtonModule,
     MatSlideToggleModule,
@@ -85,11 +91,14 @@ import {
     AuthCreationOptionsComponent,
     
     /** Dialogs */
+    DonationStatusChangeComponent,
     
-
+    
     /** Pipes */
+    ItemUnitPipe,
     ProductTypePipe,
     ActionCategoryPipe,
+    DonationStatusPipe,
     ProductTypeIconPipe,
     ProductTypeColorPipe,
     ActionCategoryIconPipe,
@@ -115,6 +124,8 @@ import {
     MatTabsModule,
     MatInputModule,
     MatRadioModule,
+    MatTableModule,
+    MatDialogModule,
     MatSelectModule,
     MatButtonModule,
     MatToolbarModule,
@@ -135,11 +146,13 @@ import {
     AuthCreationOptionsComponent,
 
     /** Dialogs */
-    
+    DonationStatusChangeComponent,
 
     /** Pipes */
+    ItemUnitPipe,
     ProductTypePipe,
     ActionCategoryPipe,
+    DonationStatusPipe,
     ProductTypeIconPipe,
     ProductTypeColorPipe,
     ActionCategoryIconPipe,
@@ -147,7 +160,8 @@ import {
     ActionCategoryBackgroundColorPipe,
   ],
   entryComponents: [
-    AuthCreationOptionsComponent
+    AuthCreationOptionsComponent,
+    DonationStatusChangeComponent
   ]
 })
 export class SharedModule { }

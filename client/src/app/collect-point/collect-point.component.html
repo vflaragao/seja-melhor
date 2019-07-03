@@ -1,0 +1,81 @@
+<main>
+  <div class="content">
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout fxLayoutGap="48px" class="collect-point-container">
+          <mat-icon class="collect-point-category-icon">place</mat-icon>
+          <div class="collect-point-content" fxLayout="column" fxLayoutAlign="center">
+            <h3 class="mat-h3 collect-point-title">
+              {{collectPoint?.address.street}}, {{collectPoint?.address.number}} -
+              {{collectPoint?.address.district}} -
+              {{collectPoint?.address.city}}/{{collectPoint?.address.state}}
+            </h3>
+            <a class="collect-point-creator">{{collectPoint?.creator}}</a>
+            <a class="collect-point-target">{{collectPoint?.target}}</a>
+            <div class="collect-point-detail" fxLayout>
+              <app-content label="Válida até" [value]="collectPoint?.expiresAt | date:'dd/MM/yyyy'">
+              </app-content>
+            </div>
+          </div>
+        </div>
+        <div class="social-container" fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
+          <span fxFlex>doações arrecadações</span>
+          <div class="type-background" fxLayout fxLayoutAlign="space-between center" *ngFor="let stat of typeStats">
+            <app-progress-indicator [symbol]="stat.type | productTypeIcon" [color]="stat.type | productTypeColor"
+              [progress]="40">
+            </app-progress-indicator>
+            <span>{{stat.progress}}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <section>
+        <div fxLayout fxLayoutAlign="start center">
+            <h4 fxFlex class="mat-h4 group">Doações</h4>
+            <button mat-button color="primary">
+              <mat-icon>add</mat-icon>
+              Nova doação
+            </button>
+          </div>
+      <mat-tab-group class="mat-elevation-z1" *ngIf="!collectPoint?.headOffice">
+        <mat-tab label="Pendentes"></mat-tab>
+        <mat-tab label="Confirmadas"></mat-tab>
+        <mat-tab label="Enviadas"></mat-tab>
+        <mat-tab label="Entregues"></mat-tab>
+      </mat-tab-group>
+
+      <mat-card class="table">
+        <div class="search-container" fxLayout>
+          <mat-form-field floatLabel="never" fxFlex>
+            <input matInput type="search" placeholder="Pesquisar">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div fxLayout>
+          <table fxFlex mat-table [dataSource]="donations">
+              <ng-container matColumnDef="date">
+                <th fxFlex="200px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Data </th>
+                <td fxFlex="200px" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy HH:mm'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="donator">
+                <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Doador </th>
+                <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element">{{element.donator}}</td>
+              </ng-container>
+              <ng-container matColumnDef="products">
+                <th fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef> Qtd produtos </th>
+                <td fxLayoutAlign="end center" mat-cell *matCellDef="let element"> {{element.items.length}} </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th fxFlex="220px" fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef></th>
+                <td fxFlex="220px" fxLayoutAlign="end center" mat-cell *matCellDef="let element">
+                  <button mat-button color="primary">Confirmar</button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="donationColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: donationColumns;" (click)="onChangeStatus(row)"></tr>
+            </table>
+        </div>
+      </mat-card>
+    </section>
+  </div>
+</main>
