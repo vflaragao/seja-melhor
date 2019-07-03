@@ -8,6 +8,9 @@ mat-card-content {
     background-color: white;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    &.no-category {
+        padding-top: 16px;
+    }
 }
 mat-card-actions {
     padding: 0;

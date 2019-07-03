@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./foundations/foundations.module').then(mod => mod.FoundationsModule),
   },
   {
+    path: 'campaigns',
+    loadChildren: () => import('./campaigns/campaigns.module').then(mod => mod.CampaignsModule),
+  },
+  {
     path: '',
     loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
   }

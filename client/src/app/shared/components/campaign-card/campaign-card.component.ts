@@ -16,8 +16,6 @@ export class CampaignCardComponent implements OnInit {
   @Input()
   public showCategory: boolean = true;
   @Input()
-  public showIndicator: boolean = true;
-  @Input()
   public showAuthor: boolean = true;
 
   @Input()

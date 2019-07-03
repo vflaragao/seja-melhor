@@ -1,11 +1,4 @@
 <mat-card>
-  <app-progress-indicator
-    *ngIf="showIndicator"
-    class="progress"
-    symbol="star"
-    color="#ffca28"
-    [progress]="progress">
-  </app-progress-indicator>
   <app-marker
     *ngIf="showCategory"
     class="category"
@@ -13,10 +6,10 @@
     [color]="campaign?.category | actionCategoryColor"
     [backgroundColor]="campaign?.category | actionCategoryBackgroundColor">
   </app-marker>
-  <div fxLayout fxLayoutAlign="center center" class="author-image-container">
+  <div *ngIf="showCategory" fxLayout fxLayoutAlign="center center" class="author-image-container">
     <div class="author-image"></div>
   </div>
-  <mat-card-content>
+  <mat-card-content [class.no-category]="!showCategory">
     <div class="description-container">
       <h4 class="campaign-title">{{campaign?.title}}</h4>
       <a *ngIf="showAuthor" class="author-link" href="#">{{campaign?.creator}}</a>

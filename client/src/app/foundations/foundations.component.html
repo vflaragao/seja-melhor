@@ -54,7 +54,7 @@
       </mat-card-content>
     </mat-card>
     <section>
-      <div fxLayout>
+      <div fxLayout fxLayoutAlign="start center">
         <h4 fxFlex class="mat-h4 group">Pontos de coleta ativos</h4>
         <button mat-button color="primary">
           <mat-icon>add</mat-icon>
@@ -68,7 +68,7 @@
       </div>
     </section>
     <section>
-      <div fxLayout>
+      <div fxLayout fxLayoutAlign="start center">
         <h4 fxFlex class="mat-h4 group">Campanhas ativas</h4>
         <button mat-button color="primary">
           <mat-icon>add</mat-icon>
@@ -76,9 +76,9 @@
         </button>
       </div>
       <div fxLayout fxLayoutGap="16px">
-        <app-campaign-card></app-campaign-card>
-        <app-campaign-card></app-campaign-card>
-        <app-campaign-card></app-campaign-card>
+        <app-campaign-card [showCategory]="false" [showAuthor]="false"></app-campaign-card>
+        <app-campaign-card [showCategory]="false" [showAuthor]="false"></app-campaign-card>
+        <app-campaign-card [showCategory]="false" [showAuthor]="false"></app-campaign-card>
       </div>
     </section>
   </div>

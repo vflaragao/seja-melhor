@@ -14,6 +14,11 @@ export const ProductTypeValues = [
     ProductType.CLEANING_MATERIAL,
 ];
 
+export interface ProductTypeStatistics {
+    type: ProductType;
+    progress: number;
+}
+
 export interface Product {
     name: string;
     type: ProductType;

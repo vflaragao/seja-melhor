@@ -1,0 +1,66 @@
+<main>
+  <div class="content">
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout fxLayoutGap="48px" class="campaign-container">
+          <mat-icon class="campaign-category-icon">
+            {{campaign?.category | actionCategoryIcon}}</mat-icon>
+          <div class="campaign-content" fxLayout="column" fxLayoutAlign="center">
+            <h3 class="mat-h3 campaign-title">{{campaign?.title}}</h3>
+            <a class="campaign-creator">{{campaign?.creator.name}}</a>
+            <div class="campaign-detail" fxLayout fxLayoutGap="24px">
+              <p>{{campaign?.description}}</p>
+            </div>
+            <div class="campaign-detail" fxLayout fxLayoutGap="24px">
+              <app-content label="Duração" [value]="campaign?.ttl">
+              </app-content>
+              <app-content label="Válida até" [value]="campaign?.expiresAt | date:'dd/MM/yyyy'">
+              </app-content>
+            </div>
+          </div>
+        </div>
+        <div class="social-container" fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
+          <app-progress-indicator *ngFor="let stat of typeStats" [symbol]="stat.type | productTypeIcon"
+            [color]="stat.type | productTypeColor" [progress]="stat.progress">
+          </app-progress-indicator>
+          <span fxFlex></span>
+          <div *ngIf="containsSite" fxLayout fxLayoutAlign="start center">
+            <span>acesse nosso site</span>
+            <button mat-icon-button (click)="open(campaign.creator.site)">
+              <mat-icon>web</mat-icon>
+            </button>
+          </div>
+          <div *ngIf="containsSocialMedia" fxLayout fxLayoutAlign="start center">
+            <span>siga-nos nas redes sociais</span>
+            <button [fxShow]="campaign.creator.facebook" mat-icon-button
+              (click)="open(campaign.creator.facebook)">
+              <mat-icon svgIcon="facebook"></mat-icon>
+            </button>
+            <button [fxShow]="campaign.creator.instagram" mat-icon-button
+              (click)="open(campaign.creator.instagram)">
+              <mat-icon svgIcon="instagram"></mat-icon>
+            </button>
+            <button [fxShow]="campaign.creator.twitter" mat-icon-button
+              (click)="open(campaign.creator.twitter)">
+              <mat-icon svgIcon="twitter"></mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <section>
+      <div fxLayout fxLayoutAlign="start center">
+        <h4 fxFlex class="mat-h4 group">Pontos de coleta ativos</h4>
+        <button mat-button color="primary">
+          <mat-icon>add</mat-icon>
+          Novo ponto
+        </button>
+      </div>
+      <div fxLayout fxLayoutGap="16px">
+        <app-collect-point-card></app-collect-point-card>
+        <app-collect-point-card></app-collect-point-card>
+        <app-collect-point-card></app-collect-point-card>
+      </div>
+    </section>
+  </div>
+</main>

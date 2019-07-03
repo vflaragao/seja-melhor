@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FoundationService } from '@core/services';
-import { FoundationGetDTO, GoalStatistics } from '@models/foundation';
-import { ProductTypeValues } from '@models/product';
+import { FoundationService } from './foundation.service';
+
+import { ProductTypeValues, ProductTypeStatistics } from '@models/product';
+import { FoundationGetDTO } from '@models/foundation';
 
 @Component({
   selector: 'app-foundations',
@@ -14,7 +15,7 @@ export class FoundationsComponent implements OnInit {
   private loading: boolean;
 
   private foundation: FoundationGetDTO;
-  private currentGoalStats: GoalStatistics[];
+  private currentGoalStats: ProductTypeStatistics[];
 
   constructor(
     private foundationService: FoundationService

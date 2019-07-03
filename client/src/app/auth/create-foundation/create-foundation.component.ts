@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FoundationCreateDTO } from '@models/foundation';
 import { ActionCategory, ActionCategoryValues } from '@models/campaign';
-import { FoundationService } from '@core/services';
+import { FoundationService } from 'src/app/foundations/foundation.service';
 
 @Component({
   selector: 'app-create-foundation',

@@ -1,15 +1,9 @@
 import { ActionCategory } from './campaign';
 
-import { ProductType } from './product';
 import { Address } from './fields/address';
 import { Credentials } from './fields/credentials';
 import { Collaborator } from './fields/collaborator';
 import { OperatingInfo } from './fields/operating-info';
-
-export interface GoalStatistics {
-    type: ProductType;
-    progress: number;
-}
 
 export class FoundationCreateDTO {
     name: string;

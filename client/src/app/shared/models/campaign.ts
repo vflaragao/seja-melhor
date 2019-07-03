@@ -35,3 +35,19 @@ export class CampaignDTO {
     category: ActionCategory;
     authorization: Authorization;
 }
+
+export interface CampaignGetDTO {
+    title: string;
+    description: string;
+    ttl: number;
+    expiresAt: Date;
+    category: ActionCategory;
+    creator: {
+        name: string;
+        site?: string;
+        facebook?: string;
+        instagram?: string;
+        twitter?: string;
+    };
+    types: ProductType[];
+}
