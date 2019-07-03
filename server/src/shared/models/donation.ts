@@ -1,21 +1,22 @@
 import { Schema, Types } from 'mongoose';
+import { Item, ItemSchema } from './fields/item';
 
 export enum DonationStatus {
-    PENDENTE = 'PENDENTE',
-    EXPIRADO = 'EXPIRADO',
-    CANCELADO = 'CANCELADO',
-    DOADO = 'DOADO',
-    ENVIADO = 'ENVIADO',
-    ENTREGUE = 'ENTREGUE'
+    PENDING = 'PENDING',
+    EXPIRED = 'EXPIRED',
+    CANCELED = 'CANCELED',
+    DONATED = 'DONATED',
+    SENT = 'SENT',
+    RECEIVED = 'RECEIVED'
 }
 
 export const DonationStatusValues = [
-    DonationStatus.PENDENTE,
-    DonationStatus.EXPIRADO,
-    DonationStatus.CANCELADO,
-    DonationStatus.DOADO,
-    DonationStatus.ENVIADO,
-    DonationStatus.ENTREGUE
+    DonationStatus.PENDING,
+    DonationStatus.DONATED,
+    DonationStatus.SENT,
+    DonationStatus.RECEIVED,
+    DonationStatus.CANCELED,
+    DonationStatus.EXPIRED,
 ];
 
 export interface Donation {
@@ -23,6 +24,7 @@ export interface Donation {
     target: string;
     targetSource: string;
     collectPoint: string;
+    items: Item[];
     status: DonationStatus;
     expiresAt: Date;
 }
@@ -47,6 +49,10 @@ export const DonationSchema = new Schema({
         type: Types.ObjectId,
         required: true,
         ref: 'CollectPoint'
+    },
+    items: {
+        type: [ItemSchema],
+        required: true
     },
     status: {
         type: String,
