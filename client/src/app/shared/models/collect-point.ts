@@ -3,6 +3,7 @@ import { Authorization } from './fields/authorization';
 import { OperatingInfo } from './fields/operating-info';
 
 export interface CollectPointGetDTO {
+    _id: string;
     target: string;
     creator: string;
     address: Address;

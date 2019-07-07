@@ -26,10 +26,12 @@
             </div>
     
             <span class="card-group">Endereço</span>
-            <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-md="16px">
+            <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
               <mat-form-field fxFlex.lt-md fxFlex="120px" appearance="outline">
                 <mat-label>CEP</mat-label>
-                <input matInput name="cep" [(ngModel)]="foundation.address.cep" mask="00000-000" required>
+                <input matInput name="cep" [(ngModel)]="foundation.address.cep" mask="00000-000"
+                  (keyup)="cep.next()" required>
+                <mat-spinner matSuffix [diameter]="20" [fxShow]="isLoadingAddress" color="primary"></mat-spinner>
               </mat-form-field>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Cidade</mat-label>
@@ -40,7 +42,7 @@
                 <input matInput name="state" [(ngModel)]="foundation.address.state" required>
               </mat-form-field>
             </div>
-            <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-md="16px">
+            <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
               <mat-form-field fxFlex.lt-md fxFlex="200px" appearance="outline">
                 <mat-label>Bairro</mat-label>
                 <input matInput name="district" [(ngModel)]="foundation.address.district" required>
@@ -98,13 +100,7 @@
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Senha</mat-label>
-                <input matInput name="password" type="password" [(ngModel)]="foundation.credentials.password">
-              </mat-form-field>
-            </div>
-            <div fxLayout>
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label>Confirmar senha</mat-label>
-                <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass">
+                <input matInput name="password" type="password" [(ngModel)]="foundation.credentials.password" required>
               </mat-form-field>
             </div>
             <div fxLayout>

@@ -6,8 +6,11 @@
     color="white"
     backgroundColor="#66bb6a">
   </app-marker>
-  <div fxLayout fxLayoutAlign="center center" class="author-image-container">
-    <div class="author-image"></div>
+  <div
+    *ngIf="showCategory"
+    fxLayout fxLayoutAlign="center center"
+    class="goal-category-container">
+    <mat-icon class="goal-category-icon">{{goal?.category | actionCategoryIcon}}</mat-icon>
   </div>
   <mat-card-content>
     <h4 class="goal-title">Meta mensal #3</h4>

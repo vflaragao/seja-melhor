@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PublicGuard } from '@core/public.guard';
+
 const routes: Routes = [
   {
     path: 'auth',
+    canActivate: [PublicGuard],
     loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule)
   },
   {
@@ -23,8 +26,8 @@ const routes: Routes = [
     loadChildren: () => import('./collect-point/collect-point.module').then(mod => mod.CollectPointModule)
   },
   {
-    path: '',
-    loadChildren: () => import('./main/main.module').then(mod => mod.MainModule)
+    path: 'users',
+    loadChildren: () => import('./users/users.module').then(mod => mod.MainModule)
   },
 ];
 

@@ -26,13 +26,10 @@
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Senha</mat-label>
-                <input matInput name="password" type="password" [(ngModel)]="user.password" required>
-              </mat-form-field>
-            </div>
-            <div fxLayout>
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label>Confirmar senha</mat-label>
-                <input matInput name="confirmPass" type="password" [(ngModel)]="confirmPass" required>
+                <input matInput name="password" [type]="passType" [(ngModel)]="user.password" required>
+                <button type="button" matSuffix mat-icon-button (click)="toggleVisibility()">
+                  <mat-icon>{{passIcon}}</mat-icon>
+                </button>
               </mat-form-field>
             </div>
             <div fxLayout>

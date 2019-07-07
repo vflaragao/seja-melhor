@@ -9,6 +9,4 @@ export class CampaignsService {
   constructor(
     private http: HttpClient
   ) { }
-
-  
 }

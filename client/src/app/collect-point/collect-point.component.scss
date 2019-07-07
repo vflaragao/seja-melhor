@@ -5,7 +5,7 @@ mat-card {
 .collect-point-content {
     color: rgba(0,0,0,.64);
     .collect-point-title {
-        margin: 0 0 4px;
+        margin: 0;
         font-weight: bold;
         line-height: 20px;
         max-height: 40px;
@@ -17,6 +17,7 @@ mat-card {
         -webkit-box-orient: vertical;
     }
     .collect-point-creator {
+        margin-top: 8px;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 1;
@@ -29,7 +30,9 @@ mat-card {
         }
     }
     .collect-point-target {
-        margin-top: 4px;
+        color: rgba(0,0,0,.64);
+        font-size: 15px;
+        font-weight: bold;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 1;
@@ -37,7 +40,7 @@ mat-card {
         &::before {
             content: 'para';
             margin-right: 6px;
-            font-size: 13px;
+            font-size: 14px;
             color: rgba(0, 0, 0, .48);
         }
     }
@@ -94,12 +97,12 @@ section {
 
 mat-tab-group {
     padding: 0 8px;
+    margin-bottom: 8px;
     border-radius: 15px;
     background-color: #fff;
 }
 
 mat-card.table {
-    margin-top: 8px;
     overflow: hidden;
 }
 

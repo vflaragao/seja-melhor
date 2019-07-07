@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FoundationService } from './foundation.service';
+import { FoundationsService } from './foundations.service';
 
 import { ProductTypeValues, ProductTypeStatistics } from '@models/product';
 import { FoundationGetDTO } from '@models/foundation';
@@ -18,7 +18,7 @@ export class FoundationsComponent implements OnInit {
   private currentGoalStats: ProductTypeStatistics[];
 
   constructor(
-    private foundationService: FoundationService
+    private foundationService: FoundationsService
   ) {
     this.currentGoalStats = ProductTypeValues.map(type => ({
       type, progress: 30

@@ -3,18 +3,27 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared/shared.module';
 
-import { MainComponent } from './main.component';
+import { UsersComponent } from './users.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    children: [
+      {
+        path: ':id',
+        component: UsersComponent
+      },
+      {
+        path: '',
+        component: UsersComponent
+      },
+    ]
   }
 ]
 
 @NgModule({
   declarations: [
-    MainComponent
+    UsersComponent
   ],
   imports: [
     SharedModule,

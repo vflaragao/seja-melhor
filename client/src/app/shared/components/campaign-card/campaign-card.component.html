@@ -6,8 +6,11 @@
     [color]="campaign?.category | actionCategoryColor"
     [backgroundColor]="campaign?.category | actionCategoryBackgroundColor">
   </app-marker>
-  <div *ngIf="showCategory" fxLayout fxLayoutAlign="center center" class="author-image-container">
-    <div class="author-image"></div>
+  <div
+    *ngIf="showCategory"
+    fxLayout fxLayoutAlign="center center"
+    class="campaign-category-container">
+    <mat-icon class="campaign-category-icon">{{campaign?.category | actionCategoryIcon}}</mat-icon>
   </div>
   <mat-card-content [class.no-category]="!showCategory">
     <div class="description-container">

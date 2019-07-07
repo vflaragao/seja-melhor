@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatCardModule,
   MatMenuModule,
@@ -19,18 +20,30 @@ import {
   MatBottomSheetModule,
   MatTableModule,
   MatDialogModule,
+  MatStepperModule,
+  MatDividerModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import {
-  DonationStatusChangeComponent  
+  UpdateUserComponent,
+  RegisterGoalComponent,
+  RegisterCampaignComponent,
+  RegisterDonationComponent,
+  UpdateFoundationComponent,
+  CollectPointQRCodeComponent,
+  RegisterCollectPointComponent,
+  DonationStatusChangeComponent,
 } from './dialogs';
 
 import {
   MarkerComponent,
   ContentComponent,
   GoalCardComponent,
+  EmptyMarkComponent,
   CampaignCardComponent,
   FoundationCardComponent,
   UserContributionComponent,
@@ -56,6 +69,7 @@ import {
     FormsModule,
     CommonModule,
     RouterModule,
+    ReactiveFormsModule,
 
     /** Mansory */
     NgxMasonryModule,
@@ -72,17 +86,24 @@ import {
     MatDialogModule,
     MatSelectModule,
     MatButtonModule,
+    MatDividerModule,
+    MatStepperModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
+    MatProgressSpinnerModule,
 
     /** Flex */
-    FlexLayoutModule
+    FlexLayoutModule,
+    
+    /** QRCode */
+    QRCodeModule,
   ],
   declarations: [
     /** Components */
     MarkerComponent,
     ContentComponent,
     GoalCardComponent,
+    EmptyMarkComponent,
     CampaignCardComponent,
     FoundationCardComponent,
     CollectPointCardComponent,
@@ -91,8 +112,14 @@ import {
     AuthCreationOptionsComponent,
     
     /** Dialogs */
+    UpdateUserComponent,
+    RegisterGoalComponent,
+    UpdateFoundationComponent,
+    RegisterCampaignComponent,
+    RegisterDonationComponent,
+    CollectPointQRCodeComponent,
+    RegisterCollectPointComponent,
     DonationStatusChangeComponent,
-    
     
     /** Pipes */
     ItemUnitPipe,
@@ -109,6 +136,8 @@ import {
     FormsModule,
     CommonModule,
     RouterModule,
+    HttpClientModule,
+    ReactiveFormsModule,
 
     /** Mansory */
     NgxMasonryModule,
@@ -128,24 +157,35 @@ import {
     MatDialogModule,
     MatSelectModule,
     MatButtonModule,
+    MatDividerModule,
     MatToolbarModule,
+    MatStepperModule,
     MatCheckboxModule,
     MatPaginatorModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
+    MatProgressSpinnerModule,
 
     /** Components */
     MarkerComponent,
     ContentComponent,
     GoalCardComponent,
+    EmptyMarkComponent,
     CampaignCardComponent,
     FoundationCardComponent,
-    UserContributionComponent,
     CollectPointCardComponent,
+    UserContributionComponent,
     ProgressIndicatorComponent,
     AuthCreationOptionsComponent,
-
+    
     /** Dialogs */
+    UpdateUserComponent,
+    RegisterGoalComponent,
+    UpdateFoundationComponent,
+    RegisterCampaignComponent,
+    RegisterDonationComponent,
+    CollectPointQRCodeComponent,
+    RegisterCollectPointComponent,
     DonationStatusChangeComponent,
 
     /** Pipes */
@@ -158,10 +198,15 @@ import {
     ActionCategoryIconPipe,
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
+
+    /** QRCode */
+    QRCodeModule,
   ],
   entryComponents: [
+    RegisterDonationComponent,
+    CollectPointQRCodeComponent,
     AuthCreationOptionsComponent,
-    DonationStatusChangeComponent
+    DonationStatusChangeComponent,
   ]
 })
 export class SharedModule { }

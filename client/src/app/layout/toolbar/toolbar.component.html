@@ -1,8 +1,44 @@
 <mat-toolbar
   color="primary"
   fxLayout fxLayoutGap="8px">
-  <h1 class="logo-font">Seja Melhor</h1>
+  <a [routerLink]="defaultRoute" class="logo-font">Seja Melhor</a>
   <span fxFlex></span>
-  <button mat-button>Nossa missão</button>
-  <button mat-stroked-button routerLink="/auth/login">Entrar</button>
+  <ng-container *ngIf="!logged; else manager">
+    <button mat-button routerLink="/search">Encontrar causa</button>
+    <button mat-stroked-button routerLink="/auth/login">Entrar</button>
+  </ng-container>
+  <ng-template #manager>
+      <button mat-button [matMenuTriggerFor]="menu">
+        Minha conta
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <ng-container *ngIf="containsUser">
+          <h3 class="menu-group mat-body-1">Usuário</h3>
+          <button mat-menu-item *ngFor="let acc of accounts" (click)="onChangeProfile(acc._id)">
+            <mat-icon class="selected-account" *ngIf="acc._id === logged._id">check</mat-icon>
+            {{acc.name}}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="containsFoundation">
+          <h3 class="menu-group mat-body-1">Instituições</h3>
+          <button mat-menu-item *ngFor="let acc of accounts" (click)="onChangeProfile(acc._id)">{{acc.name}}</button>
+        </ng-container>
+        <mat-divider></mat-divider>
+        <h3 class="menu-group mat-body-1">Gerenciamento</h3>
+        <button *ngIf="hasMultiAccounts" mat-menu-item (click)="onLogout()">
+          <mat-icon>group</mat-icon>
+          Definir conta padrão
+        </button>
+        <button mat-menu-item (click)="onLogout()">
+          <mat-icon>loop</mat-icon>
+          Alterar senha
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="onLogout()">
+          <mat-icon>exit_to_app</mat-icon>
+          Sair
+        </button>
+      </mat-menu>
+  </ng-template>
 </mat-toolbar>

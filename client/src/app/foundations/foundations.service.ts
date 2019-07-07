@@ -6,13 +6,13 @@ import { delay } from 'rxjs/operators';
 
 import { environment } from '@env/environment';
 
-import { FoundationCreateDTO, FoundationGetDTO } from '@models/foundation';
 import { ActionCategory } from '@models/campaign';
+import { FoundationCreateDTO, FoundationGetDTO } from '@models/foundation';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FoundationService {
+export class FoundationsService {
 
   constructor(
     private http: HttpClient
@@ -103,6 +103,7 @@ export class FoundationService {
   }
 
   save(foundation: FoundationCreateDTO) {
+    foundation.email = foundation.credentials.email;
     return this.http.post<FoundationGetDTO>(`${environment.API_BASE}/foundations`, foundation).toPromise();
   }
 }

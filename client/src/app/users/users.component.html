@@ -1,0 +1,71 @@
+<main>
+    <div class="content">
+        <div *ngIf="isOwner" fxLayout fxLayoutAlign="start center">
+            <h3 class="mat-h3" fxFlex>OLÁ, {{user?.name}}</h3>
+            <button mat-button color="primary">
+                <mat-icon>edit</mat-icon>
+                Editar Perfil
+            </button>
+        </div>
+        <mat-card fxLayout>
+            <app-user-contribution icon="favorite" label="Ajuda em Meta" fxFlex></app-user-contribution>
+            <app-user-contribution icon="group" label="Ajuda em Campanha" fxFlex></app-user-contribution>
+            <app-user-contribution icon="add_location" label="Ponto de Coleta Próprio" fxFlex></app-user-contribution>
+            <app-user-contribution icon="group_add" label="Campanha Própria" fxFlex></app-user-contribution>
+        </mat-card>
+        <section>
+            <div *ngIf="isOwner; else collectPoint" fxLayout fxLayoutAlign="start center">
+                <h4 fxFlex class="mat-h4 group">Meus Pontos de Coleta</h4>
+                <button mat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                    Novo ponto
+                </button>
+            </div>
+            <ng-template #collectPoint>
+                <div fxLayout>
+                    <h4 fxFlex class="mat-h4 group">Pontos de Coleta</h4>
+                </div>
+            </ng-template>
+            <mat-tab-group class="mat-elevation-z1">
+                <mat-tab label="Ativos"></mat-tab>
+                <mat-tab label="Pendentes"></mat-tab>
+            </mat-tab-group>
+            <div fxLayout fxLayoutGap="16px">
+                <ng-container *ngIf="hasCollectPoints; else emptyCollectPoints">
+                    <app-collect-point-card *ngFor="let collectPoint of collectPoints">
+                    </app-collect-point-card>
+                </ng-container>
+                <ng-template #emptyCollectPoints>
+                    <app-empty-mark fxFlex></app-empty-mark>
+                </ng-template>
+            </div>
+        </section>
+        <section>
+            <div *ngIf="isOwner; else campaign" fxLayout fxLayoutAlign="start center">
+                <h4 fxFlex class="mat-h4 group">Minhas Campanhas</h4>
+                <button mat-button color="primary">
+                    <mat-icon>add</mat-icon>
+                    Nova campanha
+                </button>
+            </div>
+            <ng-template #campaign>
+                <div fxLayout>
+                    <h4 fxFlex class="mat-h4 group">Campanhas</h4>
+                </div>
+            </ng-template>
+            <mat-tab-group class="mat-elevation-z1">
+                <mat-tab label="Ativos"></mat-tab>
+                <mat-tab label="Pendentes"></mat-tab>
+            </mat-tab-group>
+            <div fxLayout fxLayoutGap="16px">
+                <ng-container *ngIf="hasCampaigns; else emptyCampaigns">
+                    <app-campaign-card [showAuthor]="false" *ngFor="let campaign of campaigns">
+                    </app-campaign-card>
+                </ng-container>
+                <ng-template #emptyCampaigns>
+                    <app-empty-mark fxFlex></app-empty-mark>
+                </ng-template>
+            </div>
+        </section>
+    </div>
+</main>

@@ -2,13 +2,13 @@
   Mudança de status da doação
 </div>
 <div mat-dialog-content>
-  <p class="mat-body-1">Você realmente deseja mudar o status desta doação para <strong>{{data.targetStatus | donationStatus}}</strong>?</p>
+  <p class="mat-body-1">Você realmente deseja <strong>{{data.targetStatus | donationStatus:true}}</strong> esta doação?</p>
   <div class="item-background" fxLayout fxLayoutAlign="start center" *ngFor="let item of data.items">
     <span fxFlex class="product mat-body-1">{{item.product}}</span>
     <span class="mat-body-1">{{item.quantity}} {{item.unit | itemUnit}}</span>
   </div>
 </div>
 <div mat-dialog-actions fxLayout fxLayoutAlign="end center">
-  <button mat-button mat-close-dialog>Não</button>
+  <button tabindex="-1" mat-button mat-close-dialog>Não</button>
   <button mat-button [color]="colorAction">Sim</button>
 </div>

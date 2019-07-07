@@ -1,0 +1,11 @@
+.empty-container {
+    padding: 24px;
+    > .empty-image {
+        width: 100%;
+        height: 250px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('/assets/empty_list.svg')
+    }
+}

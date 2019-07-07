@@ -4,25 +4,31 @@
       <h1 class="logo-font">Seja Melhor</h1>
       <mat-card>
         <mat-card-content>
-          <form #login>
+          <form #login="ngForm" (submit)="onAuth()">
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
-                <input matInput name="email" type="email" [(ngModel)]="email" placeholder="E-mail">
+                <input matInput name="email" type="email"
+                  [(ngModel)]="credentials.email" placeholder="E-mail" required>
               </mat-form-field>
             </div>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
-                <input matInput name="password" type="password" [(ngModel)]="password" placeholder="Senha">
+                <input matInput name="password" type="password"
+                  [(ngModel)]="credentials.password" placeholder="Senha" required>
               </mat-form-field>
             </div>
             <div fxLayout>
-              <button fxFlex mat-raised-button color="primary">Entrar</button>
+              <button type="submit"fxFlex mat-raised-button color="primary"
+                [disabled]="!login.form.valid">Entrar</button>
             </div>
             <div class="divider" fxLayout>
               <span>ou</span>
             </div>
             <div fxLayout>
-              <button fxFlex mat-button color="primary" (click)="onCreate()">Não tenho conta, quero criar!</button>
+              <button type="button" fxFlex
+                mat-button color="primary" (click)="onCreate()">
+                Não tenho conta, quero criar!
+              </button>
             </div>
           </form>
         </mat-card-content>

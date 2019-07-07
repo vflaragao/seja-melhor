@@ -10,8 +10,8 @@
               {{collectPoint?.address.district}} -
               {{collectPoint?.address.city}}/{{collectPoint?.address.state}}
             </h3>
-            <a class="collect-point-creator">{{collectPoint?.creator}}</a>
             <a class="collect-point-target">{{collectPoint?.target}}</a>
+            <a class="collect-point-creator">{{collectPoint?.creator}}</a>
             <div class="collect-point-detail" fxLayout>
               <app-content label="Válida até" [value]="collectPoint?.expiresAt | date:'dd/MM/yyyy'">
               </app-content>
@@ -30,13 +30,23 @@
       </mat-card-content>
     </mat-card>
     <section>
-        <div fxLayout fxLayoutAlign="start center">
-            <h4 fxFlex class="mat-h4 group">Doações</h4>
-            <button mat-button color="primary">
-              <mat-icon>add</mat-icon>
-              Nova doação
-            </button>
-          </div>
+      <div fxLayout fxLayoutAlign="start center">
+        <h4 fxFlex class="mat-h4 group">Doações</h4>
+        <button mat-button color="primary" [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+          Ações
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onNewDonation()">
+            <mat-icon>add</mat-icon>
+            Nova doação
+          </button>
+          <button mat-menu-item (click)="onQRCode()">
+            <mat-icon svgIcon="qrcode-scan"></mat-icon>
+            Visualizar QR Code
+          </button>
+        </mat-menu>
+      </div>
       <mat-tab-group class="mat-elevation-z1" *ngIf="!collectPoint?.headOffice">
         <mat-tab label="Pendentes"></mat-tab>
         <mat-tab label="Confirmadas"></mat-tab>
@@ -53,27 +63,28 @@
         </div>
         <div fxLayout>
           <table fxFlex mat-table [dataSource]="donations">
-              <ng-container matColumnDef="date">
-                <th fxFlex="200px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Data </th>
-                <td fxFlex="200px" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy HH:mm'}} </td>
-              </ng-container>
-              <ng-container matColumnDef="donator">
-                <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Doador </th>
-                <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element">{{element.donator}}</td>
-              </ng-container>
-              <ng-container matColumnDef="products">
-                <th fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef> Qtd produtos </th>
-                <td fxLayoutAlign="end center" mat-cell *matCellDef="let element"> {{element.items.length}} </td>
-              </ng-container>
-              <ng-container matColumnDef="actions">
-                <th fxFlex="220px" fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef></th>
-                <td fxFlex="220px" fxLayoutAlign="end center" mat-cell *matCellDef="let element">
-                  <button mat-button color="primary">Confirmar</button>
-                </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="donationColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: donationColumns;" (click)="onChangeStatus(row)"></tr>
-            </table>
+            <ng-container matColumnDef="date">
+              <th fxFlex="200px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Data </th>
+              <td fxFlex="200px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                {{element.createdAt | date:'dd/MM/yyyy HH:mm'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="donator">
+              <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Doador </th>
+              <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element">{{element.donator}}</td>
+            </ng-container>
+            <ng-container matColumnDef="products">
+              <th fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef> Qtd produtos </th>
+              <td fxLayoutAlign="end center" mat-cell *matCellDef="let element"> {{element.items.length}} </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th fxFlex="220px" fxLayoutAlign="end center" mat-header-cell *matHeaderCellDef></th>
+              <td fxFlex="220px" fxLayoutAlign="end center" mat-cell *matCellDef="let element">
+                <button mat-button color="primary">Confirmar</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="donationColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: donationColumns;" (click)="onChangeStatus(row)"></tr>
+          </table>
         </div>
       </mat-card>
     </section>

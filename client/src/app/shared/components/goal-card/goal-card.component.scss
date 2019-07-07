@@ -19,23 +19,20 @@ mat-card-actions {
     left: 4px;
     position: absolute;
 }
-.author-image-container {
-    background-color: #fce4ec;
+.goal-category-container {
+    background-color: #f8bbd0;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    > .author-image {
-        padding: 16px;
-        margin-top: 16px;
+    > .goal-category-icon {
         width: 105px;
         height: 105px;
         border-radius: 50%;
-        background-color: #FFF;
-        border: 8px solid #ec407a;
-        background-repeat: no-repeat;
-        background-origin: content-box;
-        background-size: contain;
-        background-position: center;
-        background-image: url(/assets/test.webp);
+        font-size: 105px;
+        background-color: white;
+        padding: 16px;
+        margin-top: 16px;
+        color: rgba(0,0,0,.54);
+        border: 8px solid #e91e63;
     }
 }
 .goal-title {

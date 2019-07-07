@@ -1,0 +1,28 @@
+<div fxLayout fxLayoutAlign="space-between center" mat-dialog-title>
+  <span>QR code</span>
+  <button tabindex="-1" mat-icon-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <div class="description-container" fxLayout>
+    <p class="mat-caption">
+      Ao ler este QR Code, serão confirmadas automaticamente todas doações realizadas 
+      por um usuário para este ponto de coleta. Caso não haja nenhuma, este será redirecionado para esta página, 
+      onde poderá registrar suas doações.
+    </p>
+  </div>
+  <div class="qr-container" fxLayout fxLayoutAlign="center center">
+    <qrcode [qrdata]="id" [size]="128" [level]="'M'"></qrcode>
+  </div>
+</div>
+<div mat-dialog-actions fxLayout>
+  <button
+    fxFlex
+    color="primary"
+    mat-raised-button
+    (click)="onPrint()">
+    <mat-icon>print</mat-icon>
+    Imprimir
+  </button>
+</div>

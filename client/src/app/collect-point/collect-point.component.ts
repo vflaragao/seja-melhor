@@ -5,7 +5,12 @@ import { ItemUnit } from '@models/fields/item';
 import { DonationStatus } from '@models/donation';
 import { CollectPointGetDTO } from '@models/collect-point';
 import { ProductTypeStatistics, ProductTypeValues } from '@models/product';
-import { DonationStatusChangeComponent, StatusChangeData } from '@dialogs/index';
+import {
+  StatusChangeData,
+  RegisterDonationComponent,
+  CollectPointQRCodeComponent,
+  DonationStatusChangeComponent,
+} from '@dialogs/index';
 
 @Component({
   selector: 'app-collect-point',
@@ -25,6 +30,7 @@ export class CollectPointComponent implements OnInit {
     private _dialog: MatDialog
   ) {
     this.collectPoint = {
+      _id: 'xpto',
       target: 'Julho beneficente em prol da APIPA',
       operatingInfo: {
         startTime: new Date(),
@@ -110,5 +116,15 @@ export class CollectPointComponent implements OnInit {
       targetStatus: DonationStatus.DONATED
     };
     const result = this._dialog.open(DonationStatusChangeComponent, { data });
+  }
+
+  onNewDonation() {
+    const data = this.collectPoint._id;
+    const ref = this._dialog.open(RegisterDonationComponent, { data } );
+  }
+
+  onQRCode() {
+    const data = this.collectPoint._id;
+    const ref = this._dialog.open(CollectPointQRCodeComponent, { data } );
   }
 }

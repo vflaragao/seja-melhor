@@ -4,3 +4,10 @@ export class Credentials {
     
     constructor () {}
 }
+
+export class UpdatePassword {
+    newPassword: string;
+    currentPassword: string;
+
+    constructor() {}
+}
