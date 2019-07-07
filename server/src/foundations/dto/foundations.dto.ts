@@ -1,3 +1,5 @@
+import { IsString, IsEmail, IsPhoneNumber } from 'class-validator';
+
 import { Address } from '@models/fields/address';
 import { ActionCategory } from '@models/foundation';
 import { Credentials } from '@models/fields/credentials';
@@ -5,12 +7,18 @@ import { Collaborator } from '@models/fields/collaborator';
 import { OperatingInfo } from '@models/fields/operating-info';
 
 export class FoundationCreateDTO {
+
+    @IsString()
     name: string;
+    @IsString()
     cnpj: string;
+    @IsEmail()
     email: string;
+    @IsPhoneNumber('BR')
     phone: string;
-    address: Address;
+    @IsString()
     category: ActionCategory;
+    address: Address;
     credentials: Credentials;
     operatingInfo: OperatingInfo;
 }

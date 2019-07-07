@@ -87,7 +87,7 @@ const FoundationSchema = new Schema({
 });
 
 FoundationSchema.methods.asAccount = function(user: User) {
-    const collaborator: Collaborator = this.users.find(col => col.user === user._id);
+    const collaborator: Collaborator = this.users.find(col => user._id.equals(col.user));
     const defaultAccount = user.institutional ? this._id : this._id === user.defaultAccount;
     return {
         user: user._id,

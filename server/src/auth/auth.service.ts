@@ -24,7 +24,7 @@ export class AuthService {
             throw new UnauthorizedException('Credenciais inválidas');
         } else if (
             user.institutional ||
-            !!user.defaultAccount && (user.defaultAccount !== user._id)
+            (!!user.defaultAccount && (user.defaultAccount !== user._id))
         ) {
             const foundation = await this.foundationService.getByUser(user._id);
             selectedAccount = foundation.asAccount(user);
@@ -32,6 +32,19 @@ export class AuthService {
             selectedAccount = user.asAccount();
         }
         return this.jwtService.sign(selectedAccount);
+    }
+
+    async getAccount(id: Types.ObjectId) {
+        const user = await this.userService.get(id);
+        if (!user) {
+            throw new NotFoundException('Usuário não encontrado');
+        }
+        let selectedAccount = user.asAccount();
+        if (!selectedAccount) {
+            const foundation = await this.foundationService.getByUser(id);
+            selectedAccount = foundation.asAccount(user);
+        }
+        return selectedAccount;
     }
 
     async listAccounts(id: Types.ObjectId) {
@@ -55,7 +68,7 @@ export class AuthService {
 
     async changeSelectedAccount(account: Account, accountID: Types.ObjectId) {
         const profiles = await this.listAccounts(account.user);
-        const selectedAccount = profiles.find(({ _id }) => _id === accountID);
+        const selectedAccount = profiles.find(({ _id }) => new Types.ObjectId(accountID).equals(_id));
         if (!selectedAccount) {
             throw new BadRequestException('Operação não permitida');
         }
