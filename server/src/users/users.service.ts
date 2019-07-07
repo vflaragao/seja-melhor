@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { User } from '@models/user';
-import { UserDTO } from './dto/users.dto';
+import { UserDTO, UserCreateDTO } from './dto/users.dto';
 
 import { Database } from '@helpers/database';
 
@@ -15,9 +15,13 @@ export class UsersService {
         private readonly userModel: Model<User>,
     ) {}
 
-    save(payload: UserDTO) {
+    save(payload: UserCreateDTO): Promise<User> {
         const user = new this.userModel(payload);
         return user.save();
+    }
+
+    getByEmail(email: string) {
+        return this.userModel.findOne({ email }).exec()
     }
 
     async existsByEmail(email: string) {

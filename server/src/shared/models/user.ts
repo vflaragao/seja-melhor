@@ -1,5 +1,7 @@
-import { Schema, Document } from 'mongoose';
+import { Schema, Document, Types } from 'mongoose';
+
 import { hashSync, compareSync } from 'bcryptjs';
+import { Account } from 'auth/jwt.interface';
 
 export interface User extends Document {
     name: string;
@@ -8,8 +10,10 @@ export interface User extends Document {
     password: string;
     disabled?: boolean;
     institutional: boolean;
+    defaultAccount: Types.ObjectId;
 
-    comparePassword(): string;
+    comparePassword(password: string): string;
+    asAccount(): Account;
 }
 
 const UserSchema = new Schema({
@@ -37,6 +41,9 @@ const UserSchema = new Schema({
         required: true,
         default: false,
     },
+    defaultAccount: {
+        type: Types.ObjectId
+    },
     password: {
         type: String,
         trim: true,
@@ -58,6 +65,18 @@ UserSchema.pre<User>('save', function(next) {
 });
 UserSchema.methods.comparePassword = function(password: string) {
     return compareSync(password, this.password);
+};
+UserSchema.methods.asAccount = function() {
+    if (this.institutional) {
+        return null;
+    }
+    return {
+        user: this._id,
+        _id: this._id,
+        name: this.name,
+        institutional: false,
+        default: this.defaultAccount || this._id,
+    } as Account;
 };
 UserSchema.set('toJSON', {
     transform: function(doc, ret) {

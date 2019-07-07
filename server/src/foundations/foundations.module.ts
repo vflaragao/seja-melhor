@@ -14,5 +14,6 @@ import { FoundationsController } from './foundations.controller';
   ],
   providers: [FoundationsService],
   controllers: [FoundationsController],
+  exports: [FoundationsService],
 })
 export class FoundationsModule {}

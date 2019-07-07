@@ -1,7 +1,10 @@
-import { Schema, Document } from 'mongoose';
+import { Schema, Document, Types } from 'mongoose';
 
-import { Collaborator, Collaboratorchema } from './fields/collaborator';
+import { Account } from 'auth/jwt.interface';
+
+import { User } from './user';
 import { AddressSchema, Address } from './fields/address';
+import { Collaborator, Collaboratorchema } from './fields/collaborator';
 import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
 
@@ -33,9 +36,11 @@ export interface Foundation extends Document {
     users: Collaborator[];
     operatingInfo: OperatingInfo;
     authorization: Authorization;
+
+    asAccount(user: User): Account;
 }
 
-export const FoundationSchema = new Schema({
+const FoundationSchema = new Schema({
     name: {
         type: String,
         trim: true,
@@ -80,3 +85,18 @@ export const FoundationSchema = new Schema({
         type: AuthorizationSchema,
     },
 });
+
+FoundationSchema.methods.asAccount = function(user: User) {
+    const collaborator: Collaborator = this.users.find(col => col.user === user._id);
+    const defaultAccount = user.institutional ? this._id : this._id === user.defaultAccount;
+    return {
+        user: user._id,
+        _id: this._id,
+        name: this.name,
+        role: collaborator.role,
+        institutional: true,
+        default: defaultAccount
+    } as Account;
+};
+
+export { FoundationSchema };

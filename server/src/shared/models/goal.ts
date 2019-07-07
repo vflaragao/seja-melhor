@@ -6,7 +6,7 @@ import { ProductTypeValues, ProductType } from './product';
 export interface Goal extends Document {
     renewalDay: number;
     disabled: boolean;
-    creator: string;
+    creator: Types.ObjectId;
     items: Item[];
     types: ProductType[];
 }

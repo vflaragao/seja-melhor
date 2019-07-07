@@ -1,15 +1,19 @@
 import { Types } from 'mongoose';
-import { Controller, Post, Get, Put, Body, Query, Param } from '@nestjs/common';
+import { Controller, Post, Get, Put, Body, Query, Param, Logger } from '@nestjs/common';
 
-import { UserDTO } from './dto/users.dto';
+import { UserDTO, UserCreateDTO } from './dto/users.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 
+    private logger: Logger;
+
     constructor(
         private readonly userService: UsersService,
-    ) { }
+    ) {
+        this.logger = new Logger(UsersController.name);
+    }
 
     @Get('exists')
     async existsUser(@Query('e') email: string) {
@@ -30,13 +34,17 @@ export class UsersController {
     }
 
     @Post()
-    async registerUser(@Body() payload: UserDTO) {
-        const User = await this.userService.save(payload);
-        return User;
+    async registerUser(@Body() payload: UserCreateDTO) {
+        try {
+            return await this.userService.save(payload);
+        } catch (e) {
+            this.logger.error(e);
+            return e;
+        }
     }
 
     @Put(':id')
-    async updateUser(@Param('id') id: Types.ObjectId, @Body() payload) {
+    async updateUser(@Param('id') id: Types.ObjectId, @Body() payload: UserDTO) {
         const User = await this.userService.update(id, payload);
         return User;
     }

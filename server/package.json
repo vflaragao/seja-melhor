@@ -22,12 +22,18 @@
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
+    "@nestjs/jwt": "^6.1.1",
     "@nestjs/mongoose": "^6.1.2",
+    "@nestjs/passport": "^6.1.0",
     "@nestjs/platform-express": "^6.0.0",
     "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.9.1",
     "module-alias": "^2.2.0",
     "moment": "^2.24.0",
     "mongoose": "^5.6.0",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3"
@@ -40,6 +46,7 @@
     "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.5.6",
     "@types/node": "^10.12.18",
+    "@types/passport-jwt": "^3.0.1",
     "@types/supertest": "^2.0.7",
     "concurrently": "^4.1.0",
     "jest": "^23.6.0",
@@ -68,8 +75,8 @@
     "testEnvironment": "node"
   },
   "_moduleAliases": {
-    "@shared": "./dist/shared",
+    "@models": "./dist/shared/models",
     "@helpers": "./dist/shared/helpers",
-    "@models": "./dist/shared/models"
+    "@shared": "./dist/shared"
   }
 }

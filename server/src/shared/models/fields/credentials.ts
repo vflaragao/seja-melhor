@@ -1,4 +1,10 @@
-export interface Credentials {
-    email: string;
-    password: string;
+import { IsString, IsEmail } from "class-validator";
+
+export class Credentials {
+    
+    @IsEmail()
+    public email: string;
+
+    @IsString()
+    public password: string;
 }

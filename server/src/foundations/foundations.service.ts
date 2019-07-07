@@ -3,13 +3,15 @@ import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { UserDTO } from '../users/dto/users.dto';
+import { UserDTO, UserCreateDTO } from '../users/dto/users.dto';
 import { UsersService } from '../users/users.service';
 
 import { Foundation } from '@models/foundation';
 import { Collaborator, Role } from '@models/fields/collaborator';
 import { FoundationCreateDTO, FoundationUpdateDTO } from './dto/foundations.dto';
 
+
+/** Only normal users can be assign as collaborator */
 @Injectable()
 export class FoundationsService {
 
@@ -21,20 +23,15 @@ export class FoundationsService {
 
     async save(payload: FoundationCreateDTO) {
         const manager: Collaborator = { user: null, role: Role.MANAGER };
-        const existsUser = await this.userService.list(payload.credentials.email);
-        if (!existsUser || !existsUser.length) {
-            let user = new UserDTO(
-                payload.name,
-                payload.phone,
-                payload.credentials.email,
-                payload.credentials.password,
-                true,
-            );
-            user = await this.userService.save(user);
-            manager.user = user._id;
-        } else {
-            manager.user = existsUser[0]._id;
-        }
+        let user = new UserCreateDTO(
+            payload.name,
+            payload.phone,
+            payload.credentials.email,
+            payload.credentials.password,
+            true,
+        );
+        user = await this.userService.save(user);
+        manager.user = user._id;
         const update = new FoundationUpdateDTO();
         update.fromCreateDTO(payload);
         update.users = [manager];
@@ -50,6 +47,16 @@ export class FoundationsService {
         })
         .sort({ name: 1 })
         .exec();
+    }
+
+    getByUser(userID: Types.ObjectId) {
+        return this.foundationModel.findOne({ 'users.user': userID })
+            .exec();
+    }
+
+    listByUser(userID: Types.ObjectId) {
+        return this.foundationModel.find({ 'users.user': userID })
+            .exec();
     }
 
     get(id: Types.ObjectId) {
