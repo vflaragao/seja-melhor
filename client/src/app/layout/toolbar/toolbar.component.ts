@@ -59,7 +59,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   async onChangeProfile(accountID: string) {
     try {
-      await this.accountService.changeAccount(accountID);
+      if (accountID !== this.logged._id) {
+        await this.accountService.changeAccount(accountID);
+      }
     } catch (e) {
       console.error(e);
     }

@@ -1,6 +1,15 @@
 import { Types } from 'mongoose';
 import { IsString, IsOptional, IsEmail, IsPhoneNumber } from 'class-validator';
 
+export class UserStatistics {
+    constructor (
+        public goalDonations?: number,
+        public campaignDonations?: number,
+        public ownCampaigns?: number,
+        public ownCollectPoints?: number,
+    ) {}
+}
+
 export class UserCreateDTO {
     @IsOptional()
     public _id: Types.ObjectId;

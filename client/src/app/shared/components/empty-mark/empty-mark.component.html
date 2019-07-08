@@ -1,9 +1,13 @@
 <div class="empty-container">
   <div class="empty-image"></div>
-  <div class="title" fxLayout>{{title}}</div>
-  <div fxLayout>{{description}}</div>
-  <div fxLayout>
-    <button fxFlex.lt-md fxFlex="50" mat-button
-      color="primary" (click)="onAction()">{{action}}</button>
+  <div class="mat-h3 title" fxLayout fxLayoutAlign="center center">{{data?.title}}</div>
+  <div fxLayout fxLayoutAlign="center center">
+    <p fxFlex.lt-md="90" fxFlex.md="60" fxFlex.gt-md="50" class="mat-body-1 description">{{data?.description}}</p>
+  </div>
+  <div class="button" *ngIf="hasAction" fxLayout fxLayoutAlign="center center">
+    <button
+      fxFlex.lt-md="90" fxFlex.md="60" fxFlex.gt-md="50"
+      mat-button color="primary" (click)="onAction()">{{data?.button}}
+    </button>
   </div>
 </div>

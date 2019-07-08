@@ -13,6 +13,7 @@ import { ProductsModule } from 'products/products.module';
     MongooseModule.forFeature([{ name: 'Campaign', schema: CampaignSchema }])
   ],
   providers: [CampaignsService],
-  controllers: [CampaignsController]
+  controllers: [CampaignsController],
+  exports: [CampaignsService],
 })
 export class CampaignsModule {}

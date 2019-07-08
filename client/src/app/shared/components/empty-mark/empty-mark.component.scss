@@ -8,4 +8,20 @@
         background-repeat: no-repeat;
         background-image: url('/assets/empty_list.svg')
     }
+
+    .title {
+        color: rgba(0,0,0,.54);
+        margin: 32px 0 8px;
+        font-weight: bold;
+    }
+
+    .description {
+        margin: 0;
+        text-align: center;
+        color: rgba(0,0,0,.64);
+    }
+
+    .button {
+        margin-top: 24px;
+    }
 }

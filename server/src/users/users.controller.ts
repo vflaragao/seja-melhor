@@ -2,7 +2,10 @@ import { Types } from 'mongoose';
 import { Controller, Post, Get, Put, Body, Query, Param, Logger } from '@nestjs/common';
 
 import { UserDTO, UserCreateDTO } from './dto/users.dto';
+
 import { UsersService } from './users.service';
+import { CampaignsService } from 'campaigns/campaigns.service';
+import { CollectPointsService } from 'collect-points/collect-points.service';
 
 @Controller('users')
 export class UsersController {
@@ -11,6 +14,8 @@ export class UsersController {
 
     constructor(
         private readonly userService: UsersService,
+        private readonly campaignService: CampaignsService,
+        private readonly collectPointService: CollectPointsService,
     ) {
         this.logger = new Logger(UsersController.name);
     }
@@ -23,6 +28,32 @@ export class UsersController {
 
     @Get(':id')
     async getUser(@Param('id') id: Types.ObjectId) {
+        const user = await this.userService.get(id);
+        return user;
+    }
+
+    @Get(':id/collectPoints')
+    async getCollectPoints(@Param('id') id: Types.ObjectId) {
+        try {
+            return await this.collectPointService.listByUser(id);
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
+
+    @Get(':id/campaigns')
+    async getCampaigns(@Param('id') id: Types.ObjectId) {
+        try {
+            return await this.campaignService.listByUser(id);
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
+
+    @Get(':id/statistics')
+    async getStatistics(@Param('id') id: Types.ObjectId) {
         const user = await this.userService.get(id);
         return user;
     }

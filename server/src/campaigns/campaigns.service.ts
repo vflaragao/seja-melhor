@@ -35,6 +35,26 @@ export class CampaignsService {
             .exec();
     }
 
+    listByUser(id: Types.ObjectId) {
+        return this.campaignModel.find({
+                creator: id,
+                creatorSource: 'User',
+                disabled: false,
+            })
+            .select('name description category expiresAt authorization')
+            .exec();
+    }
+    
+    listByFoundation(id: Types.ObjectId) {
+        return this.campaignModel.find({
+                creator: id,
+                creatorSource: 'Foundation',
+                disabled: false,
+            })
+            .select('name description category expiresAt authorization')
+            .exec();
+    }
+
     get(id: Types.ObjectId) {
         return this.campaignModel.findById(id)
             .exec();

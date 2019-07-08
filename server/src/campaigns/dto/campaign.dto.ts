@@ -13,6 +13,7 @@ export interface CampaignDTO {
     creator: Types.ObjectId;
     creatorSource: string;
     disabled: boolean;
+    initAt: Date;
     expiresAt: Date;
     authorization: Authorization;
 }

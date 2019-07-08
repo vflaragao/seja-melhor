@@ -15,6 +15,7 @@ export interface Campaign extends Document {
     creator: Types.ObjectId;
     creatorSource: string;
     disabled: boolean;
+    initAt: Date;
     expiresAt: Date;
     category: ActionCategory;
     authorization: Authorization;
@@ -58,6 +59,10 @@ export const CampaignSchema = new Schema({
     disabled: {
         type: Boolean,
         default: false,
+        required: true
+    },
+    initAt: {
+        type: Date,
         required: true
     },
     expiresAt: {

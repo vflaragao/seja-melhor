@@ -5,8 +5,15 @@ import { UserSchema } from '@models/user';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 
+import { CampaignsModule } from 'campaigns/campaigns.module';
+import { CollectPointsModule } from 'collect-points/collect-points.module';
+
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
+  imports: [
+    CampaignsModule,
+    CollectPointsModule,
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
+  ],
   providers: [UsersService],
   controllers: [UsersController],
   exports: [UsersService],

@@ -81,8 +81,8 @@ import {
     MatTabsModule,
     MatMenuModule,
     MatInputModule,
-    MatRadioModule,
     MatTableModule,
+    MatRadioModule,
     MatDialogModule,
     MatSelectModule,
     MatButtonModule,
@@ -203,9 +203,13 @@ import {
     QRCodeModule,
   ],
   entryComponents: [
+    UpdateUserComponent,
+    RegisterGoalComponent,
+    UpdateFoundationComponent,
+    RegisterCampaignComponent,
     RegisterDonationComponent,
     CollectPointQRCodeComponent,
-    AuthCreationOptionsComponent,
+    RegisterCollectPointComponent,
     DonationStatusChangeComponent,
   ]
 })

@@ -3,8 +3,8 @@
   fxLayout fxLayoutGap="8px">
   <a [routerLink]="defaultRoute" class="logo-font">Seja Melhor</a>
   <span fxFlex></span>
+  <button mat-button routerLink="/search">Encontrar causa</button>
   <ng-container *ngIf="!logged; else manager">
-    <button mat-button routerLink="/search">Encontrar causa</button>
     <button mat-stroked-button routerLink="/auth/login">Entrar</button>
   </ng-container>
   <ng-template #manager>

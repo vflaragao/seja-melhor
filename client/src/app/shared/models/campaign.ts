@@ -21,6 +21,15 @@ export const ActionCategoryValues = [
     ActionCategory.OLD,
 ];
 
+export class CampaignCreateDTO {
+    title: string;
+    description: string;
+    ttl: number;
+    items: Item[];
+    initAt: Date;
+    category: ActionCategory;
+}
+
 export class CampaignDTO {
     _id: string;
     title: string;
@@ -31,6 +40,7 @@ export class CampaignDTO {
     creator: string;
     creatorSource: string;
     disabled: boolean;
+    initAt: Date;
     expiresAt: Date;
     category: ActionCategory;
     authorization: Authorization;

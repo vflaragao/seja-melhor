@@ -24,6 +24,27 @@ export class CollectPointsService {
             .exec();
     }
 
+    listByUser(id: Types.ObjectId) {
+        return this.collectPointModel.find({
+                creator: id,
+                creatorSource: 'User',
+                disabled: false,
+                headOffice: false,
+            })
+            .select('address operatingInfo renewalDay expiresAt authorization')
+            .exec();
+    }
+    
+    listByFoundation(id: Types.ObjectId) {
+        return this.collectPointModel.find({
+                creator: id,
+                creatorSource: 'Foundation',
+                disabled: false,
+            })
+            .select('address operatingInfo renewalDay expiresAt authorization')
+            .exec();
+    }
+
     get(id: Types.ObjectId) {
         return this.collectPointModel.findById(id)
             .exec();

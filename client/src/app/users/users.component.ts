@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
@@ -12,6 +13,8 @@ import { CollectPointDTO } from '@models/collect-point';
 
 import { UsersService } from './users.service';
 import { AccountService } from '../auth/account.service';
+import { Activity, ActivityValues } from '@models/fields/activity';
+import { RegisterCampaignComponent } from '@dialogs/index';
 
 @Component({
   selector: 'app-users',
@@ -23,17 +26,23 @@ export class UsersComponent implements OnInit, OnDestroy {
   private logged: Account;
   private user: UserDTO;
 
+  private activity: Activity;
+  private activities: Activity[];
+
   private campaigns: CampaignDTO[];
   private collectPoints: CollectPointDTO[];
 
   private _destroy$: Subject<void>;
   
   constructor(
+    private _dialog: MatDialog,
     private route: ActivatedRoute,
     private userService: UsersService,
     private accountService: AccountService
   ) {
     this._destroy$ = new Subject();
+    this.activities = ActivityValues;
+    this.activity = Activity.CAMPAIGN;
   }
 
   get isOwner() {
@@ -67,7 +76,19 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._destroy$.next();
   }
 
-  async fetchUser(id: string) {
+  onCreateActivity() {
+    if (this.activity === Activity.CAMPAIGN) {
+      this.onCampaign();
+    } else if (this.activity === Activity.COLLECT_POINT) {
+
+    }
+  }
+
+  private onCampaign() {
+    const resp = this._dialog.open(RegisterCampaignComponent);
+  }
+
+  private async fetchUser(id: string) {
     try {
       this.user = await this.userService.get(id);
       this.campaigns = await this.userService.listCampaigns(id);
