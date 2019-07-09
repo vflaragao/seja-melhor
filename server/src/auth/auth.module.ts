@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
-import { UsersModule } from 'users/users.module';
-import { FoundationsModule } from 'foundations/foundations.module';
-
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
+
+import { CoreModule } from 'core/core.module';
 
 @Module({
   imports: [
@@ -21,11 +20,10 @@ import { AuthController } from './auth.controller';
         expiresIn: '2 days'
       }
     }),
-    UsersModule,
-    FoundationsModule,
+    CoreModule,
   ],
   providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
-  exports: [PassportModule, AuthService]
+  exports: [PassportModule, CoreModule, AuthService]
 })
 export class AuthModule {}

@@ -1,6 +1,6 @@
 import { Controller, Get, Query, Logger } from '@nestjs/common';
 
-import { AddressService } from './address.service';
+import { AddressService } from '../core/address.service';
 
 @Controller('address')
 export class AddressController {

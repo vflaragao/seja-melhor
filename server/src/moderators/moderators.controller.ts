@@ -2,7 +2,8 @@ import { Types } from 'mongoose';
 import { Controller, Post, Body, Get, Query, Put, Param } from '@nestjs/common';
 
 import { ModeratorDTO } from './dto/moderator.dto';
-import { ModeratorsService } from './moderators.service';
+
+import { ModeratorsService } from '../core/moderators.service';
 
 @Controller('moderators')
 export class ModeratorsController {

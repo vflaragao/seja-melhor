@@ -1,0 +1,73 @@
+<main>
+  <div class="content">
+    <div fxLayout>
+      <h3 class="mat-h3" fxFlex>{{ action }} campanha</h3>
+    </div>
+    <form #campaign="ngForm">
+      <mat-card>
+        <mat-card-content>
+          <span class="card-group">Informações básicas</span>
+          <div fxLayout fxLayoutGap="16px">
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Título</mat-label>
+              <input matInput name="title" [(ngModel)]="campaign.title" />
+            </mat-form-field>
+            <mat-form-field *ngIf="!isInstitutional" fxFlex="200px" appearance="outline">
+              <mat-label>Categoria</mat-label>
+              <mat-select name="type" [(ngModel)]="campaign.type" required>
+                <mat-option *ngFor="let type of types" [value]="type">{{ type | actionCategory }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Descrição</mat-label>
+              <textarea matInput name="description" rows="3" [(ngModel)]="campaign.description"></textarea>
+            </mat-form-field>
+          </div>
+          <div fxLayout fxLayoutGap="16px">
+            <mat-form-field fxFlex="200px" appearance="outline">
+              <mat-label>Data início</mat-label>
+              <input matInput type="date" name="initAt" [(ngModel)]="campaign.initAt" />
+            </mat-form-field>
+            <mat-form-field fxFlex="150px" appearance="outline">
+              <mat-label>Duração (dias)</mat-label>
+              <input matInput type="number" name="ttl" [(ngModel)]="campaign.ttl" />
+            </mat-form-field>
+            <span fxFlex></span>
+            <mat-form-field fxFlex="200px" appearance="outline">
+              <mat-label>Data fim</mat-label>
+              <input matInput disabled type="date" name="finishAt" [(ngModel)]="finishAt" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <span class="card-group">Itens para doação</span>
+          <div fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
+            <mat-form-field fxFlex appearance="outline">
+              <input placeholder="Produto" matInput [formControl]="productControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="productLabel" (optionSelected)="onProduct($event)">
+                <mat-option *ngFor="let product of products | async" [value]="product">
+                  {{ product.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field fxFlex="100px" appearance="outline">
+                <mat-label>Quantidade</mat-label>
+                <input matInput type="number" name="qtd" [(ngModel)]="campaign.ttl" />
+              </mat-form-field>
+            <mat-form-field fxFlex="200px" appearance="outline">
+              <mat-label>Medida</mat-label>
+              <mat-select name="unit" [(ngModel)]="campaign.type" required>
+                <mat-option *ngFor="let unit of itemUnits" [value]="type">{{ unit | itemUnit }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button type="button" mat-raised-button>Adicionar</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</main>

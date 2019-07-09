@@ -2,9 +2,12 @@ import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Product } from '@models/product';
-import { ProductDTO } from './dto/product.dto';
 import { Database } from '@helpers/database';
+
+import { Account } from 'auth/jwt.interface';
+
+import { Product } from '@models/product';
+import { ProductDTO } from '../products/dto/product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -14,9 +17,10 @@ export class ProductsService {
         private readonly productModel: Model<Product>
     ) {}
 
-    save(payload: ProductDTO) {
-        const campaign = new this.productModel(payload);
-        return campaign.save();
+    save(payload: ProductDTO, account: Account) {
+        payload.creator = account.user;
+        const product = new this.productModel(payload);
+        return product.save();
     }
 
     list(query: string) {

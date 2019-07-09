@@ -2,7 +2,8 @@ import { Types } from 'mongoose';
 import { Controller, Get, Param, Query, Body, Post, Put } from '@nestjs/common';
 
 import { CollectPointDTO } from './dto/collect-point.dto';
-import { CollectPointsService } from './collect-points.service';
+
+import { CollectPointsService } from '../core/collect-points.service';
 
 @Controller('collect-points')
 export class CollectPointsController {

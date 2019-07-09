@@ -1,8 +1,13 @@
 import { Types } from 'mongoose';
-import { Controller, Get, Param, Query, Body, Post, Put } from '@nestjs/common';
+import { Controller, Get, Param, Query, Body, Post, Put, UseGuards } from '@nestjs/common';
+
+import { Acc } from '@shared/decorator/account.decorator';
+import { Account } from 'auth/jwt.interface';
 
 import { ProductDTO } from './dto/product.dto';
-import { ProductsService } from './products.service';
+
+import { ProductsService } from '../core/products.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('products')
 export class ProductsController {
@@ -24,8 +29,9 @@ export class ProductsController {
     }
 
     @Post()
-    async registerProduct(@Body() payload: ProductDTO) {
-        const Product = await this.productService.save(payload);
+    @UseGuards(AuthGuard())
+    async registerProduct(@Body() payload: ProductDTO, @Acc() acc: Account) {
+        const Product = await this.productService.save(payload, acc);
         return Product;
     }
 

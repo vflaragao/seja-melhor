@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { CollectPoint } from '@models/collect-point';
-import { CollectPointDTO } from './dto/collect-point.dto';
+import { CollectPointDTO } from '../collect-points/dto/collect-point.dto';
 
 @Injectable()
 export class CollectPointsService {

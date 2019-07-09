@@ -6,6 +6,5 @@ export interface ProductDTO {
     name: string;
     type: ProductType;
     creator: Types.ObjectId;
-    creatorSource: string;
     disabled: boolean;
 }

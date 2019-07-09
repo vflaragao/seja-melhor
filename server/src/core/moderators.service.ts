@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Database } from '@helpers/database';
 
 import { Moderator } from '@models/moderator';
-import { ModeratorDTO } from './dto/moderator.dto';
+import { ModeratorDTO } from '../moderators/dto/moderator.dto';
 
 @Injectable()
 export class ModeratorsService {

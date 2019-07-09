@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CampaignsComponent } from './campaigns.component';
+import { CampaignsComponent } from './main/campaigns.component';
+import { ManageComponent } from './manage/manage.component';
+
 import { SharedModule } from '@shared/shared.module';
 
 const routes: Routes = [
   {
+    path: 'manage',
+    component: ManageComponent,
+  },
+  {
     path: '',
     component: CampaignsComponent
-  }
+  },
 ];
 
 @NgModule({
-  declarations: [CampaignsComponent],
+  declarations: [CampaignsComponent, ManageComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes),

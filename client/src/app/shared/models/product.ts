@@ -19,10 +19,11 @@ export interface ProductTypeStatistics {
     progress: number;
 }
 
-export interface Product {
+export class Product {
+    _id: string;
     name: string;
     type: ProductType;
-    creator: string;
-    creatorSource: string;
     disabled: boolean;
+
+    constructor(){}
 }

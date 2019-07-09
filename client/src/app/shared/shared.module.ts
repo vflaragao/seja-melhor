@@ -23,19 +23,17 @@ import {
   MatStepperModule,
   MatDividerModule,
   MatProgressSpinnerModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import {
-  UpdateUserComponent,
-  RegisterGoalComponent,
-  RegisterCampaignComponent,
+  ManageProductComponent,
+  ChangePasswordComponent,
   RegisterDonationComponent,
-  UpdateFoundationComponent,
   CollectPointQRCodeComponent,
-  RegisterCollectPointComponent,
   DonationStatusChangeComponent,
 } from './dialogs';
 
@@ -112,13 +110,10 @@ import {
     AuthCreationOptionsComponent,
     
     /** Dialogs */
-    UpdateUserComponent,
-    RegisterGoalComponent,
-    UpdateFoundationComponent,
-    RegisterCampaignComponent,
+    ManageProductComponent,
+    ChangePasswordComponent,
     RegisterDonationComponent,
     CollectPointQRCodeComponent,
-    RegisterCollectPointComponent,
     DonationStatusChangeComponent,
     
     /** Pipes */
@@ -131,6 +126,8 @@ import {
     ActionCategoryIconPipe,
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
+    ManageProductComponent,
+    ChangePasswordComponent,
   ],
   exports: [
     FormsModule,
@@ -164,6 +161,7 @@ import {
     MatPaginatorModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
+    MatAutocompleteModule,
     MatProgressSpinnerModule,
 
     /** Components */
@@ -179,13 +177,10 @@ import {
     AuthCreationOptionsComponent,
     
     /** Dialogs */
-    UpdateUserComponent,
-    RegisterGoalComponent,
-    UpdateFoundationComponent,
-    RegisterCampaignComponent,
+    ManageProductComponent,
+    ChangePasswordComponent,
     RegisterDonationComponent,
     CollectPointQRCodeComponent,
-    RegisterCollectPointComponent,
     DonationStatusChangeComponent,
 
     /** Pipes */
@@ -203,13 +198,10 @@ import {
     QRCodeModule,
   ],
   entryComponents: [
-    UpdateUserComponent,
-    RegisterGoalComponent,
-    UpdateFoundationComponent,
-    RegisterCampaignComponent,
+    ManageProductComponent,
+    ChangePasswordComponent,
     RegisterDonationComponent,
     CollectPointQRCodeComponent,
-    RegisterCollectPointComponent,
     DonationStatusChangeComponent,
   ]
 })

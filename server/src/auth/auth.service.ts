@@ -2,8 +2,8 @@ import { Types } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, UnauthorizedException, BadRequestException, NotFoundException } from '@nestjs/common';
 
-import { UsersService } from 'users/users.service';
-import { FoundationsService } from 'foundations/foundations.service';
+import { UsersService } from 'core/users.service';
+import { FoundationsService } from 'core/foundations.service';
 
 import { Account } from './jwt.interface';
 import { Credentials } from '@models/fields/credentials';

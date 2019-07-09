@@ -14,7 +14,8 @@ import { CollectPointDTO } from '@models/collect-point';
 import { UsersService } from './users.service';
 import { AccountService } from '../auth/account.service';
 import { Activity, ActivityValues } from '@models/fields/activity';
-import { RegisterCampaignComponent } from '@dialogs/index';
+
+import { ManageProductComponent, ChangePasswordComponent } from '@dialogs/index';
 
 @Component({
   selector: 'app-users',
@@ -78,14 +79,14 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   onCreateActivity() {
     if (this.activity === Activity.CAMPAIGN) {
-      this.onCampaign();
+      this.onCreateCampaign();
     } else if (this.activity === Activity.COLLECT_POINT) {
 
     }
   }
 
-  private onCampaign() {
-    const resp = this._dialog.open(RegisterCampaignComponent);
+  private onCreateCampaign() {
+    
   }
 
   private async fetchUser(id: string) {

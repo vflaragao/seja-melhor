@@ -3,12 +3,12 @@ import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { UserDTO, UserCreateDTO } from '../users/dto/users.dto';
-import { UsersService } from '../users/users.service';
+import { UsersService } from './users.service';
+import { UserCreateDTO } from '../users/dto/users.dto';
 
 import { Foundation } from '@models/foundation';
 import { Collaborator, Role } from '@models/fields/collaborator';
-import { FoundationCreateDTO, FoundationUpdateDTO } from './dto/foundations.dto';
+import { FoundationCreateDTO, FoundationUpdateDTO } from '../foundations/dto/foundations.dto';
 
 
 /** Only normal users can be assign as collaborator */

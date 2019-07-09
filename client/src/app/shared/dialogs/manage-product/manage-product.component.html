@@ -1,0 +1,25 @@
+<div mat-dialog-title>
+  {{ action }} produto
+</div>
+<form #productForm="ngForm" (submit)="onAction()">
+  <div mat-dialog-content>
+    <div fxLayout>
+      <mat-form-field fxFlex appearance="outline" required>
+        <mat-label>Nome</mat-label>
+        <input matInput name="name" [(ngModel)]="product.name" />
+      </mat-form-field>
+    </div>
+    <div fxLayout>
+      <mat-form-field fxFlex appearance="outline">
+        <mat-label>Classificação</mat-label>
+        <mat-select name="type" [(ngModel)]="product.type" required>
+          <mat-option *ngFor="let type of types" [value]="type">{{ type | productType }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button mat-button type="button" tabindex="-1">Cancelar</button>
+    <button mat-button color="primary" [disabled]="!productForm.form.valid">{{ action }}</button>
+  </div>
+</form>

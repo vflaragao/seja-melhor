@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -7,6 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 import { Account } from 'src/app/auth/auth.dto';
 import { AuthService } from 'src/app/auth/auth.service';
 import { AccountService } from 'src/app/auth/account.service';
+
+import { ChangePasswordComponent } from '@dialogs/index';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,6 +25,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private _dialog: MatDialog,
     private authService: AuthService,
     private accountService: AccountService,
   ) {
@@ -55,6 +59,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this._destroy$.next();
+  }
+
+  async onChangePassword() {
+    const _ = this._dialog.open(ChangePasswordComponent);
   }
 
   async onChangeProfile(accountID: string) {

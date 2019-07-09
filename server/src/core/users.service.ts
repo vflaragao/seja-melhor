@@ -2,10 +2,10 @@ import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { User } from '@models/user';
-import { UserDTO, UserCreateDTO } from './dto/users.dto';
-
 import { Database } from '@helpers/database';
+
+import { User } from '@models/user';
+import { UserDTO, UserCreateDTO } from '../users/dto/users.dto';
 
 @Injectable()
 export class UsersService {

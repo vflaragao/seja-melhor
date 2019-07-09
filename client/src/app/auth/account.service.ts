@@ -51,7 +51,6 @@ export class AccountService {
         tap(account => {
           if (account !== this._account) {
             this._account = account;
-            this.router.navigateByUrl(this.defaultRoute);
           }
         })
       );

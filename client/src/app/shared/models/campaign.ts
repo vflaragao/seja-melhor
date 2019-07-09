@@ -22,12 +22,16 @@ export const ActionCategoryValues = [
 ];
 
 export class CampaignCreateDTO {
+    _id: string;
     title: string;
     description: string;
     ttl: number;
     items: Item[];
     initAt: Date;
     category: ActionCategory;
+    createCollectPoint: boolean;
+
+    constructor() {}
 }
 
 export class CampaignDTO {

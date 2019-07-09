@@ -5,9 +5,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Database } from '@helpers/database';
 
 import { Campaign } from '@models/campaign';
-import { CampaignDTO } from './dto/campaign.dto';
+import { CampaignDTO } from '../campaigns/dto/campaign.dto';
 
-import { ProductsService } from 'products/products.service';
+import { ProductsService } from './products.service';
 
 @Injectable()
 export class CampaignsService {

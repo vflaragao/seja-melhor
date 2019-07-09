@@ -3,9 +3,9 @@ import { Controller, Post, Get, Put, Body, Query, Param, Logger } from '@nestjs/
 
 import { UserDTO, UserCreateDTO } from './dto/users.dto';
 
-import { UsersService } from './users.service';
-import { CampaignsService } from 'campaigns/campaigns.service';
-import { CollectPointsService } from 'collect-points/collect-points.service';
+import { UsersService } from '../core/users.service';
+import { CampaignsService } from '../core/campaigns.service';
+import { CollectPointsService } from '../core/collect-points.service';
 
 @Controller('users')
 export class UsersController {

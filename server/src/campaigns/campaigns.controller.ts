@@ -1,9 +1,11 @@
 import { Types } from 'mongoose';
 import { Controller, Get, Param, Query, Body, Post, Put } from '@nestjs/common';
 
-import { CampaignDTO } from './dto/campaign.dto';
-import { CampaignsService } from './campaigns.service';
 import { Dates } from '@helpers/date';
+
+import { CampaignDTO } from './dto/campaign.dto';
+
+import { CampaignsService } from '../core/campaigns.service';
 
 @Controller('campaigns')
 export class CampaignsController {

@@ -20,7 +20,6 @@ export interface Product extends Document {
     name: string;
     type: ProductType;
     creator: Types.ObjectId;
-    creatorSource: string;
     disabled: boolean;
 }
 
@@ -38,13 +37,8 @@ export const ProductSchema = new Schema({
     },
     creator: {
         type: Types.ObjectId,
-        refPath: 'creatorSource',
         required: true,
-    },
-    creatorSource: {
-        type: String,
-        required: true,
-        enum: ['User', 'Foundation']
+        ref: 'User'
     },
     disabled: {
         type: Boolean,

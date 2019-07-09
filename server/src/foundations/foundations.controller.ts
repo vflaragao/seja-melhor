@@ -2,7 +2,8 @@ import { Types } from 'mongoose';
 import { Controller, Get, Query, Param, Post, Body, Put } from '@nestjs/common';
 
 import { FoundationCreateDTO, FoundationUpdateDTO } from './dto/foundations.dto';
-import { FoundationsService } from './foundations.service';
+
+import { FoundationsService } from '../core/foundations.service';
 
 @Controller('foundations')
 export class FoundationsController {

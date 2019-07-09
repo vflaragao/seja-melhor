@@ -2,10 +2,10 @@ import { Model, Types } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { ProductsService } from 'products/products.service';
+import { ProductsService } from './products.service';
 
 import { Goal } from '@models/goal';
-import { GoalDTO } from './dto/goal.dto';
+import { GoalDTO } from '../goals/dto/goal.dto';
 
 @Injectable()
 export class GoalsService {

@@ -1,8 +1,9 @@
 import { Types } from 'mongoose';
 import { Controller, Get, Param, Query, Post, Body, Put } from '@nestjs/common';
 
-import { GoalsService } from './goals.service';
 import { GoalDTO } from './dto/goal.dto';
+
+import { GoalsService } from '../core/goals.service';
 
 @Controller('goals')
 export class GoalsController {
