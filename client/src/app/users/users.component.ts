@@ -1,5 +1,5 @@
-import { MatDialog } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog, MatTabChangeEvent } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -14,8 +14,6 @@ import { CollectPointDTO } from '@models/collect-point';
 import { UsersService } from './users.service';
 import { AccountService } from '../auth/account.service';
 import { Activity, ActivityValues } from '@models/fields/activity';
-
-import { ManageProductComponent, ChangePasswordComponent } from '@dialogs/index';
 
 @Component({
   selector: 'app-users',
@@ -34,12 +32,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   private collectPoints: CollectPointDTO[];
 
   private _destroy$: Subject<void>;
-  
+
   constructor(
-    private _dialog: MatDialog,
-    private route: ActivatedRoute,
-    private userService: UsersService,
-    private accountService: AccountService
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _userService: UsersService,
+    private _accountService: AccountService
   ) {
     this._destroy$ = new Subject();
     this.activities = ActivityValues;
@@ -58,23 +56,46 @@ export class UsersComponent implements OnInit, OnDestroy {
     return this.campaigns && this.campaigns.length;
   }
 
+  get isCampaign() {
+    return this.activity === Activity.CAMPAIGN;
+  }
+
+  get isCollectPoint() {
+    return this.activity === Activity.COLLECT_POINT;
+  }
+
+  get datasource() {
+    switch (this.activity) {
+      case Activity.CAMPAIGN:
+        return this.campaigns;
+      case Activity.COLLECT_POINT:
+        return this.collectPoints;
+    }
+  }
+
   ngOnInit() {
-    this.accountService.account
+    this._accountService.account
       .pipe(
         takeUntil(this._destroy$),
         switchMap((account: Account) => {
           this.logged = account;
-          return this.route.paramMap;
+          return this._route.paramMap;
         })
       )
       .subscribe(params => {
-        const id = params.get('id') || this.logged._id;
-        this.fetchUser(id);
+        const id = params.get('id') || this.logged && this.logged._id;
+        if (id) {
+          this.fetchUser(id);
+        }
       })
   }
 
   ngOnDestroy() {
     this._destroy$.next();
+  }
+
+  onChangeTab(evt: MatTabChangeEvent) {
+    this.activity = evt.tab.textLabel as Activity;
   }
 
   onCreateActivity() {
@@ -86,14 +107,14 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   private onCreateCampaign() {
-    
+    this._router.navigateByUrl('/campaigns/manage');
   }
 
   private async fetchUser(id: string) {
     try {
-      this.user = await this.userService.get(id);
-      this.campaigns = await this.userService.listCampaigns(id);
-      this.collectPoints = await this.userService.listCollectPoints(id);
+      this.user = await this._userService.get(id);
+      this.campaigns = await this._userService.listCampaigns(id);
+      this.collectPoints = await this._userService.listCollectPoints(id);
     } catch (e) {
       console.error(e);
     }

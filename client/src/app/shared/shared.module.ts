@@ -24,6 +24,8 @@ import {
   MatDividerModule,
   MatProgressSpinnerModule,
   MatAutocompleteModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
@@ -53,6 +55,8 @@ import {
 import {
   ItemUnitPipe,
   ProductTypePipe,
+  RestantDaysPipe,
+  AccountsTypePipe,
   ActionCategoryPipe,
   DonationStatusPipe,
   ProductTypeIconPipe,
@@ -119,6 +123,8 @@ import {
     /** Pipes */
     ItemUnitPipe,
     ProductTypePipe,
+    RestantDaysPipe,
+    AccountsTypePipe,
     ActionCategoryPipe,
     DonationStatusPipe,
     ProductTypeIconPipe,
@@ -135,6 +141,7 @@ import {
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatNativeDateModule,
 
     /** Mansory */
     NgxMasonryModule,
@@ -159,6 +166,8 @@ import {
     MatStepperModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatSlideToggleModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
     MatAutocompleteModule,
@@ -186,6 +195,8 @@ import {
     /** Pipes */
     ItemUnitPipe,
     ProductTypePipe,
+    RestantDaysPipe,
+    AccountsTypePipe,
     ActionCategoryPipe,
     DonationStatusPipe,
     ProductTypeIconPipe,
@@ -198,6 +209,7 @@ import {
     QRCodeModule,
   ],
   entryComponents: [
+    AuthCreationOptionsComponent,
     ManageProductComponent,
     ChangePasswordComponent,
     RegisterDonationComponent,

@@ -1,5 +1,11 @@
 import { SchemaDefinition, Types } from "mongoose";
 
+export enum AuthorCollection {
+    USER = 'User',
+    FOUNDATION = 'Foundation',
+    MODERATOR = 'Moderator',
+}
+
 export interface Authorization {
     author: Types.ObjectId;
     authorSource: string;
@@ -15,7 +21,11 @@ export const AuthorizationSchema: SchemaDefinition = {
     authorSource: {
         type: String,
         required: true,
-        enum: ['User', 'Foundation', 'Moderator']
+        enum: [
+            AuthorCollection.USER,
+            AuthorCollection.FOUNDATION,
+            AuthorCollection.MODERATOR,
+        ]
     },
     time: {
         type: Date,

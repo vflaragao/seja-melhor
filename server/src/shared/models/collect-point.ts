@@ -2,7 +2,8 @@ import { Schema, Types, Document } from 'mongoose';
 
 import { OperatingInfo, OperatingInfoSchema } from './fields/operating-info';
 import { Address, AddressSchema } from './fields/address';
-import { AuthorizationSchema, Authorization } from './fields/authorization';
+import { AuthorizationSchema, Authorization, AuthorCollection } from './fields/authorization';
+import { ActivityCollection } from './fields/activity';
 
 export interface CollectPoint extends Document {
     target: Types.ObjectId;
@@ -12,7 +13,6 @@ export interface CollectPoint extends Document {
     headOffice: boolean;
     address: Address;
     renewable: boolean;
-    renewalDay: number;
     expiresAt: Date;
     disabled: boolean;
     operatingInfo: OperatingInfo;
@@ -28,7 +28,7 @@ export const CollectPointSchema = new Schema({
     targetSource: {
         type: String,
         required: true,
-        enum: ['Goal', 'Campaign']
+        enum: [ActivityCollection.GOAL, ActivityCollection.CAMPAIGN]
     },
     creator: {
         type: Types.ObjectId,
@@ -38,7 +38,7 @@ export const CollectPointSchema = new Schema({
     creatorSource: {
         type: String,
         required: true,
-        enum: ['User', 'Foundation']
+        enum: [AuthorCollection.USER, AuthorCollection.FOUNDATION]
     },
     headOffice: {
         type: Boolean,
@@ -50,10 +50,9 @@ export const CollectPointSchema = new Schema({
         required: true
     },
     renewable: {
-        type: Boolean
-    },
-    renewalDay: {
-        type: Number
+        type: Boolean,
+        required: true,
+        default: false
     },
     expiresAt: {
         type: Date

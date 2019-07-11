@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import { Injectable, UnauthorizedException, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 
 import { UsersService } from 'core/users.service';
 import { FoundationsService } from 'core/foundations.service';
@@ -37,7 +37,7 @@ export class AuthService {
     async getAccount(id: Types.ObjectId) {
         const user = await this.userService.get(id);
         if (!user) {
-            throw new NotFoundException('Usuário não encontrado');
+            throw new UnauthorizedException('Usuário não autenticado');
         }
         let selectedAccount = user.asAccount();
         if (!selectedAccount) {
@@ -51,7 +51,7 @@ export class AuthService {
         let userAccount = null;
         const user = await this.userService.get(id);
         if (!user) {
-            throw new NotFoundException('Usuário não encontrado');
+            throw new UnauthorizedException('Usuário não autenticado');
         }
         userAccount = user.asAccount();
         let foundationAccounts = [];

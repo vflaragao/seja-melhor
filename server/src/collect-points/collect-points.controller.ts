@@ -1,9 +1,12 @@
 import { Types } from 'mongoose';
-import { Controller, Get, Param, Query, Body, Post, Put } from '@nestjs/common';
+import { Controller, Get, Param, Query, Body, Post, Put, UseGuards } from '@nestjs/common';
 
-import { CollectPointDTO } from './dto/collect-point.dto';
+import { CollectPointDTO, CollectPointCreateDTO } from './dto/collect-point.dto';
 
 import { CollectPointsService } from '../core/collect-points.service';
+import { AuthGuard } from '@nestjs/passport';
+import { Acc } from '@shared/decorator/account.decorator';
+import { Account } from 'auth/jwt.interface';
 
 @Controller('collect-points')
 export class CollectPointsController {
@@ -25,13 +28,14 @@ export class CollectPointsController {
     }
 
     @Post()
-    async registerCollectPoint(@Body() payload: CollectPointDTO) {
-        const collectPoint = await this.collectPointService.save(payload);
+    @UseGuards(AuthGuard())
+    async registerCollectPoint(@Body() payload: CollectPointCreateDTO, @Acc() account: Account) {
+        const collectPoint = await this.collectPointService.save(payload, account);
         return collectPoint;
     }
 
     @Put(':id')
-    async updateCollectPoint(@Param('id') id: Types.ObjectId, @Body() payload: CollectPointDTO) {
+    async updateCollectPoint(@Param('id') id: Types.ObjectId, @Body() payload: CollectPointCreateDTO) {
         const collectPoint = await this.collectPointService.update(id, payload);
         return collectPoint;
     }

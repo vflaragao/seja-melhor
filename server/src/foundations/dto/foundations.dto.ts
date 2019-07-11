@@ -5,6 +5,7 @@ import { ActionCategory } from '@models/foundation';
 import { Credentials } from '@models/fields/credentials';
 import { Collaborator } from '@models/fields/collaborator';
 import { OperatingInfo } from '@models/fields/operating-info';
+import { SocialMedia } from '@models/fields/social-media';
 
 export class FoundationCreateDTO {
 
@@ -19,6 +20,7 @@ export class FoundationCreateDTO {
     @IsString()
     category: ActionCategory;
     address: Address;
+    social: SocialMedia;
     credentials: Credentials;
     operatingInfo: OperatingInfo;
 }
@@ -31,6 +33,7 @@ export class FoundationUpdateDTO {
     phone: string;
     address: Address;
     users: Collaborator[];
+    social: SocialMedia;
     category: ActionCategory;
     operatingInfo: OperatingInfo;
 
@@ -52,6 +55,7 @@ export class FoundationGetDTO {
     email: string;
     phone: string;
     address: Address;
+    social: SocialMedia;
     category: ActionCategory;
     operatingInfo: OperatingInfo;
 }

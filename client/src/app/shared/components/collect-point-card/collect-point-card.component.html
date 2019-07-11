@@ -11,16 +11,16 @@
     <div class="collect-point-time">
       <span>
         Funcionamento normal das
-        {{collectPoint?.operatingInfo.startTime | date:'HH:mm'}} horas
+        {{collectPoint?.operatingInfo.startTime}} horas
         às
-        {{collectPoint?.operatingInfo.endTime | date:'HH:mm'}} horas
+        {{collectPoint?.operatingInfo.endTime}} horas
       </span>
     </div>
   </mat-card-content>
   <mat-card-actions fxLayout fxLayoutAlign="start center">
     <div fxLayout fxLayoutAlign="start center" class="time-container">
       <mat-icon>schedule</mat-icon>
-      <span class="time">restam {{restantDays}} dias</span>
+      <span class="time">{{ collectPoint?.expiresAt | restantDays }}</span>
     </div>
     <span fxFlex></span>
     <button mat-button color="warn">

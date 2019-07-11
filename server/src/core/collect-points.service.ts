@@ -1,20 +1,30 @@
 import { Model, Types } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { CollectPoint } from '@models/collect-point';
-import { CollectPointDTO } from '../collect-points/dto/collect-point.dto';
+import { CollectPointCreateDTO } from '../collect-points/dto/collect-point.dto';
+import { Account } from 'auth/jwt.interface';
+import { ActivityCollection } from '@models/fields/activity';
+import { CampaignsService } from './campaigns.service';
+import { GoalsService } from './goals.service';
 
 @Injectable()
 export class CollectPointsService {
 
     constructor (
         @InjectModel('CollectPoint')
-        private readonly collectPointModel: Model<CollectPoint>
+        private readonly collectPointModel: Model<CollectPoint>,
+        private readonly goalService: GoalsService,
+        @Inject(forwardRef(() => CampaignsService))
+        private readonly campaignService: CampaignsService,
     ) {}
 
-    async save(payload: CollectPointDTO) {
-        const collectPoint = new this.collectPointModel(payload);
+    async save(payload: CollectPointCreateDTO, account: Account) {
+        const target = payload.targetSource === ActivityCollection.CAMPAIGN
+            ? await this.campaignService.get(payload.target)
+            : await this.goalService.get(payload.target);
+        const collectPoint = new this.collectPointModel(payload.toModel(account, target));
         return collectPoint.save();
     }
 
@@ -29,9 +39,8 @@ export class CollectPointsService {
                 creator: id,
                 creatorSource: 'User',
                 disabled: false,
-                headOffice: false,
             })
-            .select('address operatingInfo renewalDay expiresAt authorization')
+            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
             .exec();
     }
     
@@ -41,7 +50,7 @@ export class CollectPointsService {
                 creatorSource: 'Foundation',
                 disabled: false,
             })
-            .select('address operatingInfo renewalDay expiresAt authorization')
+            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
             .exec();
     }
 
@@ -50,7 +59,7 @@ export class CollectPointsService {
             .exec();
     }
 
-    update(id: Types.ObjectId, payload: CollectPointDTO) {
+    update(id: Types.ObjectId, payload: CollectPointCreateDTO) {
         return this.collectPointModel.findByIdAndUpdate(
             id,
             { $set: { ...payload } },

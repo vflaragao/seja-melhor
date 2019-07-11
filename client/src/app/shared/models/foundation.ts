@@ -40,6 +40,7 @@ export class FoundationUpdateDTO {
 }
 
 export interface FoundationGetDTO {
+    _id: string;
     name: string;
     cnpj: string;
     email: string;

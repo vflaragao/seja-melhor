@@ -1,16 +1,44 @@
 import { Types } from 'mongoose';
-import { Controller, Get, Query, Param, Post, Body, Put } from '@nestjs/common';
+import { Controller, Get, Query, Param, Post, Body, Put, Logger } from '@nestjs/common';
 
 import { FoundationCreateDTO, FoundationUpdateDTO } from './dto/foundations.dto';
 
 import { FoundationsService } from '../core/foundations.service';
+import { CollectPointsService } from '../core/collect-points.service';
+import { CampaignsService } from 'core/campaigns.service';
 
 @Controller('foundations')
 export class FoundationsController {
 
+    private logger: Logger;
+
     constructor(
         private readonly foundationService: FoundationsService,
-    ) { }
+        private readonly campaignService: CampaignsService,
+        private readonly collectPointService: CollectPointsService,
+    ) {
+        this.logger = new Logger(FoundationsController.name);
+    }
+
+    @Get(':id/collectPoints')
+    async getCollectPoints(@Param('id') id: Types.ObjectId) {
+        try {
+            return await this.collectPointService.listByFoundation(id);
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
+
+    @Get(':id/campaigns')
+    async getCampaigns(@Param('id') id: Types.ObjectId) {
+        try {
+            return await this.campaignService.listByFoundation(id);
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
 
     @Get(':id')
     async getFoundation(@Param('id') id: Types.ObjectId) {

@@ -1,5 +1,5 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { MatIconRegistry, MAT_DATE_LOCALE } from '@angular/material';
+import { MatIconRegistry, MAT_DATE_LOCALE, DateAdapter, MatNativeDateModule } from '@angular/material';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -34,6 +34,7 @@ registerLocaleData(localePT, 'pt');
     CoreModule
   ],
   providers: [
+    { provide: DateAdapter, useClass: MatNativeDateModule },
     { provide: LOCALE_ID, useValue: 'pt' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt' },
     {

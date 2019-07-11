@@ -6,6 +6,8 @@ import { ProductsService } from './products.service';
 
 import { Goal } from '@models/goal';
 import { GoalDTO } from '../goals/dto/goal.dto';
+import { CollectPointsService } from './collect-points.service';
+import { UsersService } from './users.service';
 
 @Injectable()
 export class GoalsService {
@@ -13,17 +15,16 @@ export class GoalsService {
     constructor (
         @InjectModel('Goal')
         private readonly goalModel: Model<Goal>,
-        private readonly productService: ProductsService
+        private readonly productService: UsersService
     ) {}
 
     async save(payload: GoalDTO) {
-        /** Populate goal types from products requested */
-        const products = payload.items.map(item => item.product);
+        /* const products = payload.items.map(item => item.product);
         const types = await this.productService.getTypesByIds(products);
         payload.types = types.map(productType => productType.type);
 
         const goal = new this.goalModel(payload);
-        return goal.save();
+        return goal.save(); */
     }
 
     list() {

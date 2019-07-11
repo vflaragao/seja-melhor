@@ -16,20 +16,29 @@
         <section>
             <div fxLayout fxLayoutAlign="start center">
                 <h4 fxFlex class="mat-h4 group">Minhas Atividades</h4>
-                <mat-radio-group [(ngModel)]="activity">
-                    <mat-radio-button
-                        [value]="act"
-                        *ngFor="let act of activities">{{act}}</mat-radio-button>
-                </mat-radio-group>
+                <button mat-button color="primary" (click)="onCreateActivity()">
+                    <mat-icon>add</mat-icon>
+                    Adicionar {{activity}}
+                </button>
             </div>
-            <mat-tab-group class="mat-elevation-z1">
-                <mat-tab label="Ativos"></mat-tab>
-                <mat-tab label="Pendentes"></mat-tab>
+            <mat-tab-group (selectedTabChange)="onChangeTab($event)" class="mat-elevation-z1">
+                <mat-tab [label]="act" *ngFor="let act of activities"></mat-tab>
             </mat-tab-group>
             <div fxLayout fxLayoutGap="16px">
-                <ng-container *ngIf="hasCollectPoints; else emptyCollectPoints">
-                    <app-collect-point-card *ngFor="let collectPoint of collectPoints">
-                    </app-collect-point-card>
+                <ng-container *ngIf="datasource?.length; else emptyCollectPoints">
+                    <ng-container *ngIf="isCampaign">
+                        <app-campaign-card
+                            *ngFor="let item of datasource"
+                            [showAuthor]="false"
+                            [campaign]="item">
+                        </app-campaign-card>
+                    </ng-container>
+                    <ng-container *ngIf="isCollectPoint">
+                        <app-collect-point-card
+                            *ngFor="let item of datasource"
+                            [collectPoint]="item">
+                        </app-collect-point-card>
+                    </ng-container>
                 </ng-container>
                 <ng-template #emptyCollectPoints>
                     <app-empty-mark

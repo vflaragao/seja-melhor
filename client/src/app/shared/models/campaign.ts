@@ -2,6 +2,8 @@ import { ProductType } from './product';
 
 import { Item } from './fields/item';
 import { Authorization } from './fields/authorization';
+import { Address } from './fields/address';
+import { OperatingInfo } from './fields/operating-info';
 
 export enum ActionCategory {
     OLD = 'OLD',
@@ -30,8 +32,18 @@ export class CampaignCreateDTO {
     initAt: Date;
     category: ActionCategory;
     createCollectPoint: boolean;
+    collectPoint: {
+        address: Address;
+        operatingInfo: OperatingInfo;
+    }
 
-    constructor() {}
+    constructor() {
+        this.items = [];
+        this.collectPoint = {
+            address: new Address(),
+            operatingInfo: new OperatingInfo(),
+        };
+    }
 }
 
 export class CampaignDTO {

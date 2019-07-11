@@ -4,11 +4,26 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 
 import { FoundationsComponent } from './foundations.component';
+import { PersonalGuard } from '@core/personal.guard';
+import { NgxMaskModule } from 'ngx-mask';
 
 const routes: Routes = [
   {
     path: '',
-    component: FoundationsComponent
+    children: [
+      {
+        path: ':id',
+        component: FoundationsComponent
+      },
+      {
+        path: '',
+        component: FoundationsComponent,
+        canActivate: [PersonalGuard],
+        data: {
+          institutional: true
+        }
+      },
+    ]
   }  
 ]
 
@@ -16,10 +31,12 @@ const routes: Routes = [
   declarations: [FoundationsComponent],
   imports: [
     SharedModule,
+    NgxMaskModule.forChild(),
     RouterModule.forChild(routes)
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    NgxMaskModule,
   ]
 })
 export class FoundationsModule { }

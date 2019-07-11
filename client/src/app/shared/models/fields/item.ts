@@ -1,3 +1,5 @@
+import { ProductType } from '@models/product';
+
 export enum ItemUnit {
     UNIT = 'UNIT',
     WEIGHT = 'WEIGHT',
@@ -8,8 +10,12 @@ export const ItemUnitValues = [
     ItemUnit.WEIGHT
 ];
 
-export interface Item {
+export class Item {
     product: string;
+    name: string;
+    type: ProductType;
     quantity: number;
     unit: ItemUnit;
+
+    constructor(){}
 }

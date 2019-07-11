@@ -10,14 +10,14 @@
           <div class="foundation-content" fxLayout="column" fxLayoutAlign="center">
             <h3 class="mat-h3 foundation-name">{{foundation?.name}}</h3>
             <div class="foundation-detail" fxLayout fxLayoutGap="24px">
-              <app-content label="CNPJ" [value]="foundation?.cnpj"></app-content>
+              <app-content label="CNPJ" [value]="foundation?.cnpj | mask:'00.000.000/0000-00'"></app-content>
               <app-content label="E-mail" [value]="foundation?.email"></app-content>
-              <app-content label="Telefone" [value]="foundation?.phone"></app-content>
+              <app-content label="Telefone" [value]="foundation?.phone | mask:'(00) 00000-0000'"></app-content>
             </div>
             <div class="foundation-detail" fxLayout fxLayoutGap="24px">
-              <app-content label="Início funcionamento" [value]="foundation?.operatingInfo.startTime | date:'HH:mm'">
+              <app-content label="Início funcionamento" [value]="foundation?.operatingInfo.startTime">
               </app-content>
-              <app-content label="Fim funcionamento" [value]="foundation?.operatingInfo.endTime | date:'HH:mm'">
+              <app-content label="Fim funcionamento" [value]="foundation?.operatingInfo.endTime">
               </app-content>
               <app-content label="Finais de semana" [value]="foundation?.operatingInfo.weekend ? 'Sim' : 'Não'">
               </app-content>
@@ -55,31 +55,47 @@
     </mat-card>
     <section>
       <div fxLayout fxLayoutAlign="start center">
-        <h4 fxFlex class="mat-h4 group">Pontos de coleta ativos</h4>
-        <button mat-button color="primary">
-          <mat-icon>add</mat-icon>
-          Novo ponto
-        </button>
+        <h4 fxFlex class="mat-h4 group">Monitor de doações</h4>
       </div>
-      <div fxLayout fxLayoutGap="16px">
-        <app-collect-point-card></app-collect-point-card>
-        <app-collect-point-card></app-collect-point-card>
-        <app-collect-point-card></app-collect-point-card>
-      </div>
+      
     </section>
     <section>
-      <div fxLayout fxLayoutAlign="start center">
-        <h4 fxFlex class="mat-h4 group">Campanhas ativas</h4>
-        <button mat-button color="primary">
-          <mat-icon>add</mat-icon>
-          Nova campanha
-        </button>
-      </div>
-      <div fxLayout fxLayoutGap="16px">
-        <app-campaign-card [showCategory]="false" [showAuthor]="false"></app-campaign-card>
-        <app-campaign-card [showCategory]="false" [showAuthor]="false"></app-campaign-card>
-        <app-campaign-card [showCategory]="false" [showAuthor]="false"></app-campaign-card>
-      </div>
+        <div fxLayout fxLayoutAlign="start center">
+            <h4 fxFlex class="mat-h4 group">Minhas Atividades</h4>
+            <button mat-button color="primary" (click)="onCreateActivity()">
+                <mat-icon>add</mat-icon>
+                Adicionar {{activity}}
+            </button>
+        </div>
+        <mat-tab-group (selectedTabChange)="onChangeTab($event)" class="mat-elevation-z1">
+            <mat-tab [label]="act" *ngFor="let act of activities"></mat-tab>
+        </mat-tab-group>
+        <div fxLayout fxLayoutGap="16px">
+            <ng-container *ngIf="datasource?.length; else emptyCollectPoints">
+                <ng-container *ngIf="isCampaign">
+                    <app-campaign-card
+                        *ngFor="let item of datasource"
+                        [showCategory]="false"
+                        [showAuthor]="false"
+                        [campaign]="item">
+                    </app-campaign-card>
+                </ng-container>
+                <ng-container *ngIf="isCollectPoint">
+                    <app-collect-point-card
+                        *ngFor="let item of datasource"
+                        [collectPoint]="item">
+                    </app-collect-point-card>
+                </ng-container>
+            </ng-container>
+            <ng-template #emptyCollectPoints>
+                <app-empty-mark
+                    fxFlex
+                    [hasAction]="true"
+                    [activity]="activity"
+                    (action)="onCreateActivity()">
+                </app-empty-mark>
+            </ng-template>
+        </div>
     </section>
   </div>
 </main>

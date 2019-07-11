@@ -1,13 +1,19 @@
 import { Model, Types } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
+import { Objects } from '@helpers/object';
 import { Database } from '@helpers/database';
 
-import { Campaign } from '@models/campaign';
-import { CampaignDTO } from '../campaigns/dto/campaign.dto';
+import { CampaignCreateDTO } from '../campaigns/dto/campaign.dto';
+import { CollectPointCreateDTO } from 'collect-points/dto/collect-point.dto';
 
-import { ProductsService } from './products.service';
+import { Account } from 'auth/jwt.interface';
+import { Campaign } from '@models/campaign';
+import { Foundation } from '@models/foundation';
+
+import { FoundationsService } from './foundations.service';
+import { CollectPointsService } from './collect-points.service';
 
 @Injectable()
 export class CampaignsService {
@@ -15,17 +21,34 @@ export class CampaignsService {
     constructor (
         @InjectModel('Campaign')
         private readonly campaignModel: Model<Campaign>,
-        private readonly productService: ProductsService
+        private readonly foundationService: FoundationsService,
+        @Inject(forwardRef(() => CollectPointsService))
+        private readonly collectPointService: CollectPointsService,
     ) {}
 
-    async save(payload: CampaignDTO) {
-        /** Populate campaign types from products requested */
-        const products = payload.items.map(item => item.product);
-        const types = await this.productService.getTypesByIds(products);
-        payload.types = types.map(productType => productType.type);
-
-        const campaign = new this.campaignModel(payload);
-        return campaign.save();
+    async save(payload: CampaignCreateDTO, account: Account) {
+        let foundation: Foundation = null;
+        payload = Objects.instance(payload, CampaignCreateDTO);
+        if (account.institutional) {
+            foundation = await this.foundationService.get(account._id);
+        }
+        const campaign = new this.campaignModel(payload.toModel(account, foundation));
+        const result = await campaign.save();
+        if (payload.createCollectPoint) {
+            let collectPoint: CollectPointCreateDTO;
+            if (account.institutional) {
+                collectPoint = result.asHeadOffice(
+                    foundation.address,
+                    foundation.operatingInfo
+                );
+            } else {
+                collectPoint = result.asHeadOffice(
+                    payload.collectPoint.address,
+                    payload.collectPoint.operatingInfo,
+                );
+            }
+            await this.collectPointService.save(collectPoint, account);
+        }
     }
 
     list(query: string) {
@@ -41,7 +64,7 @@ export class CampaignsService {
                 creatorSource: 'User',
                 disabled: false,
             })
-            .select('name description category expiresAt authorization')
+            .select('title description category expiresAt authorization')
             .exec();
     }
     
@@ -51,7 +74,7 @@ export class CampaignsService {
                 creatorSource: 'Foundation',
                 disabled: false,
             })
-            .select('name description category expiresAt authorization')
+            .select('title description expiresAt authorization')
             .exec();
     }
 
@@ -60,7 +83,7 @@ export class CampaignsService {
             .exec();
     }
 
-    update(id: Types.ObjectId, payload: CampaignDTO) {
+    update(id: Types.ObjectId, payload: CampaignCreateDTO) {
         return this.campaignModel.findByIdAndUpdate(
             id,
             { $set: { ...payload } },

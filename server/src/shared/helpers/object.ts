@@ -1,3 +1,7 @@
+interface ObjClass<T> {
+    new (): T;
+}
+
 export namespace Objects {
     export function mergeArrayFromObject(obj: Array<any>, key: string, unifyItems?: boolean) {
         const mergedArr = obj.reduce((acc, cur) => {
@@ -9,6 +13,14 @@ export namespace Objects {
 
     export function distinct(arr: Array<any>, key?: string[]) {
         return key ? distinctByKey(arr, key) : distinctByValue(arr);
+    }
+
+    export function instance<T>(value: T, Clazz: ObjClass<T>) {
+        const instance = new Clazz();
+        for (const attr in value) {
+            instance[attr] = value[attr];
+        }
+        return instance;
     }
 
     const distinctByValue = (arr: any[]) => arr.filter((item, index) => arr.indexOf(item) === index);

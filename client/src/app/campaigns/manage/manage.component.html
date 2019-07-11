@@ -3,18 +3,18 @@
     <div fxLayout>
       <h3 class="mat-h3" fxFlex>{{ action }} campanha</h3>
     </div>
-    <form #campaign="ngForm">
+    <form #campaignForm="ngForm">
       <mat-card>
         <mat-card-content>
           <span class="card-group">Informações básicas</span>
           <div fxLayout fxLayoutGap="16px">
             <mat-form-field fxFlex appearance="outline">
               <mat-label>Título</mat-label>
-              <input matInput name="title" [(ngModel)]="campaign.title" />
+              <input matInput name="title" [(ngModel)]="campaign.title" required />
             </mat-form-field>
             <mat-form-field *ngIf="!isInstitutional" fxFlex="200px" appearance="outline">
               <mat-label>Categoria</mat-label>
-              <mat-select name="type" [(ngModel)]="campaign.type" required>
+              <mat-select name="type" [(ngModel)]="campaign.category" required>
                 <mat-option *ngFor="let type of types" [value]="type">{{ type | actionCategory }}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -22,23 +22,87 @@
           <div fxLayout>
             <mat-form-field fxFlex appearance="outline">
               <mat-label>Descrição</mat-label>
-              <textarea matInput name="description" rows="3" [(ngModel)]="campaign.description"></textarea>
+              <textarea matInput name="description" rows="3" [(ngModel)]="campaign.description" required></textarea>
             </mat-form-field>
           </div>
           <div fxLayout fxLayoutGap="16px">
             <mat-form-field fxFlex="200px" appearance="outline">
               <mat-label>Data início</mat-label>
-              <input matInput type="date" name="initAt" [(ngModel)]="campaign.initAt" />
+              <input matInput name="initDate" [matDatepicker]="initDate" [(ngModel)]="campaign.initAt" required />
+              <mat-datepicker-toggle matSuffix [for]="initDate"></mat-datepicker-toggle>
+              <mat-datepicker #initDate></mat-datepicker>
             </mat-form-field>
             <mat-form-field fxFlex="150px" appearance="outline">
               <mat-label>Duração (dias)</mat-label>
-              <input matInput type="number" name="ttl" [(ngModel)]="campaign.ttl" />
+              <input matInput type="number" name="ttl" [(ngModel)]="campaign.ttl" required />
             </mat-form-field>
             <span fxFlex></span>
             <mat-form-field fxFlex="200px" appearance="outline">
               <mat-label>Data fim</mat-label>
-              <input matInput disabled type="date" name="finishAt" [(ngModel)]="finishAt" />
+              <input matInput type="date" disabled name="finishDate" [value]="finishAt | date:'yyyy-MM-dd'" />
             </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-slide-toggle name="withCollectPoint" [(ngModel)]="campaign.createCollectPoint">
+              Criar ponto de coleta utilizando minha localização
+            </mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="campaign.createCollectPoint && !isInstitutional">
+        <mat-card-content>
+          <span class="card-group">Ponto de coleta <small>(endereço)</small></span>
+          <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
+            <mat-form-field fxFlex.lt-md fxFlex="120px" appearance="outline">
+              <mat-label>CEP</mat-label>
+              <input matInput name="cep" [(ngModel)]="campaign.collectPoint.address.cep" mask="00000-000"
+                (keyup)="cep.next()" required>
+              <mat-spinner matSuffix [diameter]="20" [fxShow]="isLoadingAddress" color="primary"></mat-spinner>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Cidade</mat-label>
+              <input matInput name="city" [(ngModel)]="campaign.collectPoint.address.city" required>
+            </mat-form-field>
+            <mat-form-field fxFlex.lt-md fxFlex="200px" appearance="outline">
+              <mat-label>Estado</mat-label>
+              <input matInput name="state" [(ngModel)]="campaign.collectPoint.address.state" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
+            <mat-form-field fxFlex.lt-md fxFlex="200px" appearance="outline">
+              <mat-label>Bairro</mat-label>
+              <input matInput name="district" [(ngModel)]="campaign.collectPoint.address.district" required>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Logradouro</mat-label>
+              <input matInput name="street" [(ngModel)]="campaign.collectPoint.address.street" required>
+            </mat-form-field>
+            <mat-form-field fxFlex.lt-md fxFlex="150px" appearance="outline">
+              <mat-label>Número</mat-label>
+              <input matInput name="number" [(ngModel)]="campaign.collectPoint.address.number" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Complemento</mat-label>
+              <input matInput name="complement" [(ngModel)]="campaign.collectPoint.address.complement" required>
+            </mat-form-field>
+          </div>
+          <span class="card-group">Ponto de coleta <small>(informações de funcionamento)</small></span>
+          <div fxLayout>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Início funcionamento</mat-label>
+              <input matInput name="init" type="time" [(ngModel)]="campaign.collectPoint.operatingInfo.startTime" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Fim funcionamento</mat-label>
+              <input matInput name="end" type="time" [(ngModel)]="campaign.collectPoint.operatingInfo.endTime" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-slide-toggle name="weekend" [(ngModel)]="campaign.collectPoint.operatingInfo.weekend">Final de semana</mat-slide-toggle>
           </div>
         </mat-card-content>
       </mat-card>
@@ -48,26 +112,58 @@
           <div fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
             <mat-form-field fxFlex appearance="outline">
               <input placeholder="Produto" matInput [formControl]="productControl" [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="productLabel" (optionSelected)="onProduct($event)">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="productLabel"
+                (optionSelected)="onSelectProduct($event)">
                 <mat-option *ngFor="let product of products | async" [value]="product">
                   {{ product.name }}
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
             <mat-form-field fxFlex="100px" appearance="outline">
-                <mat-label>Quantidade</mat-label>
-                <input matInput type="number" name="qtd" [(ngModel)]="campaign.ttl" />
-              </mat-form-field>
+              <mat-label>Quantidade</mat-label>
+              <input matInput type="number" name="qtd" [(ngModel)]="item.quantity" />
+            </mat-form-field>
             <mat-form-field fxFlex="200px" appearance="outline">
               <mat-label>Medida</mat-label>
-              <mat-select name="unit" [(ngModel)]="campaign.type" required>
-                <mat-option *ngFor="let unit of itemUnits" [value]="type">{{ unit | itemUnit }}</mat-option>
+              <mat-select name="unit" [(ngModel)]="item.unit">
+                <mat-option *ngFor="let unit of itemUnits" [value]="unit">{{ unit | itemUnit }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button type="button" mat-raised-button>Adicionar</button>
+            <button type="button" class="product-btn" mat-raised-button [disabled]="!validProduct"
+              (click)="onInsertItem()">Adicionar</button>
+          </div>
+          <div fxLayout>
+            <table fxFlex mat-table [dataSource]="campaign.items">
+              <ng-container matColumnDef="product">
+                <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Produto </th>
+                <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="quantity">
+                <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Quantidade </th>
+                <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.quantity}}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="unit">
+                <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Medida </th>
+                <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                  {{element.unit | itemUnit}} </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th fxFlex="115px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef></th>
+                <td fxFlex="115px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                  <button mat-button color="primary" (click)="onRemoveItem(element)">Remover</button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="columns"></tr>
+              <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            </table>
           </div>
         </mat-card-content>
       </mat-card>
     </form>
+    <div fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
+      <button mat-button>Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSave()">{{action}}</button>
+    </div>
   </div>
 </main>

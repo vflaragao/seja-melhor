@@ -8,6 +8,7 @@ import { tap, switchMap } from 'rxjs/operators';
 import { environment } from '@env/environment';
 
 import { Account, AccessToken } from './auth.dto';
+import { extractAccountFromToken } from './auth.helper';
 
 @Injectable({
   providedIn: 'root'
@@ -19,18 +20,19 @@ export class AccountService {
   private _token = new BehaviorSubject<string>(localStorage.getItem('token'));
 
   constructor(
-    private router: Router,
-    private http: HttpClient,
+    private _router: Router,
+    private _http: HttpClient,
   ) {
     this._account = null;
     this._accounts = null;
   }
 
   get defaultRoute() {
-    if (!this._account) {
+    const account = extractAccountFromToken(this._token.value);
+    if (!account) {
       return '/';
     }
-    else if (this._account.institutional) {
+    else if (account.institutional) {
       return '/foundations';
     }
     return '/users';
@@ -73,16 +75,17 @@ export class AccountService {
   }
 
   async setToken(token: string) {
+    this._token.next(token);
     if (token) {
       localStorage.setItem('token', token);
     } else {
       localStorage.removeItem('token');
     }
-    this._token.next(token);
+    this._router.navigateByUrl(this.defaultRoute);
   }
 
   changeAccount(accountID: string) {
-    return this.http.post<AccessToken>(`${environment.API_BASE}/auth/change`, { account: accountID })
+    return this._http.post<AccessToken>(`${environment.API_BASE}/auth/change`, { account: accountID })
       .pipe(
         tap(token => this.setToken(token.accessToken))
       )
@@ -90,9 +93,9 @@ export class AccountService {
   }
 
   private setupAccount() {
-    return this.http.get<Account>(`${environment.API_BASE}/auth/profile`);
+    return this._http.get<Account>(`${environment.API_BASE}/auth/profile`);
   }
   private setupAccounts() {
-    return this.http.get<Account[]>(`${environment.API_BASE}/auth/profiles`);
+    return this._http.get<Account[]>(`${environment.API_BASE}/auth/profiles`);
   }
 }

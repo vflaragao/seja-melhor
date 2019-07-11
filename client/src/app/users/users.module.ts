@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 
 import { UsersComponent } from './users.component';
+import { PersonalGuard } from '@core/personal.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +16,11 @@ const routes: Routes = [
       },
       {
         path: '',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [PersonalGuard],
+        data: {
+          institutional: false
+        },
       },
     ]
   }

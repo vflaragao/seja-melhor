@@ -3,10 +3,21 @@ html, body {
     margin: 0;
 }
 
+mat-slide-toggle {
+    color: rgba(0,0,0,.64);
+}
+
 mat-radio-button {
     margin: 6px;
     font-size: 15px;
     color: rgba(0,0,0,.64);
+}
+
+mat-tab-group {
+    padding: 0 8px;
+    margin-bottom: 8px;
+    border-radius: 15px;
+    background-color: #fff;
 }
 
 a {
@@ -67,4 +78,8 @@ mat-card {
     &:first-of-type {
         margin-top: -8px;
     }
+}
+
+section {
+    margin: 24px 0 48px;
 }

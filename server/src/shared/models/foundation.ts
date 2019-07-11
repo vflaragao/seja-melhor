@@ -7,6 +7,7 @@ import { AddressSchema, Address } from './fields/address';
 import { Collaborator, Collaboratorchema } from './fields/collaborator';
 import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
+import { SocialMediaSchema, SocialMedia } from './fields/social-media';
 
 export enum ActionCategory {
     OLD = 'OLD',
@@ -34,6 +35,7 @@ export interface Foundation extends Document {
     category: ActionCategory;
     address: Address;
     users: Collaborator[];
+    social: SocialMedia;
     operatingInfo: OperatingInfo;
     authorization: Authorization;
 
@@ -80,6 +82,9 @@ const FoundationSchema = new Schema({
     users: {
         type: [Collaboratorchema],
         required: true,
+    },
+    social: {
+        type: SocialMediaSchema
     },
     authorization: {
         type: AuthorizationSchema,

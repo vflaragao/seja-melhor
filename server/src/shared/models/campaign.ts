@@ -4,7 +4,11 @@ import { ActionCategory, ActionCategoryValues } from './foundation';
 
 import { Item, ItemSchema } from './fields/item';
 import { ProductTypeValues, ProductType } from './product';
-import { Authorization, AuthorizationSchema } from './fields/authorization';
+import { Authorization, AuthorizationSchema, AuthorCollection } from './fields/authorization';
+import { CollectPointCreateDTO } from 'collect-points/dto/collect-point.dto';
+import { ActivityCollection } from './fields/activity';
+import { Address } from './fields/address';
+import { OperatingInfo } from './fields/operating-info';
 
 export interface Campaign extends Document {
     title: string;
@@ -19,9 +23,11 @@ export interface Campaign extends Document {
     expiresAt: Date;
     category: ActionCategory;
     authorization: Authorization;
+
+    asHeadOffice(address: Address, operatingInfo: OperatingInfo): CollectPointCreateDTO;
 }
 
-export const CampaignSchema = new Schema({
+const CampaignSchema = new Schema({
     title: {
         type: String,
         trim: true,
@@ -54,7 +60,7 @@ export const CampaignSchema = new Schema({
     creatorSource: {
         type: String,
         required: true,
-        enum: ['User', 'Foundation']
+        enum: [AuthorCollection.USER, AuthorCollection.FOUNDATION]
     },
     disabled: {
         type: Boolean,
@@ -78,3 +84,16 @@ export const CampaignSchema = new Schema({
         type: AuthorizationSchema
     }
 });
+
+CampaignSchema.methods.asHeadOffice = function(address: Address, operatingInfo: OperatingInfo): CollectPointCreateDTO {
+    const createCollectPoint = new CollectPointCreateDTO();
+    createCollectPoint.target = this._id;
+    createCollectPoint.targetSource = ActivityCollection.CAMPAIGN;
+    createCollectPoint.address = address;
+    createCollectPoint.operatingInfo = operatingInfo;
+    createCollectPoint.renewable = false;
+    createCollectPoint.expiresAt = this.expiresAt;
+    return createCollectPoint;
+}
+
+export { CampaignSchema };
