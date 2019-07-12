@@ -19,6 +19,18 @@ mat-tab-group {
     border-radius: 15px;
     background-color: #fff;
 }
+mat-tab-body {
+    font-size: 14px;
+    .mat-tab-body-content {
+        padding: 0 16px;
+    }
+    .card-group {
+        display: block;
+        background: rgba(0,0,0,.03);
+        padding: 8px 16px;
+        margin: 16px -16px;
+    }
+}
 
 a {
     color: #03a9f4;
@@ -82,4 +94,8 @@ mat-card {
 
 section {
     margin: 24px 0 48px;
+}
+
+.action-container {
+    margin-top: 16px;
 }

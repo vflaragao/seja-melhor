@@ -23,23 +23,6 @@ export class FoundationCreateDTO {
 }
 
 export class FoundationUpdateDTO {
-    name: string;
-    cnpj: string;
-    email: string;
-    phone: string;
-    category: ActionCategory;
-    address: Address;
-    users: Collaborator[];
-    operatingInfo: OperatingInfo;
-
-    constructor() {
-        this.users = [];
-        this.address = new Address();
-        this.operatingInfo = new OperatingInfo();
-    }
-}
-
-export interface FoundationGetDTO {
     _id: string;
     name: string;
     cnpj: string;
@@ -48,4 +31,25 @@ export interface FoundationGetDTO {
     address: Address;
     category: ActionCategory;
     operatingInfo: OperatingInfo;
+
+    constructor() {
+        this.address = new Address();
+        this.operatingInfo = new OperatingInfo();
+    }
+}
+
+export class FoundationGetDTO {
+    _id: string;
+    name: string;
+    cnpj: string;
+    email: string;
+    phone: string;
+    address: Address;
+    category: ActionCategory;
+    operatingInfo: OperatingInfo;
+
+    constructor() {
+        this.address = new Address();
+        this.operatingInfo = new OperatingInfo();
+    }
 }

@@ -4,7 +4,6 @@ import { ItemSchema, Item } from './fields/item';
 import { ProductTypeValues, ProductType } from './product';
 
 export interface Goal extends Document {
-    renewalDay: number;
     disabled: boolean;
     creator: Types.ObjectId;
     items: Item[];
@@ -12,10 +11,6 @@ export interface Goal extends Document {
 }
 
 export const GoalSchema = new Schema({
-    renewalDay: {
-        type: Number,
-        required: true
-    },
     disabled: {
         type: Boolean,
         default: false,

@@ -1,10 +1,21 @@
 import { Item } from './fields/item';
-import { ProductType } from './product';
+import { ActionCategory } from './campaign';
 
-export class GoalDTO {
-    renewalDay: number;
+export class GoalCreateDTO {
+    _id: string;
     disabled: boolean;
-    creator: string;
     items: Item[];
-    types: ProductType[];
+
+    constructor() {
+        this.items = [];
+    }
+}
+
+export interface GoalGetDTO {
+    _id?: string;
+    items?: Item[];
+    creator?: {
+        name: string;
+        category: ActionCategory;
+    }
 }

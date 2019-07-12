@@ -1,36 +1,50 @@
 <main>
-  <div class="content" fxLayout fxLayoutAlign="center start">
-    <div fxFlex fxFlex.sm="80" fxFlex.md="70" fxFlex.gt-md="60" fxLayout="column">
-      <h1 class="logo-font">Cadastrar Instituição</h1>
-      <mat-card>
-        <mat-card-content>
-          <form #createFoundation="ngForm" (submit)="onSave()">
+  <div class="content">
+    <div fxLayout>
+      <h2 class="mat-h2" fxFlex>Gerenciar perfil</h2>
+    </div>
+    <mat-tab-group [(selectedIndex)]="selectedTab">
+      <mat-tab label="Dados cadastrais"></mat-tab>
+      <mat-tab label="Colaboradores"></mat-tab>
+      <mat-tab label="Meta"></mat-tab>
+    </mat-tab-group>
+
+    <ng-container *ngIf="selectedTab === 0">
+      <form #foundationForm="ngForm">
+        <mat-card>
+          <mat-card-content>
             <span class="card-group">Informações básicas</span>
-            <div fxLayout>
+            <div fxLayout fxLayoutGap="16px">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Nome</mat-label>
                 <input matInput name="name" [(ngModel)]="foundation.name" required>
               </mat-form-field>
-            </div>
-            <div fxLayout>
-              <mat-form-field fxFlex appearance="outline">
+              <mat-form-field fxFlex="250px" appearance="outline">
                 <mat-label>CNPJ</mat-label>
                 <input matInput name="cnpj" [(ngModel)]="foundation.cnpj" mask="00.000.000/0000-00" required>
               </mat-form-field>
             </div>
-            <div fxLayout>
+            <div fxLayout fxLayoutGap="16px">
               <mat-form-field fxFlex appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput name="email" [(ngModel)]="foundation.email" required>
+              </mat-form-field>
+              <mat-form-field fxFlex="200px" appearance="outline">
                 <mat-label>Telefone</mat-label>
-                <input matInput name="phone" [(ngModel)]="foundation.phone" prefix="+55 " mask="(00) 00000-0000" required>
+                <input matInput name="phone" [(ngModel)]="foundation.phone" prefix="+55 " mask="(00) 00000-0000"
+                  required>
               </mat-form-field>
             </div>
-    
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-content>
             <span class="card-group">Endereço</span>
             <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
               <mat-form-field fxFlex.lt-md fxFlex="120px" appearance="outline">
                 <mat-label>CEP</mat-label>
-                <input matInput name="cep" [(ngModel)]="foundation.address.cep" mask="00000-000"
-                  (keyup)="cep.next()" required>
+                <input matInput name="cep" [(ngModel)]="foundation.address.cep" mask="00000-000" (keyup)="cep.next()"
+                  required>
                 <mat-spinner matSuffix [diameter]="20" [fxShow]="isLoadingAddress" color="primary"></mat-spinner>
               </mat-form-field>
               <mat-form-field fxFlex appearance="outline">
@@ -62,7 +76,10 @@
                 <input matInput name="complement" [(ngModel)]="foundation.address.complement">
               </mat-form-field>
             </div>
-
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-content>
             <span class="card-group">Informações de funcionamento</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
@@ -87,28 +104,39 @@
               </mat-form-field>
             </div>
             <div fxLayout>
-              <mat-slide-toggle name="weekend" [(ngModel)]="foundation.operatingInfo.weekend">Final de semana</mat-slide-toggle>
+              <mat-slide-toggle name="weekend" [(ngModel)]="foundation.operatingInfo.weekend">Final de semana
+              </mat-slide-toggle>
             </div>
-    
-            <span class="card-group">Credenciais</span>
-            <div fxLayout>
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label>E-mail</mat-label>
-                <input matInput name="email" type="email" [(ngModel)]="foundation.credentials.email" required>
-              </mat-form-field>
-            </div>
-            <div fxLayout>
-              <mat-form-field fxFlex appearance="outline">
-                <mat-label>Senha</mat-label>
-                <input matInput name="password" type="password" [(ngModel)]="foundation.credentials.password" required>
-              </mat-form-field>
-            </div>
-            <div fxLayout>
-              <button fxFlex mat-raised-button type="submit" [disabled]="!createFoundation.form.valid" color="primary">Criar</button>
-            </div>
-          </form>
-        </mat-card-content>
-      </mat-card>
-    </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+      <div class="action-container" fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
+        <button mat-button>Cancelar</button>
+        <button mat-raised-button color="primary">Salvar</button>
+      </div>
+    </ng-container>
+    <!-- <div fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
+        <mat-form-field fxFlex appearance="outline">
+          <input placeholder="Produto" matInput [formControl]="productControl" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="productLabel"
+            (optionSelected)="onSelectProduct($event)">
+            <mat-option *ngFor="let product of products | async" [value]="product">
+              {{ product.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field fxFlex="100px" appearance="outline">
+          <mat-label>Quantidade</mat-label>
+          <input matInput type="number" name="qtd" [(ngModel)]="item.quantity" />
+        </mat-form-field>
+        <mat-form-field fxFlex="200px" appearance="outline">
+          <mat-label>Medida</mat-label>
+          <mat-select name="unit" [(ngModel)]="item.unit">
+            <mat-option *ngFor="let unit of itemUnits" [value]="unit">{{ unit | itemUnit }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button type="button" class="product-btn" mat-raised-button [disabled]="!validProduct"
+          (click)="onInsertItem()">Adicionar</button>
+      </div> -->
   </div>
 </main>

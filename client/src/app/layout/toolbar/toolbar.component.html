@@ -29,7 +29,11 @@
         </ng-container>
         <mat-divider></mat-divider>
         <h3 class="menu-group mat-body-1">Gerenciamento</h3>
-        <button *ngIf="hasMultiAccounts" mat-menu-item (click)="onLogout()">
+        <button [routerLink]="defaultManageRoute" mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          Atualizar perfil
+        </button>
+        <button *ngIf="hasMultiAccounts" mat-menu-item>
           <mat-icon>group</mat-icon>
           Definir conta padrão
         </button>

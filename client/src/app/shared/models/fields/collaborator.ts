@@ -10,5 +10,6 @@ export const RoleValues = [
 
 export interface Collaborator {
     user: string;
+    name: string;
     role: Role;
 }

@@ -38,6 +38,17 @@ export class AccountService {
     return '/users';
   }
 
+  get defaultManageRoute() {
+    const account = extractAccountFromToken(this._token.value);
+    if (!account) {
+      return '/';
+    }
+    else if (account.institutional) {
+      return '/foundations/manage';
+    }
+    return '/users/manage';
+  }
+
   get token() {
     return this._token.asObservable();
   }

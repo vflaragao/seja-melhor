@@ -32,6 +32,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this._destroy$ = new Subject();
   }
 
+  get defaultManageRoute() {
+    return this.accountService.defaultManageRoute;
+  }
+
   get defaultRoute() {
     return this.accountService.defaultRoute;
   }

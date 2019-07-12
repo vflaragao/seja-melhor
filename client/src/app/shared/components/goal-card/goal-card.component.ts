@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { addDate } from '@helpers/date';
 
-import { GoalDTO } from '@models/goal';
-import { ProductType } from '@models/product';
+import { GoalGetDTO } from '@models/goal';
 
 @Component({
   selector: 'app-goal-card',
@@ -21,30 +19,12 @@ export class GoalCardComponent implements OnInit {
   public showAuthor: boolean = true;
 
   @Input()
-  public goal: GoalDTO;
+  public goal: GoalGetDTO;
 
   constructor() {
     this.progress = 35;
-    this.goal = new GoalDTO();
-    this.goal.renewalDay = 15;
-    this.goal.types = [
-      ProductType.TOY,
-      ProductType.FOOD,
-      ProductType.REMEDY,
-      ProductType.CLOTHE,
-      ProductType.CLEANING_MATERIAL,
-    ];
+    this.goal = {};
   }
 
   ngOnInit() {}
-
-  get restantDays() {
-    const now = new Date();
-    if (now.getDate() > this.goal.renewalDay) {
-      const nextMonth = addDate(1, 'month', now);
-      nextMonth.set('date', this.goal.renewalDay);
-      return nextMonth.diff(now, 'days');
-    }
-    return this.goal.renewalDay - now.getDate();
-  }
 }

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FoundationsService } from './foundations.service';
-
-import { ProductTypeValues, ProductTypeStatistics } from '@models/product';
-import { FoundationGetDTO } from '@models/foundation';
-import { MatTabChangeEvent, MatDialog } from '@angular/material';
-import { Activity, ActivityValues } from '@models/fields/activity';
-import { takeUntil, switchMap } from 'rxjs/operators';
-import { Account } from '../auth/auth.dto';
-import { Subject } from 'rxjs';
-import { AccountService } from '../auth/account.service';
+import { MatTabChangeEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { takeUntil, switchMap } from 'rxjs/operators';
+
+import { FoundationsService } from '../foundations.service';
+
+import { Account } from '../../auth/auth.dto';
+import { AccountService } from '../../auth/account.service';
+
 import { CampaignDTO } from '@models/campaign';
+import { FoundationGetDTO } from '@models/foundation';
 import { CollectPointDTO } from '@models/collect-point';
+import { Activity, ActivityValues } from '@models/fields/activity';
 
 @Component({
   selector: 'app-foundations',
