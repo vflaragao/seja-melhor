@@ -12,7 +12,7 @@ import { GoalsService } from './goals.service';
 @Injectable()
 export class CollectPointsService {
 
-    constructor (
+    constructor(
         @InjectModel('CollectPoint')
         private readonly collectPointModel: Model<CollectPoint>,
         private readonly goalService: GoalsService,

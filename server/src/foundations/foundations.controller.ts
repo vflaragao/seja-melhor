@@ -1,11 +1,17 @@
 import { Types } from 'mongoose';
-import { Controller, Get, Query, Param, Post, Body, Put, Logger } from '@nestjs/common';
+import { Controller, Get, Query, Param, Post, Body, Put, Logger, UseGuards, ForbiddenException, Delete } from '@nestjs/common';
 
 import { FoundationCreateDTO, FoundationUpdateDTO } from './dto/foundations.dto';
 
 import { FoundationsService } from '../core/foundations.service';
 import { CollectPointsService } from '../core/collect-points.service';
 import { CampaignsService } from 'core/campaigns.service';
+import { AuthGuard } from '@nestjs/passport';
+import { Acc } from '@shared/decorator/account.decorator';
+import { Account } from 'auth/jwt.interface';
+import { Role, Collaborator } from '@models/fields/collaborator';
+import { FoundationRoleGuard } from './foundation-role.guard';
+import { Roles } from '@shared/decorator/roles.decorator';
 
 @Controller('foundations')
 export class FoundationsController {
@@ -40,6 +46,20 @@ export class FoundationsController {
         }
     }
 
+    @Get('collaborators')
+    @UseGuards(AuthGuard())
+    async getCollaborators(@Acc() account: Account) {
+        try {
+            if (!account.institutional || account.role !== Role.MANAGER) {
+                throw new ForbiddenException('Usuário não autorizado');
+            }
+            return await this.foundationService.listCollaborators(account._id);
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
+
     @Get(':id')
     async getFoundation(@Param('id') id: Types.ObjectId) {
         const foundation = await this.foundationService.get(id);
@@ -52,6 +72,20 @@ export class FoundationsController {
         return list;
     }
 
+    @Post('collaborators')
+    @Roles(Role.MANAGER)
+    @UseGuards(AuthGuard(), FoundationRoleGuard)
+    async saveOrUpdateCollaborator(@Body() payload: Collaborator, @Acc() account: Account) {
+        try {
+            const x = await this.foundationService.saveOrUpdateCollaborator(payload, account);
+            console.log(x);
+            return x;
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
+
     @Post()
     async registerFoundation(@Body() payload: FoundationCreateDTO) {
         const Foundation = await this.foundationService.save(payload);
@@ -62,5 +96,19 @@ export class FoundationsController {
     async updateFoundation(@Param('id') id: Types.ObjectId, @Body() payload: FoundationUpdateDTO) {
         const Foundation = await this.foundationService.update(id, payload);
         return Foundation;
+    }
+
+    @Delete('collaborators/:id')
+    @Roles(Role.MANAGER)
+    @UseGuards(AuthGuard(), FoundationRoleGuard)
+    async removeCollaborator(@Param('id') id: Types.ObjectId, @Acc() account: Account) {
+        try {
+            const x = await this.foundationService.removeCollaborator(id, account);
+            console.log(x);
+            return x;
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
     }
 }

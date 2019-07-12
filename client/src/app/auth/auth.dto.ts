@@ -5,6 +5,7 @@ export interface Account {
     _id: string;
     name: string;
     role: Role;
+    email: string;
     default: boolean;
     institutional: boolean;
 }

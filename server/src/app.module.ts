@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
-
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
@@ -33,6 +30,7 @@ import { CollectPointsModule } from './collect-points/collect-points.module';
 
     /** Database */
     MongooseModule.forRoot('mongodb://localhost/seja-melhor', {
+      useFindAndModify: true,
       useNewUrlParser: true,
       useCreateIndex: true,
     }),

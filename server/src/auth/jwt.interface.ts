@@ -6,6 +6,7 @@ export interface Account {
     user: Types.ObjectId;
     _id: Types.ObjectId;
     name: string;
+    email: string;
     role: Role;
     default: boolean;
     institutional: boolean;

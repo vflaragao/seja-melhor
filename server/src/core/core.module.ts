@@ -1,10 +1,6 @@
 import { Module, HttpModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AddressService } from './address.service';
-import { CampaignsService } from './campaigns.service';
-import { CollectPointsService } from './collect-points.service';
-
 import { GoalSchema } from '@models/goal';
 import { UserSchema } from '@models/user';
 import { ProductSchema } from '@models/product';
@@ -15,9 +11,12 @@ import { CollectPointSchema } from '@models/collect-point';
 
 import { GoalsService } from './goals.service';
 import { UsersService } from './users.service';
+import { AddressService } from './address.service';
 import { ProductsService } from './products.service';
+import { CampaignsService } from './campaigns.service';
 import { ModeratorsService } from './moderators.service';
 import { FoundationsService } from './foundations.service';
+import { CollectPointsService } from './collect-points.service';
 
 @Module({
     imports: [
@@ -31,9 +30,9 @@ import { FoundationsService } from './foundations.service';
         MongooseModule.forFeature([{ name: 'CollectPoint', schema: CollectPointSchema }]),
     ],
     providers: [
-        AddressService,
         GoalsService,
         UsersService,
+        AddressService,
         ProductsService,
         CampaignsService,
         ModeratorsService,
@@ -41,14 +40,14 @@ import { FoundationsService } from './foundations.service';
         CollectPointsService,
     ],
     exports: [
-        AddressService,
         GoalsService,
         UsersService,
+        AddressService,
         ProductsService,
         CampaignsService,
         ModeratorsService,
         FoundationsService,
         CollectPointsService,
-    ]
+    ],
 })
 export class CoreModule {}

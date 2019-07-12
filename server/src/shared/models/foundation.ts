@@ -84,7 +84,7 @@ const FoundationSchema = new Schema({
         required: true,
     },
     social: {
-        type: SocialMediaSchema
+        type: SocialMediaSchema,
     },
     authorization: {
         type: AuthorizationSchema,
@@ -98,9 +98,10 @@ FoundationSchema.methods.asAccount = function(user: User) {
         user: user._id,
         _id: this._id,
         name: this.name,
+        email: this.email,
         role: collaborator.role,
         institutional: true,
-        default: defaultAccount
+        default: defaultAccount,
     } as Account;
 };
 

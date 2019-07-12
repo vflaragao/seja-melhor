@@ -1,9 +1,8 @@
-interface ObjClass<T> {
-    new (): T;
-}
+type ObjClass<T> = new () => T;
 
+// tslint:disable-next-line:no-namespace
 export namespace Objects {
-    export function mergeArrayFromObject(obj: Array<any>, key: string, unifyItems?: boolean) {
+    export function mergeArrayFromObject(obj: any[], key: string, unifyItems?: boolean) {
         const mergedArr = obj.reduce((acc, cur) => {
             acc.push(...cur[key]);
             return acc;
@@ -11,16 +10,18 @@ export namespace Objects {
         return unifyItems ? distinct(mergedArr) : mergedArr;
     }
 
-    export function distinct(arr: Array<any>, key?: string[]) {
+    export function distinct(arr: any[], key?: string[]) {
         return key ? distinctByKey(arr, key) : distinctByValue(arr);
     }
 
     export function instance<T>(value: T, Clazz: ObjClass<T>) {
-        const instance = new Clazz();
+        const instanceObj = new Clazz();
         for (const attr in value) {
-            instance[attr] = value[attr];
+            if (value.hasOwnProperty(attr)) {
+                instanceObj[attr] = value[attr];
+            }
         }
-        return instance;
+        return instanceObj;
     }
 
     const distinctByValue = (arr: any[]) => arr.filter((item, index) => arr.indexOf(item) === index);

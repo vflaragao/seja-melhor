@@ -1,3 +1,5 @@
+export * from './role.pipe';
+export * from './initials.pipe';
 export * from './item-unit.pipe';
 export * from './product-type.pipe';
 export * from './account-type.pipe';

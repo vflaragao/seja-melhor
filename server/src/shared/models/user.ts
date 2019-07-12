@@ -42,7 +42,7 @@ const UserSchema = new Schema({
         default: false,
     },
     defaultAccount: {
-        type: Types.ObjectId
+        type: Types.ObjectId,
     },
     password: {
         type: String,
@@ -74,6 +74,7 @@ UserSchema.methods.asAccount = function() {
         user: this._id,
         _id: this._id,
         name: this.name,
+        email: this.email,
         institutional: false,
         default: this.defaultAccount || this._id,
     } as Account;

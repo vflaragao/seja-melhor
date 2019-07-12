@@ -37,7 +37,7 @@
                 <mat-label>Cidade</mat-label>
                 <input matInput name="city" [(ngModel)]="foundation.address.city" required>
               </mat-form-field>
-              <mat-form-field fxFlex.lt-md fxFlex="200px" appearance="outline">
+              <mat-form-field fxFlex.lt-md fxFlex="100px" appearance="outline">
                 <mat-label>Estado</mat-label>
                 <input matInput name="state" [(ngModel)]="foundation.address.state" required>
               </mat-form-field>
@@ -51,7 +51,7 @@
                 <mat-label>Logradouro</mat-label>
                 <input matInput name="street" [(ngModel)]="foundation.address.street" required>
               </mat-form-field>
-              <mat-form-field fxFlex.lt-md fxFlex="150px" appearance="outline">
+              <mat-form-field fxFlex.lt-md fxFlex="100px" appearance="outline">
                 <mat-label>Número</mat-label>
                 <input matInput name="number" [(ngModel)]="foundation.address.number" required>
               </mat-form-field>
@@ -74,13 +74,11 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxLayout>
+            <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Início funcionamento</mat-label>
                 <input matInput name="init" type="time" [(ngModel)]="foundation.operatingInfo.startTime" required>
               </mat-form-field>
-            </div>
-            <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Fim funcionamento</mat-label>
                 <input matInput name="end" type="time" [(ngModel)]="foundation.operatingInfo.endTime" required>

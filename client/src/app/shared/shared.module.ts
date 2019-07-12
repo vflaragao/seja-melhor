@@ -31,6 +31,7 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AvatarModule } from 'ngx-avatar';
 
 import {
   ManageProductComponent,
@@ -54,6 +55,8 @@ import {
 } from './components';
 
 import {
+  RolePipe,
+  InitialsPipe,
   ItemUnitPipe,
   ProductTypePipe,
   RestantDaysPipe,
@@ -73,6 +76,9 @@ import {
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+
+    /** Avatar */
+    AvatarModule,
 
     /** Mansory */
     NgxMasonryModule,
@@ -97,7 +103,7 @@ import {
 
     /** Flex */
     FlexLayoutModule,
-    
+
     /** QRCode */
     QRCodeModule,
   ],
@@ -113,15 +119,17 @@ import {
     UserContributionComponent,
     ProgressIndicatorComponent,
     AuthCreationOptionsComponent,
-    
+
     /** Dialogs */
     ManageProductComponent,
     ChangePasswordComponent,
     RegisterDonationComponent,
     CollectPointQRCodeComponent,
     DonationStatusChangeComponent,
-    
+
     /** Pipes */
+    RolePipe,
+    InitialsPipe,
     ItemUnitPipe,
     ProductTypePipe,
     RestantDaysPipe,
@@ -135,6 +143,7 @@ import {
     ActionCategoryBackgroundColorPipe,
     ManageProductComponent,
     ChangePasswordComponent,
+    InitialsPipe,
   ],
   exports: [
     FormsModule,
@@ -143,6 +152,9 @@ import {
     HttpClientModule,
     ReactiveFormsModule,
     MatNativeDateModule,
+
+    /** Avatar */
+    AvatarModule,
 
     /** Mansory */
     NgxMasonryModule,
@@ -186,7 +198,7 @@ import {
     UserContributionComponent,
     ProgressIndicatorComponent,
     AuthCreationOptionsComponent,
-    
+
     /** Dialogs */
     ManageProductComponent,
     ChangePasswordComponent,
@@ -195,6 +207,8 @@ import {
     DonationStatusChangeComponent,
 
     /** Pipes */
+    RolePipe,
+    InitialsPipe,
     ItemUnitPipe,
     ProductTypePipe,
     RestantDaysPipe,

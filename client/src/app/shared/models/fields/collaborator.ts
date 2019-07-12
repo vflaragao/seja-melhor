@@ -8,8 +8,11 @@ export const RoleValues = [
     Role.SECRETARY
 ];
 
-export interface Collaborator {
+export class Collaborator {
     user: string;
     name: string;
+    email: string;
     role: Role;
+
+    constructor() {}
 }

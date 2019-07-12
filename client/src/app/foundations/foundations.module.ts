@@ -31,8 +31,8 @@ const routes: Routes = [
         data: { institutional: true }
       },
     ]
-  }  
-]
+  },
+];
 
 @NgModule({
   declarations: [FoundationsComponent, ManageComponent],

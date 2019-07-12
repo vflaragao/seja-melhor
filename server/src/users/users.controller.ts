@@ -1,11 +1,15 @@
 import { Types } from 'mongoose';
-import { Controller, Post, Get, Put, Body, Query, Param, Logger } from '@nestjs/common';
+import { Controller, Post, Get, Put, Body, Query, Param, Logger, UseGuards } from '@nestjs/common';
 
-import { UserDTO, UserCreateDTO } from './dto/users.dto';
+import { UserUpdateDTO, UserCreateDTO } from './dto/users.dto';
 
 import { UsersService } from '../core/users.service';
 import { CampaignsService } from '../core/campaigns.service';
 import { CollectPointsService } from '../core/collect-points.service';
+import { AuthGuard } from '@nestjs/passport';
+import { Acc } from '@shared/decorator/account.decorator';
+import { Account } from 'auth/jwt.interface';
+import { QueryParam } from '@helpers/search';
 
 @Controller('users')
 export class UsersController {
@@ -19,19 +23,7 @@ export class UsersController {
     ) {
         this.logger = new Logger(UsersController.name);
     }
-
-    @Get('exists')
-    async existsUser(@Query('e') email: string) {
-        const user = await this.userService.existsByEmail(email);
-        return user;
-    }
-
-    @Get(':id')
-    async getUser(@Param('id') id: Types.ObjectId) {
-        const user = await this.userService.get(id);
-        return user;
-    }
-
+    
     @Get(':id/collectPoints')
     async getCollectPoints(@Param('id') id: Types.ObjectId) {
         try {
@@ -41,7 +33,7 @@ export class UsersController {
             throw e;
         }
     }
-
+    
     @Get(':id/campaigns')
     async getCampaigns(@Param('id') id: Types.ObjectId) {
         try {
@@ -54,6 +46,29 @@ export class UsersController {
 
     @Get(':id/statistics')
     async getStatistics(@Param('id') id: Types.ObjectId) {
+        const user = await this.userService.get(id);
+        return user;
+    }
+
+    @Get('collaborators')
+    @UseGuards(AuthGuard())
+    async listCollaborators(@Query() params: QueryParam, @Acc() account: Account) {
+        try {
+            return await this.userService.listCollaborators(account, params.q, params.s);
+        } catch (e) {
+            this.logger.error(e.message, e.stack);
+            throw e;
+        }
+    }
+
+    @Get('exists')
+    async existsUser(@Query('e') email: string) {
+        const user = await this.userService.existsByEmail(email);
+        return user;
+    }
+
+    @Get(':id')
+    async getUser(@Param('id') id: Types.ObjectId) {
         const user = await this.userService.get(id);
         return user;
     }
@@ -75,7 +90,7 @@ export class UsersController {
     }
 
     @Put(':id')
-    async updateUser(@Param('id') id: Types.ObjectId, @Body() payload: UserDTO) {
+    async updateUser(@Param('id') id: Types.ObjectId, @Body() payload: UserUpdateDTO) {
         const User = await this.userService.update(id, payload);
         return User;
     }

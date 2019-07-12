@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { IsString, IsOptional, IsEmail, IsPhoneNumber } from 'class-validator';
 
 export class UserStatistics {
-    constructor (
+    constructor(
         public goalDonations?: number,
         public campaignDonations?: number,
         public ownCampaigns?: number,
@@ -10,6 +10,17 @@ export class UserStatistics {
     ) {}
 }
 
+// tslint:disable-next-line:max-classes-per-file
+export class UserCollaborator {
+    constructor(
+        // tslint:disable-next-line:variable-name
+        public _id: Types.ObjectId,
+        public email: string,
+        public name: string,
+    ) {}
+}
+
+// tslint:disable-next-line:max-classes-per-file
 export class UserCreateDTO {
     @IsOptional()
     public _id: Types.ObjectId;
@@ -31,7 +42,7 @@ export class UserCreateDTO {
         phone?: string,
         email?: string,
         password?: string,
-        institutional?: boolean
+        institutional?: boolean,
     ) {
         this.name = name;
         this.phone = phone;
@@ -41,7 +52,7 @@ export class UserCreateDTO {
     }
 }
 
-export interface UserDTO {
+export interface UserUpdateDTO {
     _id: Types.ObjectId;
     name?: string;
     phone?: string;
