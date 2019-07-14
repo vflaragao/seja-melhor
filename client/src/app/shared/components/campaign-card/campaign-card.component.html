@@ -12,7 +12,7 @@
     class="campaign-category-container">
     <mat-icon class="campaign-category-icon">{{campaign?.category | actionCategoryIcon}}</mat-icon>
   </div>
-  <mat-card-content [class.no-category]="!showCategory">
+  <mat-card-content [class.no-category]="!showCategory" (click)="onSelect()">
     <div class="description-container">
       <h4 class="campaign-title">{{campaign?.title}}</h4>
       <a *ngIf="showAuthor" class="author-link" href="#">{{campaign?.creator}}</a>
@@ -25,7 +25,7 @@
       <span class="time">{{ campaign?.expiresAt | restantDays }}</span>
     </div>
     <span fxFlex></span>
-    <button mat-button color="warn">
+    <button mat-button color="warn" (click)="onDonate()">
         <mat-icon>favorite</mat-icon>
         Doar
       </button>

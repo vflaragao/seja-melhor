@@ -129,7 +129,7 @@
                 <mat-option *ngFor="let unit of itemUnits" [value]="unit">{{ unit | itemUnit }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button type="button" class="product-btn" mat-raised-button [disabled]="!validProduct"
+            <button type="button" class="list-btn" mat-raised-button [disabled]="!validProduct"
               (click)="onInsertItem()">Adicionar</button>
           </div>
           <div fxLayout>

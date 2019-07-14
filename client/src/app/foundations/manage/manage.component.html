@@ -8,9 +8,8 @@
       <mat-tab label="Colaboradores"></mat-tab>
       <mat-tab label="Meta"></mat-tab>
     </mat-tab-group>
-
     <ng-container *ngIf="selectedTab === 0">
-      <form #foundationForm="ngForm">
+      <form #foundationForm="ngForm" (submit)="onUpdateFoundation()">
         <mat-card>
           <mat-card-content>
             <span class="card-group">Informações básicas</span>
@@ -27,7 +26,7 @@
             <div fxLayout fxLayoutGap="16px">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput name="email" [(ngModel)]="foundation.email" required>
+                <input matInput name="email" [(ngModel)]="foundation.email" disabled required>
               </mat-form-field>
               <mat-form-field fxFlex="200px" appearance="outline">
                 <mat-label>Telefone</mat-label>
@@ -91,38 +90,50 @@
                 </mat-select>
               </mat-form-field>
             </div>
-            <div fxLayout>
+            <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Início funcionamento</mat-label>
                 <input matInput name="init" type="time" [(ngModel)]="foundation.operatingInfo.startTime" required>
               </mat-form-field>
-            </div>
-            <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Fim funcionamento</mat-label>
                 <input matInput name="end" type="time" [(ngModel)]="foundation.operatingInfo.endTime" required>
               </mat-form-field>
             </div>
             <div fxLayout>
-              <mat-slide-toggle name="weekend" [(ngModel)]="foundation.operatingInfo.weekend">Final de semana
+              <mat-slide-toggle name="weekend" [(ngModel)]="foundation.operatingInfo.weekend">
+                Final de semana
               </mat-slide-toggle>
             </div>
           </mat-card-content>
         </mat-card>
+        <div class="action-container" fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
+          <button type="submit" mat-raised-button color="primary"
+            [disabled]="!foundationForm.form.valid">
+            Salvar
+          </button>
+        </div>
       </form>
-      <div class="action-container" fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
-        <button mat-button>Cancelar</button>
-        <button mat-raised-button color="primary">Salvar</button>
-      </div>
     </ng-container>
 
     <ng-container *ngIf="selectedTab === 1">
       <mat-card>
         <mat-card-content>
+          <span class="card-group">Administrador padrão</span>
+          <div fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
+            <app-content fxFlex label="Nome" [value]="defaultManager.name"></app-content>
+            <app-content fxFlex label="Email" [value]="defaultManager.email"></app-content>
+            <app-content fxFlex label="Permissão" [value]="defaultManager.role | role"></app-content>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
           <div fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
             <mat-form-field fxFlex appearance="outline">
               <input placeholder="Usuário" matInput [formControl]="userControl" [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="userLabel">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="userLabel"
+                (optionSelected)="onSelectUser($event)">
                 <mat-option *ngFor="let user of users | async" [value]="user">
                   <div fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
                     <ngx-avatar size="40" [name]="user.name | initials"></ngx-avatar>
@@ -140,37 +151,57 @@
                 <mat-option *ngFor="let role of userRoles" [value]="role">{{ role | role }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button type="button" class="insert-item-btn" mat-raised-button [disabled]="!validCollaborator"
-              (click)="onInsertCollaborator()">Adicionar</button>
+            <button type="button" class="insert-list-btn" mat-raised-button
+              (click)="onResetCollaborator()">Limpar</button>
+            <button type="button" class="insert-list-btn" mat-raised-button color="primary"
+              [disabled]="!validCollaborator" (click)="onInsertCollaborator()">Adicionar</button>
           </div>
         </mat-card-content>
       </mat-card>
       <mat-card>
         <mat-card-content>
           <div fxLayout>
-            <table #userTable fxFlex mat-table [dataSource]="goal.items">
+            <table #userTable fxFlex mat-table [dataSource]="collaborators">
+              <ng-container matColumnDef="avatar">
+                <th fxFlex="100px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef></th>
+                <td fxFlex="100px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                  <ngx-avatar size="35" [name]="element.name | initials"></ngx-avatar>
+                </td>
+              </ng-container>
               <ng-container matColumnDef="name">
                 <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Nome </th>
                 <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.name}} </td>
               </ng-container>
               <ng-container matColumnDef="email">
-                <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Email </th>
-                <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.email}}
+                <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Email </th>
+                <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.email}}
                 </td>
               </ng-container>
               <ng-container matColumnDef="role">
-                <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Permissão </th>
-                <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                <th fxFlex="150px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Permissão </th>
+                <td fxFlex="150px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
                   {{element.role | role}} </td>
               </ng-container>
               <ng-container matColumnDef="actions">
-                <th fxFlex="115px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef></th>
-                <td fxFlex="115px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
-                  <button mat-button color="primary" (click)="onRemoveCollaborator(element)">Remover</button>
+                <th fxFlex="40px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef></th>
+                <td fxFlex="40px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                  <button mat-icon-button [matMenuTriggerFor]="userMenu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="onRemoveCollaborator(element)">
+                      <mat-icon>remove</mat-icon>
+                      Remover
+                    </button>
+                    <button mat-menu-item (click)="onEditCollaborator(element)">
+                      <mat-icon>edit</mat-icon>
+                      Editar
+                    </button>
+                  </mat-menu>
                 </td>
               </ng-container>
-              <tr mat-header-row *matHeaderRowDef="columns"></tr>
-              <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+              <tr mat-header-row *matHeaderRowDef="userColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: userColumns;"></tr>
             </table>
           </div>
         </mat-card-content>
@@ -194,75 +225,55 @@
               <mat-label>Quantidade</mat-label>
               <input matInput type="number" name="qtd" [(ngModel)]="item.quantity" />
             </mat-form-field>
-            <mat-form-field fxFlex="200px" appearance="outline">
+            <mat-form-field fxFlex="100px" appearance="outline">
               <mat-label>Medida</mat-label>
               <mat-select name="unit" [(ngModel)]="item.unit">
                 <mat-option *ngFor="let unit of itemUnits" [value]="unit">{{ unit | itemUnit }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button type="button" class="insert-item-btn" mat-raised-button [disabled]="!validProduct"
-              (click)="onInsertItem()">Adicionar</button>
+            <button type="button" class="insert-list-btn" mat-raised-button
+              (click)="onResetItem()">Limpar</button>
+            <button type="button" class="insert-list-btn" mat-raised-button color="primary"
+              [disabled]="!validProduct" (click)="onInsertItem()">Adicionar</button>
           </div>
         </mat-card-content>
       </mat-card>
 
-      <mat-card>
-        <mat-card-content>
-          <div fxLayout>
-            <table #goalTable fxFlex mat-table [dataSource]="goal.items">
-              <ng-container matColumnDef="product">
-                <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Produto </th>
-                <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.name}} </td>
-              </ng-container>
-              <ng-container matColumnDef="quantity">
-                <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Quantidade </th>
-                <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.quantity}}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="unit">
-                <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Medida </th>
-                <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
-                  {{element.unit | itemUnit}} </td>
-              </ng-container>
-              <ng-container matColumnDef="actions">
-                <th fxFlex="115px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef></th>
-                <td fxFlex="115px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
-                  <button mat-button color="primary" (click)="onRemoveItem(element)">Remover</button>
-                </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="productColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: productColumns;"></tr>
-            </table>
-          </div>
-        </mat-card-content>
-      </mat-card>
-      <div class="action-container" fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
-        <button mat-button>Cancelar</button>
-        <button mat-raised-button color="primary">Salvar</button>
-      </div>
+      <form #goalForm (submit)="onSaveGoal()">
+        <mat-card>
+          <mat-card-content>
+            <div fxLayout>
+              <table #goalTable fxFlex mat-table [dataSource]="goal.items">
+                <ng-container matColumnDef="product">
+                  <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Produto </th>
+                  <td fxFlex fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                  <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Quantidade </th>
+                  <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element"> {{element.quantity}}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="unit">
+                  <th fxFlex="20" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Medida </th>
+                  <td fxFlex="20" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                    {{element.unit | itemUnit}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th fxFlex="115px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef></th>
+                  <td fxFlex="115px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
+                    <button mat-button color="primary" (click)="onRemoveItem(element)">Remover</button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="productColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: productColumns;"></tr>
+              </table>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <div class="action-container" fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
+          <button type="submit" mat-raised-button color="primary" [disabled]="!goal.items.length">Salvar</button>
+        </div>
+      </form>
     </ng-container>
-    <!-- <div fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
-        <mat-form-field fxFlex appearance="outline">
-          <input placeholder="Produto" matInput [formControl]="productControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="productLabel"
-            (optionSelected)="onSelectProduct($event)">
-            <mat-option *ngFor="let product of products | async" [value]="product">
-              {{ product.name }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <mat-form-field fxFlex="100px" appearance="outline">
-          <mat-label>Quantidade</mat-label>
-          <input matInput type="number" name="qtd" [(ngModel)]="item.quantity" />
-        </mat-form-field>
-        <mat-form-field fxFlex="200px" appearance="outline">
-          <mat-label>Medida</mat-label>
-          <mat-select name="unit" [(ngModel)]="item.unit">
-            <mat-option *ngFor="let unit of itemUnits" [value]="unit">{{ unit | itemUnit }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button type="button" class="product-btn" mat-raised-button [disabled]="!validProduct"
-          (click)="onInsertItem()">Adicionar</button>
-      </div> -->
   </div>
 </main>

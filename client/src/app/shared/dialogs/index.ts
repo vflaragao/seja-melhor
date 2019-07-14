@@ -1,3 +1,4 @@
+export * from './confirm-dialog/confirm-dialog.component';
 export * from './manage-product/manage-product.component';
 export * from './change-password/change-password.component';
 export * from './register-donation/register-donation.component';

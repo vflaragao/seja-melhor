@@ -1,6 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { CampaignDTO } from '@models/campaign';
+import { Router } from '@angular/router';
+import { DonationService } from '@core/donation.service';
+import { MatDialog } from '@angular/material';
+import { RegisterDonationComponent, RegisterDonationData } from '@dialogs/index';
+import { ActivityCollection } from '@models/fields/activity';
 
 @Component({
   selector: 'app-campaign-card',
@@ -8,6 +13,16 @@ import { CampaignDTO } from '@models/campaign';
   styleUrls: ['./campaign-card.component.scss']
 })
 export class CampaignCardComponent implements OnInit {
+
+  constructor (
+    private _router: Router,
+    private _dialog: MatDialog,
+    private _donationService: DonationService,
+  ) {
+    this.campaign = new CampaignDTO();
+  }
+
+  private isLoading: boolean;
 
   @Input()
   public showCategory: boolean = true;
@@ -17,9 +32,29 @@ export class CampaignCardComponent implements OnInit {
   @Input()
   public campaign: CampaignDTO;
 
-  constructor() {
-    this.campaign = new CampaignDTO();
+  ngOnInit() {}
+
+  async onDonate() {
+    const result = await this._dialog.open(RegisterDonationComponent, { 
+      data: new RegisterDonationData(
+        this.campaign._id,
+        null,
+        ActivityCollection.CAMPAIGN,
+      ),
+    }).afterClosed().toPromise();
+    if (result) {
+      try {
+        this.isLoading = true;
+        await this._donationService.save(result);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.isLoading = false;
+      }
+    }
   }
 
-  ngOnInit() {}
+  onSelect() {
+    this._router.navigateByUrl(`/campaigns/${this.campaign._id}`);
+  }
 }

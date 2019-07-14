@@ -1,9 +1,53 @@
 <div mat-dialog-title>
-
+    Registrar doação
 </div>
 <div mat-dialog-content>
-  
+    <div fxLayout *ngIf="!data.collectPointID">
+        <mat-form-field fxFlex appearance="outline">
+            <input matInput placeholder="Ponto de coleta" [formControl]="collectPointControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="collectPointLabel"
+                (optionSelected)="onSelectCollectPoint($event)">
+                <mat-option *ngFor="let collectPoint of collectPoints | async" [value]="collectPoint">
+                    <div class="address-opt" fxLayout="column" fxLayoutGap="4px">
+                        <span class="line mat-body-2" mat-line>
+                            {{collectPoint.address.street}}, {{collectPoint.address.number}} -
+                                {{collectPoint.address.district}}
+                        </span>
+                        <span class="line mat-body-1" mat-line>{{collectPoint.address.city}}/{{collectPoint.address.state}}</span>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+    <div fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
+        <mat-form-field fxFlex appearance="outline">
+            <input matInput placeholder="Produto" [formControl]="itemControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="itemLabel" (optionSelected)="onSelectItem($event)">
+                <mat-option *ngFor="let item of items | async" [value]="item">
+                    {{ item.name }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field fxFlex="100px" appearance="outline">
+            <mat-label>Qtd</mat-label>
+            <input matInput type="number" name="qtd" [(ngModel)]="item.quantity" />
+        </mat-form-field>
+        <button type="button" class="list-btn" mat-raised-button (click)="onResetItem()">Limpar</button>
+        <button type="button" class="list-btn" mat-raised-button color="primary" [disabled]="!validItem"
+            (click)="onInsertItem()">Adicionar</button>
+    </div>
+    <div fxLayout="column" fxLayoutGap="8px">
+        <div class="item-background" fxLayout fxLayoutAlign="start center"
+            *ngFor="let item of donation.items">
+            <span fxFlex class="product mat-body-1">{{item.name}}</span>
+            <span class="mat-body-1">{{item.quantity}} {{item.unit | itemUnit}}</span>
+            <button mat-icon-button color="warn" (click)="onRemoveItem(item)">
+                <mat-icon>remove</mat-icon>
+            </button>
+        </div>
+    </div>
 </div>
-<div mat-dialog-actions>
-
+<div mat-dialog-actions fxLayoutAlign="end center" fxLayoutGap="16px">
+    <button mat-button tabindex="-1" mat-dialog-close>Cancelar</button>
+    <button mat-button color="primary" [mat-dialog-close]="donation" [disabled]="!validDonation">Doar</button>
 </div>

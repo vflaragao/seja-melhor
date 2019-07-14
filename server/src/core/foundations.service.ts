@@ -1,7 +1,7 @@
 import { Model, Types } from 'mongoose';
 
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable, forwardRef, Inject } from '@nestjs/common';
+import { Injectable, forwardRef, Inject, BadRequestException } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { UserCreateDTO } from '../users/dto/users.dto';
@@ -49,6 +49,7 @@ export class FoundationsService {
             name: queryMatch,
             cnpj: queryMatch,
         })
+        .select('-users')
         .sort({ name: 1 })
         .exec();
     }
@@ -90,10 +91,14 @@ export class FoundationsService {
             { $set: { ...payload } },
             { new: true },
         )
+        .select('-users')
         .exec();
     }
 
     async saveOrUpdateCollaborator(payload: Collaborator, account: Account) {
+        if (payload.user === account._id) {
+            throw new BadRequestException('O administrador padrão não deve ser alterado');
+        }
         let value: any = { $push: { users: payload } };
         const condition = {
             '_id': new Types.ObjectId(account._id),
@@ -102,6 +107,11 @@ export class FoundationsService {
         const exists = await this.foundationModel.findOne(condition).exec();
         if (exists) {
             value = { $set: { 'users.$.role': payload.role } };
+            return this.foundationModel.findOneAndUpdate(
+                condition,
+                value,
+                { new: true },
+            ).exec();
         }
         return this.foundationModel.findByIdAndUpdate(
             account._id,

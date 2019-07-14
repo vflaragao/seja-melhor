@@ -27,6 +27,7 @@ import {
   MatBottomSheetModule,
   MatAutocompleteModule,
   MatProgressSpinnerModule,
+  MatButtonToggleModule,
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMasonryModule } from 'ngx-masonry';
@@ -34,6 +35,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AvatarModule } from 'ngx-avatar';
 
 import {
+  ConfirmDialogComponent,
   ManageProductComponent,
   ChangePasswordComponent,
   RegisterDonationComponent,
@@ -99,6 +101,8 @@ import {
     MatStepperModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
+    MatAutocompleteModule,
+    MatButtonToggleModule,
     MatProgressSpinnerModule,
 
     /** Flex */
@@ -121,6 +125,7 @@ import {
     AuthCreationOptionsComponent,
 
     /** Dialogs */
+    ConfirmDialogComponent,
     ManageProductComponent,
     ChangePasswordComponent,
     RegisterDonationComponent,
@@ -131,6 +136,7 @@ import {
     RolePipe,
     InitialsPipe,
     ItemUnitPipe,
+    InitialsPipe,
     ProductTypePipe,
     RestantDaysPipe,
     AccountsTypePipe,
@@ -141,9 +147,6 @@ import {
     ActionCategoryIconPipe,
     ActionCategoryColorPipe,
     ActionCategoryBackgroundColorPipe,
-    ManageProductComponent,
-    ChangePasswordComponent,
-    InitialsPipe,
   ],
   exports: [
     FormsModule,
@@ -184,6 +187,7 @@ import {
     MatSlideToggleModule,
     MatSlideToggleModule,
     MatBottomSheetModule,
+    MatButtonToggleModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
 
@@ -200,6 +204,7 @@ import {
     AuthCreationOptionsComponent,
 
     /** Dialogs */
+    ConfirmDialogComponent,
     ManageProductComponent,
     ChangePasswordComponent,
     RegisterDonationComponent,
@@ -225,11 +230,12 @@ import {
     QRCodeModule,
   ],
   entryComponents: [
-    AuthCreationOptionsComponent,
+    ConfirmDialogComponent,
     ManageProductComponent,
     ChangePasswordComponent,
     RegisterDonationComponent,
     CollectPointQRCodeComponent,
+    AuthCreationOptionsComponent,
     DonationStatusChangeComponent,
   ]
 })

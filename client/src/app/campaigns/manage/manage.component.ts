@@ -175,7 +175,6 @@ export class ManageComponent implements OnInit, OnDestroy {
     try {
       this.isLoading = true;
       await this._campaignService.save(this.campaign);
-      console.log(`foi`);
     } catch (e) {
       console.error(e);
     } finally {

@@ -5,13 +5,14 @@ import { ItemUnit, Item } from '@models/fields/item';
 
 export class ItemDTO {
     _id?: Types.ObjectId;
-    product: Types.ObjectId;
-    name: string;
-    type: ProductType;
-    quantity: number;
-    unit: ItemUnit;
 
-    constructor(){}
+    constructor(
+        public product?: Types.ObjectId,
+        public name?: string,
+        public type?: ProductType,
+        public quantity?: number,
+        public unit?: ItemUnit
+    ){}
 
     toModel(): Item {
         return {

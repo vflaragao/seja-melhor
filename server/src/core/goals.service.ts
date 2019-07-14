@@ -1,36 +1,65 @@
 import { Model, Types } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject, forwardRef } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { ProductsService } from './products.service';
-
 import { Goal } from '@models/goal';
-import { GoalDTO } from '../goals/dto/goal.dto';
+import { GoalCreateDTO } from '../goals/dto/goal.dto';
 import { CollectPointsService } from './collect-points.service';
-import { UsersService } from './users.service';
+import { Account } from 'auth/jwt.interface';
+import { FoundationsService } from './foundations.service';
+import { CollectPointCreateDTO } from 'collect-points/dto/collect-point.dto';
+import { Objects } from '@helpers/object';
+import { ItemDTO } from 'products/dto/item.dto';
 
 @Injectable()
 export class GoalsService {
 
-    constructor (
+    constructor(
         @InjectModel('Goal')
         private readonly goalModel: Model<Goal>,
-        private readonly productService: UsersService
-    ) {}
+        private readonly foundationService: FoundationsService,
+        @Inject(forwardRef(() => CollectPointsService))
+        private readonly collectPointService: CollectPointsService,
+    ) { }
 
-    async save(payload: GoalDTO) {
-        /* const products = payload.items.map(item => item.product);
-        const types = await this.productService.getTypesByIds(products);
-        payload.types = types.map(productType => productType.type);
-
-        const goal = new this.goalModel(payload);
-        return goal.save(); */
+    async save(account: Account, payload: GoalCreateDTO) {
+        const foundation = await this.foundationService.get(account._id);
+        payload = Objects.instance(payload, GoalCreateDTO);
+        const goal = new this.goalModel(payload.toModel(account));
+        const result = await goal.save();
+        let collectPoint: CollectPointCreateDTO;
+        collectPoint = result.asHeadOffice(
+            foundation.address,
+            foundation.operatingInfo
+        );
+        await this.collectPointService.saveFromActivity(collectPoint, account);
+        return this.getByFoundation(account);
     }
 
     list() {
         return this.goalModel.find()
-            .sort({ renewalDay: 1 })
             .exec();
+    }
+
+    async listCollectPoints(id: Types.ObjectId, query: string) {
+        return this.collectPointService.listByGoal(id, query);
+    }
+
+    async listItems(id: Types.ObjectId, query: string = '') {
+        const goal = await this.goalModel.findById(id)
+            .select('items')
+            .populate('items.product')
+            .exec();
+        return goal.items.map((item: any) =>
+            new ItemDTO(
+                item.product._id,
+                item.product.name,
+                item.product.type,
+                item.quantity,
+                item.unit,
+            ),
+        )
+        .filter(item => new RegExp(query, 'ig').test(item.name));
     }
 
     get(id: Types.ObjectId) {
@@ -38,12 +67,41 @@ export class GoalsService {
             .exec();
     }
 
-    update(id: Types.ObjectId, payload: GoalDTO) {
-        return this.goalModel.findByIdAndUpdate(
-            id,
+    async getByFoundation(account: Account) {
+        const goal = await this.goalModel.findOne({
+            creator: new Types.ObjectId(account._id)
+        })
+            .populate('items.product')
+            .select('-creator')
+            .exec();
+        if (!goal) {
+            return goal;
+        }
+        return new GoalCreateDTO(
+            goal._id,
+            goal.disabled,
+            goal.items.map((item: any) =>
+                new ItemDTO(
+                    item.product._id,
+                    item.product.name,
+                    item.product.type,
+                    item.quantity,
+                    item.unit,
+                ),
+            ),
+        )
+    }
+
+    async update(account: Account, payload: GoalCreateDTO) {
+        payload = Objects.instance(payload, GoalCreateDTO);
+        const goal = payload.toModel(account);
+        goal.types = payload.getTypes();
+        await this.goalModel.findOneAndUpdate(
+            { creator: new Types.ObjectId(account._id) },
             { $set: { ...payload } },
             { new: true }
         )
-        .exec();
+            .exec();
+        return this.getByFoundation(account);
     }
 }

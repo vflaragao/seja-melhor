@@ -14,17 +14,18 @@ import { Foundation } from '@models/foundation';
 
 import { FoundationsService } from './foundations.service';
 import { CollectPointsService } from './collect-points.service';
+import { ItemDTO } from 'products/dto/item.dto';
 
 @Injectable()
 export class CampaignsService {
 
-    constructor (
+    constructor(
         @InjectModel('Campaign')
         private readonly campaignModel: Model<Campaign>,
         private readonly foundationService: FoundationsService,
         @Inject(forwardRef(() => CollectPointsService))
         private readonly collectPointService: CollectPointsService,
-    ) {}
+    ) { }
 
     async save(payload: CampaignCreateDTO, account: Account) {
         let foundation: Foundation = null;
@@ -47,7 +48,7 @@ export class CampaignsService {
                     payload.collectPoint.operatingInfo,
                 );
             }
-            await this.collectPointService.save(collectPoint, account);
+            await this.collectPointService.saveFromActivity(collectPoint, account);
         }
     }
 
@@ -60,22 +61,43 @@ export class CampaignsService {
 
     listByUser(id: Types.ObjectId) {
         return this.campaignModel.find({
-                creator: id,
-                creatorSource: 'User',
-                disabled: false,
-            })
+            creator: id,
+            creatorSource: 'User',
+            disabled: false,
+        })
             .select('title description category expiresAt authorization')
             .exec();
     }
-    
+
     listByFoundation(id: Types.ObjectId) {
         return this.campaignModel.find({
-                creator: id,
-                creatorSource: 'Foundation',
-                disabled: false,
-            })
+            creator: id,
+            creatorSource: 'Foundation',
+            disabled: false,
+        })
             .select('title description expiresAt authorization')
             .exec();
+    }
+
+    listCollectPoints(id: Types.ObjectId, query: string) {
+        return this.collectPointService.listByCampaign(id, query);
+    }
+
+    async listItems(id: Types.ObjectId, query: string = '') {
+        const campaign = await this.campaignModel.findById(id)
+            .select('items')
+            .populate('items.product')
+            .exec();
+        return campaign.items.map((item: any) =>
+            new ItemDTO(
+                item.product._id,
+                item.product.name,
+                item.product.type,
+                item.quantity,
+                item.unit,
+            ),
+        )
+            .filter(item => new RegExp(query, 'ig').test(item.name));
     }
 
     get(id: Types.ObjectId) {
@@ -89,6 +111,6 @@ export class CampaignsService {
             { $set: { ...payload } },
             { new: true }
         )
-        .exec();
+            .exec();
     }
 }

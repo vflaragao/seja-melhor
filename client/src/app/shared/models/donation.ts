@@ -1,4 +1,6 @@
 import { Item } from './fields/item';
+import { ActivityCollection } from './fields/activity';
+import { Address } from './fields/address';
 
 export enum DonationStatus {
     PENDING = 'PENDING',
@@ -18,12 +20,21 @@ export const DonationStatusValues = [
     DonationStatus.EXPIRED,
 ];
 
-export interface Donation {
+export class DonationCreateDTO {
+    constructor(
+        public target?: string,
+        public targetSource?: ActivityCollection,
+        public collectPoint?: string,
+        public items?: Item[]
+    ) {
+        this.items = [];
+    }
+}
+
+export interface DonationGetDTO {
     donator: string;
     target: string;
-    targetSource: string;
-    collectPoint: string;
+    collectPoint: Address;
     items: Item[];
     status: DonationStatus;
-    expiresAt: Date;
 }

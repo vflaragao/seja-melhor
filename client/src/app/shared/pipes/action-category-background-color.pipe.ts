@@ -10,17 +10,17 @@ export class ActionCategoryBackgroundColorPipe implements PipeTransform {
   transform(value: any): any {
     switch (value) {
       case ActionCategory.OLD:
-        return '#78909c';
+        return '#4db6ac';
       case ActionCategory.CHILDREN:
-        return '#26c6da';
+        return '#4fc3f7';
       case ActionCategory.ANIMALS:
-        return '#66bb6a';
+        return '#81c784';
       case ActionCategory.PATIENTS:
-        return '#f44336';
+        return '#e57373';
       case ActionCategory.HOMELESS:
-        return '#8d6e63';
+        return '#ff8a65';
       case ActionCategory.NONE:
-        return '#bdbdbd';
+        return '#9575cd';
     }
   }
 

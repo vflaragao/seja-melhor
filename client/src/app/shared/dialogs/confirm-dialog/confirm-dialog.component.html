@@ -1,0 +1,10 @@
+<div mat-dialog-title>
+  {{data.title}}
+</div>
+<div mat-dialog-content>
+  <p class="mat-body-1">{{data.message}}</p>
+</div>
+<div mat-dialog-actions fxLayoutAlign="end center" fxLayoutGap="16px">
+  <button [tabindex]="denyFocus" mat-button mat-dialog-close>{{data.denyBtn}}</button>
+  <button [tabindex]="actionFocus" mat-button [color]="actionColor" [mat-dialog-close]="true">{{data.actionBtn}}</button>
+</div>

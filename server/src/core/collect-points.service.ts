@@ -8,6 +8,8 @@ import { Account } from 'auth/jwt.interface';
 import { ActivityCollection } from '@models/fields/activity';
 import { CampaignsService } from './campaigns.service';
 import { GoalsService } from './goals.service';
+import { AuthorCollection } from '@models/fields/authorization';
+import { Database } from '@helpers/database';
 
 @Injectable()
 export class CollectPointsService {
@@ -15,12 +17,13 @@ export class CollectPointsService {
     constructor(
         @InjectModel('CollectPoint')
         private readonly collectPointModel: Model<CollectPoint>,
+        @Inject(forwardRef(() => GoalsService))
         private readonly goalService: GoalsService,
         @Inject(forwardRef(() => CampaignsService))
         private readonly campaignService: CampaignsService,
     ) {}
 
-    async save(payload: CollectPointCreateDTO, account: Account) {
+    async saveFromActivity(payload: CollectPointCreateDTO, account: Account) {
         const target = payload.targetSource === ActivityCollection.CAMPAIGN
             ? await this.campaignService.get(payload.target)
             : await this.goalService.get(payload.target);
@@ -37,7 +40,7 @@ export class CollectPointsService {
     listByUser(id: Types.ObjectId) {
         return this.collectPointModel.find({
                 creator: id,
-                creatorSource: 'User',
+                creatorSource: AuthorCollection.USER,
                 disabled: false,
             })
             .select('address operatingInfo renewalDay headOffice expiresAt authorization')
@@ -47,8 +50,52 @@ export class CollectPointsService {
     listByFoundation(id: Types.ObjectId) {
         return this.collectPointModel.find({
                 creator: id,
-                creatorSource: 'Foundation',
+                creatorSource: AuthorCollection.FOUNDATION,
                 disabled: false,
+            })
+            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
+            .exec();
+    }
+    
+    listByCampaign(id: Types.ObjectId, query: string = '') {
+        const searchCondition = Database.search([
+            'address.cep',
+            'address.city',
+            'address.state',
+            'address.district',
+            'address.street',
+            'address.number',
+            'address.complement',
+        ], query);
+        return this.collectPointModel.find({
+                $and: [
+                    { target: new Types.ObjectId(id) },
+                    { targetSource: ActivityCollection.CAMPAIGN },
+                    { disabled: false },
+                    { ...searchCondition },
+                ]
+            })
+            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
+            .exec();
+    }
+    
+    listByGoal(id: Types.ObjectId, query: string = '') {
+        const searchCondition = Database.search([
+            'address.cep',
+            'address.city',
+            'address.state',
+            'address.district',
+            'address.street',
+            'address.number',
+            'address.complement',
+        ], query);
+        return this.collectPointModel.find({
+                $and: [
+                    { target: new Types.ObjectId(id) },
+                    { targetSource: ActivityCollection.GOAL },
+                    { disabled: false },
+                    { ...searchCondition },
+                ]
             })
             .select('address operatingInfo renewalDay headOffice expiresAt authorization')
             .exec();

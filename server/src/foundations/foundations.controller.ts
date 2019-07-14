@@ -77,9 +77,7 @@ export class FoundationsController {
     @UseGuards(AuthGuard(), FoundationRoleGuard)
     async saveOrUpdateCollaborator(@Body() payload: Collaborator, @Acc() account: Account) {
         try {
-            const x = await this.foundationService.saveOrUpdateCollaborator(payload, account);
-            console.log(x);
-            return x;
+            return await this.foundationService.saveOrUpdateCollaborator(payload, account);
         } catch (e) {
             this.logger.error(e.message, e.stack);
             throw e;
@@ -103,9 +101,7 @@ export class FoundationsController {
     @UseGuards(AuthGuard(), FoundationRoleGuard)
     async removeCollaborator(@Param('id') id: Types.ObjectId, @Acc() account: Account) {
         try {
-            const x = await this.foundationService.removeCollaborator(id, account);
-            console.log(x);
-            return x;
+            return await this.foundationService.removeCollaborator(id, account);
         } catch (e) {
             this.logger.error(e.message, e.stack);
             throw e;

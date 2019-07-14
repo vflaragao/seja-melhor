@@ -12,7 +12,7 @@
         Minha conta
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu class="user-menu" #menu="matMenu">
         <ng-container *ngIf="containsUser">
           <h3 class="menu-group mat-body-1">Usuário</h3>
           <button mat-menu-item *ngFor="let acc of accounts | accountsType:false" (click)="onChangeProfile(acc._id)">

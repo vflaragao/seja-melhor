@@ -1,5 +1,6 @@
-import { Schema, Types } from 'mongoose';
+import { Schema, Types, Document } from 'mongoose';
 import { Item, ItemSchema } from './fields/item';
+import { ActivityCollection } from './fields/activity';
 
 export enum DonationStatus {
     PENDING = 'PENDING',
@@ -19,11 +20,11 @@ export const DonationStatusValues = [
     DonationStatus.EXPIRED,
 ];
 
-export interface Donation {
-    donator: string;
-    target: string;
-    targetSource: string;
-    collectPoint: string;
+export interface Donation extends Document {
+    donator: Types.ObjectId;
+    target: Types.ObjectId;
+    targetSource: ActivityCollection;
+    collectPoint: Types.ObjectId;
     items: Item[];
     status: DonationStatus;
     expiresAt: Date;

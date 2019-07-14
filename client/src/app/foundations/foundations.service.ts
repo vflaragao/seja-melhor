@@ -3,10 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { environment } from '@env/environment';
 
-import { FoundationCreateDTO, FoundationGetDTO } from '@models/foundation';
+import { FoundationCreateDTO, FoundationGetDTO, FoundationUpdateDTO } from '@models/foundation';
 import { CampaignDTO } from '@models/campaign';
-import { CollectPointDTO } from '@models/collect-point';
+import { CollectPointDTO, CollectPointGetDTO } from '@models/collect-point';
 import { Collaborator } from '@models/fields/collaborator';
+import { GoalCreateDTO, GoalGetDTO } from '@models/goal';
+import { Item } from '@models/fields/item';
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +51,33 @@ export class FoundationsService {
   save(foundation: FoundationCreateDTO) {
     foundation.email = foundation.credentials.email;
     return this._http.post<FoundationGetDTO>(`${environment.API_BASE}/foundations`, foundation).toPromise();
+  }
+
+  update(foundation: FoundationUpdateDTO) {
+    return this._http.put<FoundationUpdateDTO>(
+      `${environment.API_BASE}/foundations/${foundation._id}`, foundation
+    ).toPromise();
+  }
+
+  getGoal() {
+    return this._http.get<GoalCreateDTO>(`${environment.API_BASE}/goals`).toPromise();
+  }
+  
+  getGoalItems(id: string, query: string) {
+    const params = new HttpParams().set('q', query);
+    return this._http.get<Item[]>(`${environment.API_BASE}/goals/${id}/items`, { params }).toPromise();
+  }
+  
+  getGoalCollectPoints(id: string, query: string) {
+    const params = new HttpParams().set('q', query);
+    return this._http.get<CollectPointGetDTO[]>(`${environment.API_BASE}/goals/${id}/collectPoints`, { params }).toPromise();
+  }
+
+  saveGoal(payload: GoalCreateDTO) {
+    if (!payload._id) {
+      return this._http.post<GoalCreateDTO>(`${environment.API_BASE}/goals`, payload).toPromise();
+    } else {
+      return this._http.put<GoalCreateDTO>(`${environment.API_BASE}/goals`, payload).toPromise();
+    }
   }
 }

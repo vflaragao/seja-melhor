@@ -30,7 +30,7 @@ import { CollectPointsModule } from './collect-points/collect-points.module';
 
     /** Database */
     MongooseModule.forRoot('mongodb://localhost/seja-melhor', {
-      useFindAndModify: true,
+      useFindAndModify: false,
       useNewUrlParser: true,
       useCreateIndex: true,
     }),

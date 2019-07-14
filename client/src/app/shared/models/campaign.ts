@@ -20,7 +20,7 @@ export const ActionCategoryValues = [
     ActionCategory.CHILDREN,
     ActionCategory.PATIENTS,
     ActionCategory.HOMELESS,
-    ActionCategory.OLD,
+    ActionCategory.NONE,
 ];
 
 export class CampaignCreateDTO {

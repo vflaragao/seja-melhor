@@ -30,7 +30,7 @@ export class CollectPointsController {
     @Post()
     @UseGuards(AuthGuard())
     async registerCollectPoint(@Body() payload: CollectPointCreateDTO, @Acc() account: Account) {
-        const collectPoint = await this.collectPointService.save(payload, account);
+        const collectPoint = await this.collectPointService.saveFromActivity(payload, account);
         return collectPoint;
     }
 
