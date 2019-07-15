@@ -100,9 +100,12 @@ export class CampaignsService {
             .filter(item => new RegExp(query, 'ig').test(item.name));
     }
 
-    get(id: Types.ObjectId) {
+    async get(id: Types.ObjectId) {
         return this.campaignModel.findById(id)
+            .populate('creator', 'name social')
+            .select('-authorization')
             .exec();
+        
     }
 
     update(id: Types.ObjectId, payload: CampaignCreateDTO) {

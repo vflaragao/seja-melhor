@@ -9,45 +9,63 @@
             <h3 class="mat-h3 campaign-title">{{campaign?.title}}</h3>
             <a class="campaign-creator">{{campaign?.creator.name}}</a>
             <div class="campaign-detail" fxLayout fxLayoutGap="24px">
-              <p>{{campaign?.description}}</p>
-            </div>
-            <div class="campaign-detail" fxLayout fxLayoutGap="24px">
+              <app-content label="Data início" [value]="campaign?.initAt | date:'dd/MM/yyyy'">
+              </app-content>
               <app-content label="Duração" [value]="campaign?.ttl">
               </app-content>
-              <app-content label="Válida até" [value]="campaign?.expiresAt | date:'dd/MM/yyyy'">
+              <app-content label="Data término" [value]="campaign?.expiresAt | date:'dd/MM/yyyy'">
               </app-content>
             </div>
           </div>
         </div>
         <div class="social-container" fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
-          <app-progress-indicator *ngFor="let stat of typeStats" [symbol]="stat.type | productTypeIcon"
-            [color]="stat.type | productTypeColor" [progress]="stat.progress">
-          </app-progress-indicator>
           <span fxFlex></span>
           <div *ngIf="containsSite" fxLayout fxLayoutAlign="start center">
             <span>acesse nosso site</span>
-            <button mat-icon-button (click)="open(campaign.creator.site)">
+            <button mat-icon-button (click)="open(campaign.creator.social.site)">
               <mat-icon>web</mat-icon>
             </button>
           </div>
           <div *ngIf="containsSocialMedia" fxLayout fxLayoutAlign="start center">
             <span>redes sociais</span>
-            <button [fxShow]="campaign.creator.facebook" mat-icon-button
-              (click)="open(campaign.creator.facebook)">
+            <button [fxShow]="campaign.creator.social.facebook" mat-icon-button
+              (click)="open(campaign.creator.social.facebook)">
               <mat-icon svgIcon="facebook"></mat-icon>
             </button>
-            <button [fxShow]="campaign.creator.instagram" mat-icon-button
-              (click)="open(campaign.creator.instagram)">
+            <button [fxShow]="campaign.creator.social.instagram" mat-icon-button
+              (click)="open(campaign.creator.social.instagram)">
               <mat-icon svgIcon="instagram"></mat-icon>
             </button>
-            <button [fxShow]="campaign.creator.twitter" mat-icon-button
-              (click)="open(campaign.creator.twitter)">
+            <button [fxShow]="campaign.creator.social.twitter" mat-icon-button
+              (click)="open(campaign.creator.social.twitter)">
               <mat-icon svgIcon="twitter"></mat-icon>
             </button>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
+    <section>
+      <div fxLayout fxLayoutAlign="start center">
+        <h4 fxFlex class="mat-h4 group">Descrição</h4>
+      </div>
+      <mat-card class="description">
+        <mat-card-content>
+            <p class="mat-body-1">{{campaign?.description}}</p>
+        </mat-card-content>
+      </mat-card>
+    </section>
+    <section>
+      <div fxLayout fxLayoutAlign="start center">
+        <h4 fxFlex class="mat-h4 group">Monitor de doações</h4>
+        <button mat-button color="primary">
+          <mat-icon>add</mat-icon>
+          Nova doação
+        </button>
+      </div>
+      <div fxLayout fxLayoutGap="16px">
+        
+      </div>
+    </section>
     <section>
       <div fxLayout fxLayoutAlign="start center">
         <h4 fxFlex class="mat-h4 group">Pontos de coleta ativos</h4>
@@ -57,9 +75,10 @@
         </button>
       </div>
       <div fxLayout fxLayoutGap="16px">
-        <app-collect-point-card></app-collect-point-card>
-        <app-collect-point-card></app-collect-point-card>
-        <app-collect-point-card></app-collect-point-card>
+        <app-collect-point-card
+          [collectPoint]="collectPoint"
+          *ngFor="let collectPoint of collectPoints">
+        </app-collect-point-card>
       </div>
     </section>
   </div>

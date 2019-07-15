@@ -32,7 +32,9 @@ export class DonationCreateDTO {
 }
 
 export interface DonationGetDTO {
+    _id: string;
     donator: string;
+    donatedAt: Date;
     target: string;
     collectPoint: Address;
     items: Item[];

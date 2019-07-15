@@ -73,6 +73,17 @@ export class FoundationsComponent implements OnInit {
     }
   }
 
+  get containsSite() {
+    if (!this.foundation || !this.foundation.social) return false;
+    return this.foundation.social.site;
+  }
+
+  get containsSocialMedia() {
+    if (!this.foundation || !this.foundation.social) return false;
+    const { facebook, instagram, twitter } = this.foundation.social;
+    return facebook || instagram || twitter;
+  }
+
   ngOnInit() {
     this._accountService.account
       .pipe(
@@ -120,4 +131,7 @@ export class FoundationsComponent implements OnInit {
     }
   }
 
+  open(url: string) {
+    window.open(url, '_blank');
+  }
 }

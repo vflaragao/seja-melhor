@@ -8,6 +8,8 @@ import { Collaborator, Collaboratorchema } from './fields/collaborator';
 import { OperatingInfoSchema, OperatingInfo } from './fields/operating-info';
 import { Authorization, AuthorizationSchema } from './fields/authorization';
 import { SocialMediaSchema, SocialMedia } from './fields/social-media';
+import { FoundationGetDTO } from 'foundations/dto/foundations.dto';
+import { Goal } from './goal';
 
 export enum ActionCategory {
     OLD = 'OLD',
@@ -40,6 +42,7 @@ export interface Foundation extends Document {
     authorization: Authorization;
 
     asAccount(user: User): Account;
+    toGetDTO(goal: Goal): FoundationGetDTO;
 }
 
 const FoundationSchema = new Schema({
@@ -91,6 +94,20 @@ const FoundationSchema = new Schema({
     },
 });
 
+FoundationSchema.methods.toGetDTO = function(goal: Goal) {
+    return new FoundationGetDTO(
+        this._id,
+        goal._id,
+        this.name,
+        this.cnpj,
+        this.email,
+        this.phone,
+        this.address,
+        this.social,
+        this.category,
+        this.operatingInfo
+    );
+}
 FoundationSchema.methods.asAccount = function(user: User) {
     const collaborator: Collaborator = this.users.find(col => user._id.equals(col.user));
     const defaultAccount = user.institutional ? this._id : this._id === user.defaultAccount;

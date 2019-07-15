@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { DonationCreateDTO } from '@models/donation';
+import { DonationCreateDTO, DonationGetDTO } from '@models/donation';
 
 import { environment } from '@env/environment';
 

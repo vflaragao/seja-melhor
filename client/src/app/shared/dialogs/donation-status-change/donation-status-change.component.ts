@@ -4,9 +4,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Item } from '@models/fields/item';
 import { DonationStatus } from '@models/donation';
 
-export interface StatusChangeData {
-  items: Item[];
-  targetStatus: DonationStatus;
+export class StatusChangeData {
+
+  constructor (
+    public items?: Item[],
+    public targetStatus?: DonationStatus,
+  ) {}
 }
 
 @Component({

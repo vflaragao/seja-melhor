@@ -64,4 +64,4 @@ export const DonationSchema = new Schema({
         type: Date,
         required: true
     }
-});
+}, { timestamps: true });

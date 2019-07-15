@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { CampaignCreateDTO, CampaignDTO } from '@models/campaign';
+import { CampaignCreateDTO, CampaignDTO, CampaignGetDTO } from '@models/campaign';
 import { environment } from '@env/environment';
 import { Item } from '@models/fields/item';
 import { CollectPointGetDTO } from '@models/collect-point';
@@ -16,6 +16,10 @@ export class CampaignsService {
 
   save(payload: CampaignCreateDTO) {
     return this._http.post<CampaignDTO>(`${environment.API_BASE}/campaigns`, payload).toPromise();
+  }
+
+  get(id: string) {
+    return this._http.get<CampaignGetDTO>(`${environment.API_BASE}/campaigns/${id}`).toPromise();
   }
 
   getItems(id: string, query: string) {

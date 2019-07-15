@@ -10,6 +10,7 @@ import { CampaignsService } from './campaigns.service';
 import { GoalsService } from './goals.service';
 import { AuthorCollection } from '@models/fields/authorization';
 import { Database } from '@helpers/database';
+import { FoundationsService } from './foundations.service';
 
 @Injectable()
 export class CollectPointsService {
@@ -21,6 +22,7 @@ export class CollectPointsService {
         private readonly goalService: GoalsService,
         @Inject(forwardRef(() => CampaignsService))
         private readonly campaignService: CampaignsService,
+        private readonly foundationService: FoundationsService,
     ) {}
 
     async saveFromActivity(payload: CollectPointCreateDTO, account: Account) {
@@ -33,7 +35,7 @@ export class CollectPointsService {
 
     list() {
         return this.collectPointModel.find()
-            .sort({ renewalDay: 1 })
+            .select('target targetSource address operatingInfo headOffice expiresAt authorization')
             .exec();
     }
 
@@ -43,7 +45,7 @@ export class CollectPointsService {
                 creatorSource: AuthorCollection.USER,
                 disabled: false,
             })
-            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
+            .select('target targetSource address operatingInfo renewalDay headOffice expiresAt authorization')
             .exec();
     }
     
@@ -53,7 +55,7 @@ export class CollectPointsService {
                 creatorSource: AuthorCollection.FOUNDATION,
                 disabled: false,
             })
-            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
+            .select('target targetSource address operatingInfo renewalDay headOffice expiresAt authorization')
             .exec();
     }
     
@@ -75,7 +77,7 @@ export class CollectPointsService {
                     { ...searchCondition },
                 ]
             })
-            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
+            .select('target targetSource address operatingInfo headOffice expiresAt authorization')
             .exec();
     }
     
@@ -97,13 +99,18 @@ export class CollectPointsService {
                     { ...searchCondition },
                 ]
             })
-            .select('address operatingInfo renewalDay headOffice expiresAt authorization')
+            .select('address operatingInfo headOffice expiresAt authorization')
             .exec();
     }
 
-    get(id: Types.ObjectId) {
-        return this.collectPointModel.findById(id)
+    async get(id: Types.ObjectId) {
+        const collectPoint = await this.collectPointModel.findById(id)
+            .populate('creator', 'name')
             .exec();
+        let target: any = await (collectPoint.targetSource === ActivityCollection.CAMPAIGN
+            ? this.campaignService.get(collectPoint.target)
+            : this.foundationService.get(collectPoint.target));
+        return collectPoint.toGetDTO(target);
     }
 
     update(id: Types.ObjectId, payload: CollectPointCreateDTO) {

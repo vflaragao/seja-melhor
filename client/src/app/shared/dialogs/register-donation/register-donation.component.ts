@@ -82,7 +82,7 @@ export class RegisterDonationComponent implements OnInit, OnDestroy {
             case ActivityCollection.CAMPAIGN:
               return this._campaignService.getItems(this.data.activityID, value);
             default:
-              return null;
+              return of([]);
           }
         }),
         map(response => {

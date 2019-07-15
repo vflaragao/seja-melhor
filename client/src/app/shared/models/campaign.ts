@@ -63,17 +63,22 @@ export class CampaignDTO {
 }
 
 export interface CampaignGetDTO {
+    _id: string;
     title: string;
     description: string;
     ttl: number;
+    items: Item[];
+    initAt: Date;
     expiresAt: Date;
     category: ActionCategory;
+    types: ProductType[];
     creator: {
         name: string;
-        site?: string;
-        facebook?: string;
-        instagram?: string;
-        twitter?: string;
+        social: {
+            site?: string;
+            facebook?: string;
+            instagram?: string;
+            twitter?: string;
+        }
     };
-    types: ProductType[];
 }

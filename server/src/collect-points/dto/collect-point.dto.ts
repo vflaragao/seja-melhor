@@ -2,13 +2,17 @@ import { Types } from "mongoose";
 
 import { Account } from "auth/jwt.interface";
 
-import { Goal, GoalSchema } from "@models/goal";
+import { Goal } from "@models/goal";
 import { Campaign } from "@models/campaign";
 
 import { Address } from "@models/fields/address";
 import { OperatingInfo } from "@models/fields/operating-info";
 import { ActivityCollection } from "@models/fields/activity";
 import { Authorization, AuthorCollection } from "@models/fields/authorization";
+import { GoalGetDTO } from "goals/dto/goal.dto";
+import { CampaignGetDTO } from "campaigns/dto/campaign.dto";
+import { UserGetDTO } from "users/dto/users.dto";
+import { FoundationGetDTO } from "foundations/dto/foundations.dto";
 
 export interface CollectPointDTO {
     target: Types.ObjectId;
@@ -16,7 +20,6 @@ export interface CollectPointDTO {
     creator: Types.ObjectId;
     creatorSource: AuthorCollection;
     headOffice: boolean;
-    renewable: boolean;
     expiresAt: Date;
     address: Address;
     operatingInfo: OperatingInfo;
@@ -29,7 +32,6 @@ export class CollectPointCreateDTO {
     targetSource: ActivityCollection;
     address: Address;
     operatingInfo: OperatingInfo;
-    renewable: boolean;
     expiresAt: Date;
 
     constructor() {}
@@ -53,11 +55,25 @@ export class CollectPointCreateDTO {
             creator: account._id,
             creatorSource: source,
             headOffice: headOffice,
-            renewable: this.renewable,
             expiresAt: this.expiresAt,
             address: this.address,
             operatingInfo: this.operatingInfo,
             authorization: authorization
         }
     }
+}
+
+export class CollectPointGetDTO {
+
+    constructor(
+        public _id?: string,
+        public target?: any,
+        public targetSource?: ActivityCollection,
+        public creator?: UserGetDTO | FoundationGetDTO,
+        public address?: Address,
+        public headOffice?: boolean,
+        public operatingInfo?: OperatingInfo,
+        public expiresAt?: Date,
+        public authorization?: Authorization,
+    ){}
 }

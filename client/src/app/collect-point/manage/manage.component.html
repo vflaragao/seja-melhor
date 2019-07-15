@@ -1,0 +1,74 @@
+<main>
+  <div class="content">
+    <div fxLayout>
+      <h2 class="mat-h2" fxFlex>{{ action }} ponto de coleta</h2>
+    </div>
+    <form #collectPointForm="ngForm">
+      <mat-card>
+        <mat-card-content>
+          <span class="card-group">Endereço</span>
+          <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
+            <mat-form-field fxFlex.lt-md fxFlex="120px" appearance="outline">
+              <mat-label>CEP</mat-label>
+              <input matInput name="cep" [(ngModel)]="collectPoint.address.cep" mask="00000-000" (keyup)="cep.next()"
+                required>
+              <mat-spinner matSuffix [diameter]="20" [fxShow]="isLoadingAddress" color="primary"></mat-spinner>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Cidade</mat-label>
+              <input matInput name="city" [(ngModel)]="collectPoint.address.city" required>
+            </mat-form-field>
+            <mat-form-field fxFlex.lt-md fxFlex="200px" appearance="outline">
+              <mat-label>Estado</mat-label>
+              <input matInput name="state" [(ngModel)]="collectPoint.address.state" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
+            <mat-form-field fxFlex.lt-md fxFlex="200px" appearance="outline">
+              <mat-label>Bairro</mat-label>
+              <input matInput name="district" [(ngModel)]="collectPoint.address.district" required>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Logradouro</mat-label>
+              <input matInput name="street" [(ngModel)]="collectPoint.address.street" required>
+            </mat-form-field>
+            <mat-form-field fxFlex.lt-md fxFlex="150px" appearance="outline">
+              <mat-label>Número</mat-label>
+              <input matInput name="number" [(ngModel)]="collectPoint.address.number" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Complemento</mat-label>
+              <input matInput name="complement" [(ngModel)]="collectPoint.address.complement">
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <span class="card-group">Informações de funcionamento</span>
+          <div fxLayout.lt-md="column" fxLayout fxLayoutGap.gt-sm="16px">
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Início funcionamento</mat-label>
+              <input matInput name="init" type="time" [(ngModel)]="collectPoint.operatingInfo.startTime" required>
+            </mat-form-field>
+            <mat-form-field fxFlex appearance="outline">
+              <mat-label>Fim funcionamento</mat-label>
+              <input matInput name="end" type="time" [(ngModel)]="collectPoint.operatingInfo.endTime" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout>
+            <mat-slide-toggle name="weekend" [(ngModel)]="collectPoint.operatingInfo.weekend">
+              Final de semana
+            </mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
+          <button mat-button>Cancelar</button>
+          <button mat-raised-button color="primary" (click)="onSave()">{{action}}</button>
+        </div>
+    </form>
+  </div>
+</main>

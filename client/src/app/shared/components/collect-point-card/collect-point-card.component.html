@@ -1,7 +1,7 @@
 <mat-card>
   <app-progress-indicator *ngIf="collectPoint?.headOffice" class="progress" symbol="domain">
   </app-progress-indicator>
-  <mat-card-content fxLayout="column" fxLayoutAlign="start center">
+  <mat-card-content fxLayout="column" fxLayoutAlign="start center" (click)="onSelect()">
     <h4 class="collect-point-name">{{collectPoint?.address.district}}</h4>
     <span class="collect-point-address">{{collectPoint?.address.street}}, {{collectPoint?.address.number}}</span>
     <strong class="collect-point-address">{{collectPoint?.address.city}} - {{collectPoint?.address.state}}</strong>
@@ -23,7 +23,7 @@
       <span class="time">{{ collectPoint?.expiresAt | restantDays }}</span>
     </div>
     <span fxFlex></span>
-    <button mat-button color="warn">
+    <button mat-button color="warn" (click)="onDonate()">
       <mat-icon>favorite</mat-icon>
       Doar
     </button>

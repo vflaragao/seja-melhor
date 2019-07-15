@@ -8,13 +8,22 @@ import { SharedModule } from '@shared/shared.module';
 
 const routes: Routes = [
   {
-    path: 'manage',
-    component: ManageComponent,
-  },
-  {
     path: '',
-    component: CampaignsComponent
-  },
+    children: [
+      {
+        path: 'manage',
+        component: ManageComponent,
+      },
+      {
+        path: ':id',
+        component: CampaignsComponent
+      },
+      {
+        path: '',
+        component: CampaignsComponent
+      },
+    ]
+  }
 ];
 
 @NgModule({

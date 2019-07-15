@@ -1,4 +1,4 @@
-mat-card {
+mat-card:not(.description) {
     padding: 0;
 }
 
@@ -19,6 +19,10 @@ mat-card {
     .campaign-creator {
         overflow: hidden;
         display: -webkit-box;
+        line-height: 20px;
+        max-height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         &::before {
@@ -33,6 +37,15 @@ mat-card {
         p {
             margin: 0;
             font-style: italic;
+            margin: 0 0 4px;
+            line-height: 20px;
+            max-height: 60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            white-space: normal;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
             &::before,
             &::after {
                 content: '"'
@@ -43,13 +56,13 @@ mat-card {
 
 .campaign-container {
     padding: 8px;
-    height: 175px;
+    height: 145px;
     border-radius: 15px;
     background-color: #fff8e1;
     > .campaign-category-icon {
         width: 105px;
         height: 105px;
-        margin-top: 44px;
+        margin-top: 14px;
         border-radius: 50%;
         font-size: 105px;
         background-color: white;

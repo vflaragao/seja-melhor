@@ -34,8 +34,8 @@ export class FoundationsService {
             payload.credentials.password,
             true,
         );
-        user = await this.userService.save(user);
-        manager.user = user._id;
+        const newUser = await this.userService.save(user);
+        manager.user = newUser._id;
         const update = new FoundationUpdateDTO();
         update.fromCreateDTO(payload);
         update.users = [manager];

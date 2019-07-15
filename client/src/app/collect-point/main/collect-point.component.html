@@ -1,7 +1,7 @@
 <main>
   <div class="content">
     <mat-card>
-      <mat-card-content>
+      <mat-card-content (click)="onSelect()">
         <div fxLayout fxLayoutGap="48px" class="collect-point-container">
           <mat-icon class="collect-point-category-icon">place</mat-icon>
           <div class="collect-point-content" fxLayout="column" fxLayoutAlign="center">
@@ -10,8 +10,8 @@
               {{collectPoint?.address.district}} -
               {{collectPoint?.address.city}}/{{collectPoint?.address.state}}
             </h3>
-            <a class="collect-point-target">{{collectPoint?.target}}</a>
-            <a class="collect-point-creator">{{collectPoint?.creator}}</a>
+            <a class="collect-point-target">{{collectPoint?.target.name}}</a>
+            <a class="collect-point-creator">{{collectPoint?.creator.name}}</a>
             <div class="collect-point-detail" fxLayout>
               <app-content label="Válida até" [value]="collectPoint?.expiresAt | date:'dd/MM/yyyy'">
               </app-content>
@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="social-container" fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
-          <span fxFlex>doações arrecadações</span>
+          <span fxFlex>doações arrecadadas</span>
           <div class="type-background" fxLayout fxLayoutAlign="space-between center" *ngFor="let stat of typeStats">
             <app-progress-indicator [symbol]="stat.type | productTypeIcon" [color]="stat.type | productTypeColor"
               [progress]="40">
@@ -32,9 +32,8 @@
     <section>
       <div fxLayout fxLayoutAlign="start center">
         <h4 fxFlex class="mat-h4 group">Doações</h4>
-        <button mat-button color="primary" [matMenuTriggerFor]="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
-          Ações
         </button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="onNewDonation()">
@@ -47,7 +46,7 @@
           </button>
         </mat-menu>
       </div>
-      <mat-tab-group class="mat-elevation-z1" *ngIf="!collectPoint?.headOffice">
+      <mat-tab-group class="mat-elevation-z1">
         <mat-tab label="Pendentes"></mat-tab>
         <mat-tab label="Confirmadas"></mat-tab>
         <mat-tab label="Enviadas"></mat-tab>
@@ -55,18 +54,12 @@
       </mat-tab-group>
 
       <mat-card class="table">
-        <div class="search-container" fxLayout>
-          <mat-form-field floatLabel="never" fxFlex>
-            <input matInput type="search" placeholder="Pesquisar">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
-        </div>
         <div fxLayout>
           <table fxFlex mat-table [dataSource]="donations">
             <ng-container matColumnDef="date">
               <th fxFlex="200px" fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Data </th>
               <td fxFlex="200px" fxLayoutAlign="start center" mat-cell *matCellDef="let element">
-                {{element.createdAt | date:'dd/MM/yyyy HH:mm'}} </td>
+                {{element.donatedAt | date:'dd/MM/yyyy \' às \' HH:mm'}} </td>
             </ng-container>
             <ng-container matColumnDef="donator">
               <th fxFlex fxLayoutAlign="start center" mat-header-cell *matHeaderCellDef> Doador </th>

@@ -4,11 +4,11 @@
 <div mat-dialog-content>
   <p class="mat-body-1">Você realmente deseja <strong>{{data.targetStatus | donationStatus:true}}</strong> esta doação?</p>
   <div class="item-background" fxLayout fxLayoutAlign="start center" *ngFor="let item of data.items">
-    <span fxFlex class="product mat-body-1">{{item.product}}</span>
+    <span fxFlex class="product mat-body-1">{{item.name}}</span>
     <span class="mat-body-1">{{item.quantity}} {{item.unit | itemUnit}}</span>
   </div>
 </div>
 <div mat-dialog-actions fxLayout fxLayoutAlign="end center">
-  <button tabindex="-1" mat-button mat-close-dialog>Não</button>
-  <button mat-button [color]="colorAction">Sim</button>
+  <button tabindex="-1" mat-button mat-dialog-close>Não</button>
+  <button mat-button [color]="colorAction" [mat-dialog-close]="true">Sim</button>
 </div>

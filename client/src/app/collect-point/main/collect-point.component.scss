@@ -30,7 +30,7 @@ mat-card {
         }
     }
     .collect-point-target {
-        color: rgba(0,0,0,.64);
+        color: rgba(0,0,0,.48);
         font-size: 15px;
         font-weight: bold;
         overflow: hidden;
@@ -41,7 +41,6 @@ mat-card {
             content: 'para';
             margin-right: 6px;
             font-size: 14px;
-            color: rgba(0, 0, 0, .48);
         }
     }
     .collect-point-detail {

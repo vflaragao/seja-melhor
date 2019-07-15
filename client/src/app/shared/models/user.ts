@@ -1,4 +1,5 @@
 import { Credentials } from './fields/credentials';
+import { SocialMedia } from './fields/social-media';
 
 export class User {
     name: string;
@@ -6,8 +7,11 @@ export class User {
     email: string;
     password?: string;
     disabled: boolean;
+    social?: SocialMedia;
 
-    constructor () {}
+    constructor () {
+        this.social = new SocialMedia();
+    }
 
     toCredentials(): Credentials {
         return {

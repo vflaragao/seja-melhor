@@ -13,7 +13,8 @@ import { Objects } from "@helpers/object";
 import { Account } from "../../auth/jwt.interface";
 import { ItemDTO } from "../../products/dto/item.dto";
 import { OperatingInfo } from "@models/fields/operating-info";
-import { CollectPointDTO } from "collect-points/dto/collect-point.dto";
+import { UserGetDTO } from "users/dto/users.dto";
+import { FoundationGetDTO } from "foundations/dto/foundations.dto";
 
 export interface CampaignDTO {
     title: string;
@@ -68,4 +69,19 @@ export class CampaignCreateDTO {
             types: distinctItemTypes
         }
     }
+}
+
+export class CampaignGetDTO {
+    constructor(
+        public _id?: Types.ObjectId,
+        public title?: string,
+        public description?: string,
+        public ttl?: number,
+        public initAt?: Date,
+        public expiresAt?: Date,
+        public category?: ActionCategory,
+        public types?: ProductType[],
+        public creator?: UserGetDTO | FoundationGetDTO,
+        public items?: ItemDTO[],
+    ){}
 }

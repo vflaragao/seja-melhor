@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CampaignGetDTO, ActionCategory } from '@models/campaign';
 import { ProductType, ProductTypeStatistics } from '@models/product';
+import { CampaignsService } from '../campaigns.service';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { CollectPointGetDTO } from '@models/collect-point';
 
 @Component({
   selector: 'app-campaigns',
@@ -9,39 +14,39 @@ import { ProductType, ProductTypeStatistics } from '@models/product';
 })
 export class CampaignsComponent implements OnInit {
 
+  private _destroy$: Subject<void>;
+
+  private isLoading: boolean;
+
   private campaign: CampaignGetDTO;
+  private collectPoints: CollectPointGetDTO[];
 
   private typeStats: ProductTypeStatistics[];
 
-  constructor() {
-    this.campaign = {
-      title: 'Julho beneficente em prol da APIPA',
-      description: 'Durante todo o mês de JULHO a @gabbsfarias vai estar com essa campanha linda para arrecadar ração pra nosso abrigo! Você que curte tattoo não vai perder essa',
-      creator: {
-        name: 'APIPA - ASSOCIAÇÃO PIAUIENSE DE PROTEÇÃO E AMOR AOS ANIMAIS',
-        facebook: 'https://www.facebook.com/apipa.piaui/?ref=br_rs',
-        instagram: 'https://www.instagram.com/apipaoficial/',
-        site: 'https://www.apipapiaui.org/'
-      },
-      category: ActionCategory.ANIMALS,
-      ttl: 15,
-      expiresAt: new Date(),
-      types: [ProductType.FOOD, ProductType.REMEDY]
-    }
-    this.typeStats = this.campaign.types.map(type => ({
-      type, progress: 50
-    }))
+  constructor(
+    private readonly _router: ActivatedRoute,
+    private readonly _campaignService: CampaignsService,
+  ) {
+    this._destroy$ = new Subject();
   }
 
   ngOnInit() {
+      this._router.paramMap
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(params => {
+          const id = params.get('id');
+          this.fetchCampaign(id);
+        })
   }
 
   get containsSite() {
-    return this.campaign.creator.site;
+    if (!this.campaign || !this.campaign.creator.social) { return false; }
+    return this.campaign.creator.social.site;
   }
 
   get containsSocialMedia() {
-    const { facebook, instagram, twitter } = this.campaign.creator;
+    if (!this.campaign || !this.campaign.creator.social) { return false; }
+    const { facebook, instagram, twitter } = this.campaign.creator.social;
     return facebook || instagram || twitter;
   }
 
@@ -49,4 +54,15 @@ export class CampaignsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  private async fetchCampaign(id: string) {
+    try {
+      this.isLoading = true;
+      this.campaign = await this._campaignService.get(id);
+      this.collectPoints = await this._campaignService.getCollectPoints(id, undefined);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.isLoading = false;
+    }
+  }
 }

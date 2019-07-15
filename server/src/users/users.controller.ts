@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import { Controller, Post, Get, Put, Body, Query, Param, Logger, UseGuards } from '@nestjs/common';
 
-import { UserUpdateDTO, UserCreateDTO } from './dto/users.dto';
+import { UserCreateDTO } from './dto/users.dto';
 
 import { UsersService } from '../core/users.service';
 import { CampaignsService } from '../core/campaigns.service';
@@ -46,8 +46,7 @@ export class UsersController {
 
     @Get(':id/statistics')
     async getStatistics(@Param('id') id: Types.ObjectId) {
-        const user = await this.userService.get(id);
-        return user;
+        
     }
 
     @Get('collaborators')
@@ -90,7 +89,7 @@ export class UsersController {
     }
 
     @Put(':id')
-    async updateUser(@Param('id') id: Types.ObjectId, @Body() payload: UserUpdateDTO) {
+    async updateUser(@Param('id') id: Types.ObjectId, @Body() payload: UserCreateDTO) {
         const User = await this.userService.update(id, payload);
         return User;
     }

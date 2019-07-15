@@ -4,6 +4,9 @@ import { OperatingInfo, OperatingInfoSchema } from './fields/operating-info';
 import { Address, AddressSchema } from './fields/address';
 import { AuthorizationSchema, Authorization, AuthorCollection } from './fields/authorization';
 import { ActivityCollection } from './fields/activity';
+import { CollectPointGetDTO } from 'collect-points/dto/collect-point.dto';
+import { CampaignGetDTO } from 'campaigns/dto/campaign.dto';
+import { FoundationGetDTO } from 'foundations/dto/foundations.dto';
 
 export interface CollectPoint extends Document {
     target: Types.ObjectId;
@@ -12,14 +15,15 @@ export interface CollectPoint extends Document {
     creatorSource: string;
     headOffice: boolean;
     address: Address;
-    renewable: boolean;
     expiresAt: Date;
     disabled: boolean;
     operatingInfo: OperatingInfo;
-    authorization: Authorization
+    authorization: Authorization;
+
+    toGetDTO(target: FoundationGetDTO | CampaignGetDTO): CollectPointGetDTO;
 }
 
-export const CollectPointSchema = new Schema({
+const CollectPointSchema = new Schema({
     target: {
         type: Types.ObjectId,
         required: true,
@@ -49,11 +53,6 @@ export const CollectPointSchema = new Schema({
         type: AddressSchema,
         required: true
     },
-    renewable: {
-        type: Boolean,
-        required: true,
-        default: false
-    },
     expiresAt: {
         type: Date
     },
@@ -70,3 +69,22 @@ export const CollectPointSchema = new Schema({
         type: AuthorizationSchema
     }
 });
+
+CollectPointSchema.methods.toGetDTO = function(target: FoundationGetDTO | CampaignGetDTO) {
+    const targetName = (
+        (target as FoundationGetDTO).name || (target as CampaignGetDTO).title
+    );
+    return new CollectPointGetDTO(
+        this._id,
+        { _id: target._id, name: targetName },
+        this.targetSource,
+        this.creator,
+        this.address,
+        this.headOffice,
+        this.operatingInfo,
+        this.expiresAt,
+        this.authorization,
+    );
+}
+
+export { CollectPointSchema };

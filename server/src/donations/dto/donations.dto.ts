@@ -54,10 +54,14 @@ export class DonationCreateDTO {
     }
 }
 
-export interface DonationGetDTO {
-    donator: string;
-    target: string;
-    collectPoint: Address;
-    items: ItemDTO[];
-    status: DonationStatus;
+export class DonationGetDTO {
+    constructor(
+        public _id?: Types.ObjectId,
+        public donatedAt?: Date,
+        public donator?: string,
+        public target?: string,
+        public collectPoint?: Address,
+        public status?: DonationStatus,
+        public items?: ItemDTO[],
+    ){}
 }

@@ -25,28 +25,25 @@
           </div>
         </div>
         <div class="social-container" fxLayout fxLayoutGap="16px" fxLayoutAlign="start center">
-          <app-progress-indicator
-            *ngFor="let stat of currentGoalStats"
-            [symbol]="stat.type | productTypeIcon"
-            [color]="stat.type | productTypeColor"
-            [progress]="stat.progress">
+          <app-progress-indicator *ngFor="let stat of currentGoalStats" [symbol]="stat.type | productTypeIcon"
+            [color]="stat.type | productTypeColor" [progress]="stat.progress">
           </app-progress-indicator>
           <span fxFlex></span>
-          <div fxLayout fxLayoutAlign="start center">
+          <div *ngIf="containsSite" fxLayout fxLayoutAlign="start center">
             <span>acesse nosso site</span>
-            <button mat-icon-button>
+            <button mat-icon-button (click)="open(foundation.social.site)">
               <mat-icon>web</mat-icon>
             </button>
           </div>
-          <div fxLayout fxLayoutAlign="start center">
-            <span>siga-nos nas redes sociais</span>
-            <button mat-icon-button>
+          <div *ngIf="containsSocialMedia" fxLayout fxLayoutAlign="start center">
+            <span>redes sociais</span>
+            <button [fxShow]="foundation.social.facebook" mat-icon-button (click)="open(foundation.social.facebook)">
               <mat-icon svgIcon="facebook"></mat-icon>
             </button>
-            <button mat-icon-button>
+            <button [fxShow]="foundation.social.instagram" mat-icon-button (click)="open(foundation.social.instagram)">
               <mat-icon svgIcon="instagram"></mat-icon>
             </button>
-            <button mat-icon-button>
+            <button [fxShow]="foundation.social.twitter" mat-icon-button (click)="open(foundation.social.twitter)">
               <mat-icon svgIcon="twitter"></mat-icon>
             </button>
           </div>
@@ -57,45 +54,36 @@
       <div fxLayout fxLayoutAlign="start center">
         <h4 fxFlex class="mat-h4 group">Monitor de doações</h4>
       </div>
-      
+
     </section>
     <section>
-        <div fxLayout fxLayoutAlign="start center">
-            <h4 fxFlex class="mat-h4 group">Minhas Atividades</h4>
-            <button mat-button color="primary" (click)="onCreateActivity()">
-                <mat-icon>add</mat-icon>
-                Adicionar {{activity}}
-            </button>
-        </div>
-        <mat-tab-group (selectedTabChange)="onChangeTab($event)" class="mat-elevation-z1">
-            <mat-tab [label]="act" *ngFor="let act of activities"></mat-tab>
-        </mat-tab-group>
-        <div fxLayout fxLayoutGap="16px">
-            <ng-container *ngIf="datasource?.length; else emptyCollectPoints">
-                <ng-container *ngIf="isCampaign">
-                    <app-campaign-card
-                        *ngFor="let item of datasource"
-                        [showCategory]="false"
-                        [showAuthor]="false"
-                        [campaign]="item">
-                    </app-campaign-card>
-                </ng-container>
-                <ng-container *ngIf="isCollectPoint">
-                    <app-collect-point-card
-                        *ngFor="let item of datasource"
-                        [collectPoint]="item">
-                    </app-collect-point-card>
-                </ng-container>
-            </ng-container>
-            <ng-template #emptyCollectPoints>
-                <app-empty-mark
-                    fxFlex
-                    [hasAction]="true"
-                    [activity]="activity"
-                    (action)="onCreateActivity()">
-                </app-empty-mark>
-            </ng-template>
-        </div>
+      <div fxLayout fxLayoutAlign="start center">
+        <h4 fxFlex class="mat-h4 group">Minhas Atividades</h4>
+        <button mat-button color="primary" (click)="onCreateActivity()">
+          <mat-icon>add</mat-icon>
+          Adicionar {{activity}}
+        </button>
+      </div>
+      <mat-tab-group (selectedTabChange)="onChangeTab($event)" class="mat-elevation-z1">
+        <mat-tab [label]="act" *ngFor="let act of activities"></mat-tab>
+      </mat-tab-group>
+      <div fxLayout fxLayoutGap="16px">
+        <ng-container *ngIf="datasource?.length; else emptyCollectPoints">
+          <ng-container *ngIf="isCampaign">
+            <app-campaign-card *ngFor="let item of datasource" [showCategory]="false" [showAuthor]="false"
+              [campaign]="item">
+            </app-campaign-card>
+          </ng-container>
+          <ng-container *ngIf="isCollectPoint">
+            <app-collect-point-card *ngFor="let item of datasource" [collectPoint]="item">
+            </app-collect-point-card>
+          </ng-container>
+        </ng-container>
+        <ng-template #emptyCollectPoints>
+          <app-empty-mark fxFlex [hasAction]="true" [activity]="activity" (action)="onCreateActivity()">
+          </app-empty-mark>
+        </ng-template>
+      </div>
     </section>
   </div>
 </main>

@@ -1,10 +1,11 @@
 <main>
-  <div class="content" fxLayout fxLayoutAlign="center center">
+  <div class="content" fxLayout fxLayoutAlign="center start">
     <div fxFlex fxFlex.sm="80" fxFlex.md="70" fxFlex.gt-md="60" fxLayout="column">
       <h1 class="logo-font">Cadastrar usuário</h1>
       <mat-card>
         <mat-card-content>
           <form #createUser="ngForm" (submit)="onSave()">
+            <span class="card-group">Informações básicas</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Nome</mat-label>
@@ -17,6 +18,34 @@
                 <input matInput name="phone" [(ngModel)]="user.phone" prefix="+55 " mask="(00) 00000-0000" required>
               </mat-form-field>
             </div>
+            
+            <span class="card-group">Redes sociais</span>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Site</mat-label>
+                <input matInput type="url" name="site" [(ngModel)]="user.social.site">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Facebook</mat-label>
+                <input matInput type="url" name="facebook" [(ngModel)]="user.social.facebook">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Instagram</mat-label>
+                <input matInput type="url" name="instagram" [(ngModel)]="user.social.instagram">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Twitter</mat-label>
+                <input matInput type="url" name="twitter" [(ngModel)]="user.social.twitter">
+              </mat-form-field>
+            </div>
+
+            <span class="card-group">Credenciais</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>E-mail</mat-label>

@@ -42,7 +42,7 @@
               <input matInput type="date" disabled name="finishDate" [value]="finishAt | date:'yyyy-MM-dd'" />
             </mat-form-field>
           </div>
-          <div fxLayout>
+          <div fxLayout *ngIf="!campaign._id">
             <mat-slide-toggle name="withCollectPoint" [(ngModel)]="campaign.createCollectPoint">
               Criar ponto de coleta utilizando minha localização
             </mat-slide-toggle>

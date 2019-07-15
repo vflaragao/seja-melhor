@@ -1,19 +1,36 @@
 import { Types } from 'mongoose';
-import { Controller, Get, Param, Query, Body, Post, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, Body, Post, Put, UseGuards, Logger } from '@nestjs/common';
 
-import { CollectPointDTO, CollectPointCreateDTO } from './dto/collect-point.dto';
+import { CollectPointCreateDTO } from './dto/collect-point.dto';
 
 import { CollectPointsService } from '../core/collect-points.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Acc } from '@shared/decorator/account.decorator';
 import { Account } from 'auth/jwt.interface';
+import { DonationService } from 'core/donation.service';
+import { DonationStatus } from '@models/donation';
 
-@Controller('collect-points')
+@Controller('collectPoints')
 export class CollectPointsController {
 
+    private logger: Logger;
+
     constructor(
-        private readonly collectPointService: CollectPointsService
-    ) { }
+        private readonly donationService: DonationService,
+        private readonly collectPointService: CollectPointsService,
+    ) {
+        this.logger = new Logger(CollectPointsController.name);
+    }
+
+    @Get(':id/donations')
+    async getDonations(@Param('id') id: Types.ObjectId, @Query('sts') status: DonationStatus) {
+        try {
+            return await this.donationService.listByCollectPoint(id, status);
+        } catch (e) {
+            this.logger.error(e);
+            throw e;
+        }
+    }
 
     @Get(':id')
     async getCollectPoint(@Param('id') id: Types.ObjectId) {

@@ -3,13 +3,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import { Donation, DonationStatus } from '@models/donation';
-import { DonationCreateDTO } from 'donations/dto/donations.dto';
+import { DonationCreateDTO, DonationGetDTO } from 'donations/dto/donations.dto';
 import { Account } from 'auth/jwt.interface';
 import { Objects } from '@helpers/object';
 import { Dates } from '@helpers/date';
 import { GoalsService } from './goals.service';
 import { CampaignsService } from './campaigns.service';
 import { ActivityCollection } from '@models/fields/activity';
+import { Database } from '@helpers/database';
+import { ItemDTO } from 'products/dto/item.dto';
 
 @Injectable()
 export class DonationService {
@@ -45,8 +47,36 @@ export class DonationService {
 
     }
 
-    listByCollectPoint(id: Types.ObjectId, status: DonationStatus, query: string) {
-
+    async listByCollectPoint(id: Types.ObjectId, status?: DonationStatus) {
+        const conditions: any = { collectPoint: new Types.ObjectId(id) };
+        if (status) {
+            conditions.status = status;
+        }
+        const donations = await this.donationModel.find(conditions)
+        .populate('donator')
+        .populate('target')
+        .populate('collectPoint')
+        .populate('items.product')
+        .exec();
+        return donations.map((donation: any) =>
+            new DonationGetDTO(
+                donation._id,
+                donation.createdAt,
+                donation.donator.name,
+                donation.target.name,
+                donation.collectPoint.address,
+                donation.status,
+                donation.items.map((item: any) =>
+                    new ItemDTO(
+                        item.product._id,
+                        item.product.name,
+                        item.product.type,
+                        item.quantity,
+                        item.unit,
+                    ),
+                )
+            ),
+        );
     }
 
     changeStatus(id: Types.ObjectId, status: DonationStatus) {

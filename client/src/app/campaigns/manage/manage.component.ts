@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatAutocompleteSelectedEvent, MatDialog, MatTable, MatInput } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatDialog, MatTable } from '@angular/material';
 
 import { Subject, Observable } from 'rxjs';
 import { takeUntil, startWith, map, switchMap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { AccountService } from 'src/app/auth/account.service';
 import { ManageProductComponent } from '@dialogs/index';
 import { AddressService } from '@core/address.service';
 import { CampaignsService } from '../campaigns.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-manage',
@@ -47,6 +48,7 @@ export class ManageComponent implements OnInit, OnDestroy {
 
   constructor(
     private _dialog: MatDialog,
+    private _route: ActivatedRoute,
     private productService: ProductService,
     private accountService: AccountService,
     private addressService: AddressService,
@@ -87,6 +89,14 @@ export class ManageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._route.queryParamMap
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(async (params) => {
+        const id = params.get('id');
+        if (id) {
+          //this.campaign = await this._campaignService.get(id);
+        }
+      });
     this.accountService.account
       .pipe(takeUntil(this._destroy$))
       .subscribe(account => this.logged = account);

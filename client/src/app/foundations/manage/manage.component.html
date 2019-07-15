@@ -79,6 +79,35 @@
         </mat-card>
         <mat-card>
           <mat-card-content>
+            <span class="card-group">Redes sociais</span>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Site</mat-label>
+                <input matInput type="url" name="site" [(ngModel)]="foundation.social.site">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Facebook</mat-label>
+                <input matInput type="url" name="facebook" [(ngModel)]="foundation.social.facebook">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Instagram</mat-label>
+                <input matInput type="url" name="instagram" [(ngModel)]="foundation.social.instagram">
+              </mat-form-field>
+            </div>
+            <div fxLayout>
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Twitter</mat-label>
+                <input matInput type="url" name="twitter" [(ngModel)]="foundation.social.twitter">
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-content>
             <span class="card-group">Informações de funcionamento</span>
             <div fxLayout>
               <mat-form-field fxFlex appearance="outline">
@@ -108,8 +137,7 @@
           </mat-card-content>
         </mat-card>
         <div class="action-container" fxLayout fxLayoutAlign="end center" fxLayoutGap="16px">
-          <button type="submit" mat-raised-button color="primary"
-            [disabled]="!foundationForm.form.valid">
+          <button type="submit" mat-raised-button color="primary" [disabled]="!foundationForm.form.valid">
             Salvar
           </button>
         </div>
@@ -151,9 +179,9 @@
                 <mat-option *ngFor="let role of userRoles" [value]="role">{{ role | role }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button type="button" class="insert-list-btn" mat-raised-button
+            <button type="button" class="list-btn" mat-raised-button
               (click)="onResetCollaborator()">Limpar</button>
-            <button type="button" class="insert-list-btn" mat-raised-button color="primary"
+            <button type="button" class="list-btn" mat-raised-button color="primary"
               [disabled]="!validCollaborator" (click)="onInsertCollaborator()">Adicionar</button>
           </div>
         </mat-card-content>
@@ -231,10 +259,9 @@
                 <mat-option *ngFor="let unit of itemUnits" [value]="unit">{{ unit | itemUnit }}</mat-option>
               </mat-select>
             </mat-form-field>
-            <button type="button" class="insert-list-btn" mat-raised-button
-              (click)="onResetItem()">Limpar</button>
-            <button type="button" class="insert-list-btn" mat-raised-button color="primary"
-              [disabled]="!validProduct" (click)="onInsertItem()">Adicionar</button>
+            <button type="button" class="list-btn" mat-raised-button (click)="onResetItem()">Limpar</button>
+            <button type="button" class="list-btn" mat-raised-button color="primary" [disabled]="!validProduct"
+              (click)="onInsertItem()">Adicionar</button>
           </div>
         </mat-card-content>
       </mat-card>

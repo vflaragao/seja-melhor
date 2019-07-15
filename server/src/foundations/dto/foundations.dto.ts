@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsPhoneNumber } from 'class-validator';
+import { Types } from 'mongoose';
 
 import { Address } from '@models/fields/address';
 import { ActionCategory } from '@models/foundation';
@@ -8,21 +8,17 @@ import { OperatingInfo } from '@models/fields/operating-info';
 import { SocialMedia } from '@models/fields/social-media';
 
 export class FoundationCreateDTO {
-
-    @IsString()
     name: string;
-    @IsString()
     cnpj: string;
-    @IsEmail()
     email: string;
-    @IsPhoneNumber('BR')
     phone: string;
-    @IsString()
-    category: ActionCategory;
     address: Address;
     social: SocialMedia;
+    category: ActionCategory;
     credentials: Credentials;
     operatingInfo: OperatingInfo;
+
+    constructor(){}
 }
 
 // tslint:disable-next-line:max-classes-per-file
@@ -32,8 +28,8 @@ export class FoundationUpdateDTO {
     email: string;
     phone: string;
     address: Address;
-    users: Collaborator[];
     social: SocialMedia;
+    users: Collaborator[];
     category: ActionCategory;
     operatingInfo: OperatingInfo;
 
@@ -42,6 +38,7 @@ export class FoundationUpdateDTO {
         this.cnpj = payload.cnpj;
         this.email = payload.email;
         this.phone = payload.phone;
+        this.social = payload.social;
         this.address = payload.address;
         this.category = payload.category;
         this.operatingInfo = payload.operatingInfo;
@@ -50,12 +47,16 @@ export class FoundationUpdateDTO {
 
 // tslint:disable-next-line:max-classes-per-file
 export class FoundationGetDTO {
-    name: string;
-    cnpj: string;
-    email: string;
-    phone: string;
-    address: Address;
-    social: SocialMedia;
-    category: ActionCategory;
-    operatingInfo: OperatingInfo;
+    constructor(
+        public _id?: Types.ObjectId,
+        public goal?: Types.ObjectId,
+        public name?: string,
+        public cnpj?: string,
+        public email?: string,
+        public phone?: string,
+        public address?: Address,
+        public social?: SocialMedia,
+        public category?: ActionCategory,
+        public operatingInfo?: OperatingInfo,
+    ){}
 }

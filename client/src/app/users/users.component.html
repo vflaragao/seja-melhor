@@ -2,10 +2,6 @@
     <div class="content">
         <div *ngIf="isOwner" fxLayout fxLayoutAlign="start center">
             <h3 class="mat-h3" fxFlex>OLÁ, {{user?.name}}</h3>
-            <button mat-button color="primary">
-                <mat-icon>edit</mat-icon>
-                Editar Perfil
-            </button>
         </div>
         <mat-card fxLayout>
             <app-user-contribution icon="favorite" label="Ajuda em Meta" fxFlex></app-user-contribution>

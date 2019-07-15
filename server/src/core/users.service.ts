@@ -8,7 +8,7 @@ import { Account } from 'auth/jwt.interface';
 import { CollaboratorDTO } from '../shared/models/fields/collaborator';
 
 import { User } from '@models/user';
-import { UserUpdateDTO, UserCreateDTO } from '../users/dto/users.dto';
+import { UserCreateDTO } from '../users/dto/users.dto';
 
 import { FoundationsService } from './foundations.service';
 
@@ -22,7 +22,7 @@ export class UsersService {
         private readonly foundationService: FoundationsService,
     ) {}
 
-    save(payload: UserCreateDTO): Promise<User> {
+    save(payload: UserCreateDTO) {
         const user = new this.userModel(payload);
         return user.save();
     }
@@ -69,11 +69,10 @@ export class UsersService {
     }
 
     get(id: Types.ObjectId) {
-        return this.userModel.findById(id)
-            .exec();
+        return this.userModel.findById(id).exec();
     }
 
-    update(id: Types.ObjectId, payload: UserUpdateDTO) {
+    update(id: Types.ObjectId, payload: UserCreateDTO) {
         return this.userModel.findByIdAndUpdate(
             id,
             { $set: { ...payload } },
